@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    {% endblock %}
+    <script src="{{url_for('static',filename='js/jquery.js')}}"></script>
+    <title>{% block title%}Магазин электроники{% endblock %}</title>
+</head>
+<body>
+<header >
+    <div class="header_style">
+        <div  id="logo_div">
+            <img src="{{url_for('static',filename='img/logo/Globe.svg')}}" alt="" id="logo">
+            <i id="logo_text">Магазин Электроники</i>
+        </div>
+        <form id="form-search">
+            <input type="text" id="search">
+            <input type="submit" id="search_button" value="Поиск">
+        </form>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{{url_for('index')}}">Главная</a></li>
+            <li><a href="{{url_for('allgoods')}}">Все товары</a></li>
+            <li><a>Дроны</a></li>
+            <li><a>Камеры</a></li>
+<!--            <li><b>Аксессуары</b></li>-->
+            <li><a>Распродажа</a></li>
+            <li><a href="{{url_for('users_bt.profile')}}">Профиль</a></li>
+            <li><a>О нас</a></li>
+<!--            <li><b>Больше</b></li>-->
+        </ul>
+    </nav>
+</header>
+
+{% block content %}
+{% endblock%}
+{% block js %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,129 @@
+*{
+margin:0;
+padding:0;
+text-decoration: none;
+}
+a{
+  color:#2E2E2E;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+body{
+background-color:gray;
+height:4000px;
+background-image: url(../img/background_img/Silego_clock_generator.jpeg);
+background-size: contain;
+}
+:root {
+    --color_for_all:rgb(14,89,187);
+}
+header{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    position: fixed;
+}
+.header_style{
+display: flex;
+align-items: center;
+justify-content: space-around;
+flex-wrap: wrap;
+min-height:120px;
+background-color:#fff;
+padding: 10px;
+}
+
+#search{
+height:30px;
+width:400px;
+border:1px solid var(--color_for_all);
+padding:0 10px 0 10px;
+}
+#search_button{
+    width: 100px;
+    height: 31px;
+    border:0;
+    background-color:var(--color_for_all);
+    color:#fff;
+}
+#logo_div{
+    display: flex;
+    align-items: center;
+}
+
+#logo{
+    width:80px;
+    height: 80px;
+    object-fit:cover;
+}
+#logo_text{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+    color :var(--color_for_all) ;
+}
+nav {
+    margin-top: 2px;
+    background-color: #fff;
+}
+nav ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 50px;
+    list-style-type: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+}
+nav ul li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 130px;
+}
+
+.dropbtn{
+    display: inline;
+    width: 100px ;
+    height: 31px;
+    background-color: var(--color_for_all);
+    border: 0;
+    color:#fff;
+}
+@media(max-width:1070px){
+    #search{
+        width: 200px;
+        margin-left: 5px;
+        }
+}
+
+@media(max-width:850px){
+
+    #search{
+        margin-left: 0;
+        width: 270px;
+        
+    }
+    .header_style form{
+        display: flex;
+        justify-content: space-between;
+        width: 399.78px;
+    }
+   #logo_text{
+        width:200px
+    }
+}
+@media(max-width:500px){
+    #form-search{
+    width:280px;
+    }
+    #search{
+    width:180px;
+    }
+    #search_button{
+    width:70px
+    }
+}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block css %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('users_bt.static', filename='./css/form.css')}}">
+{% endblock %}
+{% block title %}
+Регистрация
+{% endblock %}
+{% block content %}
+<div class="div-form">
+    <form action="#" method="post" class='form-register'>
+    {{ form.hidden_tag() }}
+    {% for field in form if field.name not in ('csrf_token','submit','remember') %}
+    {{field.label()}}
+    {{field()}}
+    <p class="error" id = '{{field.name + "_error"}}'></p>
+    {% if field.name == 'psw2' %}
+    <label id="label-check"><input type="checkbox" id="password-checkbox"> Показать пароль</label>
+    {% endif %}
+    {% endfor %}
+    {{form.submit(class='submit',id='register-button')}}
+</form>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{{url_for('users_bt.static',filename='js/registration.js')}}"></script>
+{% endblock %}
