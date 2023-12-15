@@ -7,13 +7,24 @@ $('.input-file input[type=file]').on('change', function(){
 let btnChange =document.getElementById('btn-change')
 
 btnChange.addEventListener('click',function(event){
-console.log(event.target)
+
+event.target.style.display = 'none'
+
+let userParagraph = document.getElementsByClassName('user-p')
+for (let p of userParagraph){
+p.style.display = 'none'
+}
 
 let btnLogOut = document.getElementById('log-out')
 btnLogOut.style.display = 'none'
 
-let form = document.createElement('form');
+let form = document.getElementById('change-form')
+
+if ( form == null){
+
+form = document.createElement('form');
 form.method='post';
+form.id = 'change-form'
 
 let inputName = document.createElement('input');
 inputName.placeholder = 'Введите имя:'
@@ -44,27 +55,40 @@ inputEmail.name = 'email'
 inputEmail.id = 'email'
 form.appendChild(inputEmail)
 
+let inputPassword = document.createElement('input')
+inputPassword.placeholder = 'Введите пароль:'
+inputPassword.type = 'password'
+inputPassword.name = 'psw1'
+inputPassword.id = 'psw1'
+form.appendChild(inputPassword)
+
+let inputCheck = document.createElement('input')
+inputCheck.placeholder = 'Повторите пароль:'
+inputCheck.type = 'password'
+inputCheck.name = 'psw2'
+inputCheck.id = 'psw2'
+form.appendChild(inputCheck)
+
+
 let submitButton = document.createElement('input');
 submitButton.className = 'btn-submit';
 submitButton.type='submit';
 submitButton.value='Отправить';
 form.appendChild(submitButton)
 
-
-let userParagraph = document.getElementsByClassName('user-p')
-for (let p of userParagraph){
-p.style.display = 'none'
-}
-
 let container = document.getElementById('container')
 container.appendChild(form)
 
-event.target.style.display = 'none'
+}else{ form.style.display = 'flex'};//end if change-form
 
 let profileDiv = document.getElementById('profile-div')
 
-let btnClose = document.createElement('button')
+let btnClose = document.getElementById('button-close')
+
+if(btnClose == null){
+btnClose = document.createElement('button')
 btnClose.type='button'
+btnClose.id = 'button-close'
 btnClose.innerText = 'Отменить'
 btnClose.style.border = 'none'
 btnClose.style.background = 'none'
@@ -73,18 +97,16 @@ btnClose.style.margin = '10px 0 10px 0'
 btnClose.style.fontSize = '16px'
 btnClose.style.color = 'red'
 profileDiv.appendChild(btnClose)
-
+}else{btnClose.style.display = 'inline-block'};
 
 btnClose.addEventListener('click',function(){
-btnClose.style.display = 'none'
-btnChange.style.display = 'inline-block'
 btnLogOut.style.display = 'inline-block'
+btnChange.style.display = 'inline-block'
+btnClose.style.display = 'none'
 form.style.display = 'none'
 for (let p of userParagraph){
     p.style.display = 'block'
-}
-})
-
+};})
 
 })
 })
