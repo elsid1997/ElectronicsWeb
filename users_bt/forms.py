@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, NumberRange, Regexp, EqualTo, Email
 from flask_wtf.file import FileRequired, FileAllowed, FileField
-
+from flask_wtf.csrf import generate_csrf
 
 class FormUser(FlaskForm):
     name = StringField('Имя :', validators=[DataRequired(),
@@ -26,6 +26,9 @@ class FormUser(FlaskForm):
 
     submit = SubmitField('Зарегестрироваться')
 
+    @staticmethod
+    def csrf():
+        return generate_csrf()
 
 class FormFiles(FlaskForm):
 

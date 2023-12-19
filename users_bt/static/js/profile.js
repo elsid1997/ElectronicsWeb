@@ -18,68 +18,31 @@ p.style.display = 'none'
 let btnLogOut = document.getElementById('log-out')
 btnLogOut.style.display = 'none'
 
-let form = document.getElementById('change-form')
 
-if ( form == null){
+let divForm = document.getElementsByClassName('div-form')[0]
 
-form = document.createElement('form');
-form.method='post';
-form.id = 'change-form'
+let divDisplay = window.getComputedStyle(divForm).display
 
-let inputName = document.createElement('input');
-inputName.placeholder = 'Введите имя:'
-inputName.type = 'text';
-inputName.name = 'name';
-inputName.id = 'name';
-form.appendChild(inputName);
+if (divDisplay == 'none'){
+divForm.style.display = 'flex';
+}else{
+divForm.style.display = 'none';
+}
 
-let inputSurname = document.createElement('input')
-inputSurname.placeholder = 'Введите фамилие:'
-inputSurname.type = 'text'
-inputSurname.name = 'surname'
-inputSurname.id = 'surname'
-form.appendChild(inputSurname)
+let passwordCheckbox = document.getElementById('password-checkbox')
+passwordCheckbox.addEventListener('click',function(event){
+ let passwordInputs = document.querySelectorAll('#psw1,#psw2');
+    if (passwordCheckbox.checked){
+        passwordInputs.forEach(function(input){
+            input.type='text';
+        })
+    }else{
+        passwordInputs.forEach(function(input){
+            input.type='password'
+        })
+    }
+})
 
-let inputAge = document.createElement('input')
-inputAge.placeholder = 'Введите возраст:'
-inputAge.type = 'number'
-inputAge.max = 100
-inputAge.min = 18
-inputAge.required = true
-form.appendChild(inputAge)
-
-let inputEmail = document.createElement('input')
-inputEmail.placeholder = 'Введите Email:'
-inputEmail.type = 'text'
-inputEmail.name = 'email'
-inputEmail.id = 'email'
-form.appendChild(inputEmail)
-
-let inputPassword = document.createElement('input')
-inputPassword.placeholder = 'Введите пароль:'
-inputPassword.type = 'password'
-inputPassword.name = 'psw1'
-inputPassword.id = 'psw1'
-form.appendChild(inputPassword)
-
-let inputCheck = document.createElement('input')
-inputCheck.placeholder = 'Повторите пароль:'
-inputCheck.type = 'password'
-inputCheck.name = 'psw2'
-inputCheck.id = 'psw2'
-form.appendChild(inputCheck)
-
-
-let submitButton = document.createElement('input');
-submitButton.className = 'btn-submit';
-submitButton.type='submit';
-submitButton.value='Отправить';
-form.appendChild(submitButton)
-
-let container = document.getElementById('container')
-container.appendChild(form)
-
-}else{ form.style.display = 'flex'};//end if change-form
 
 let profileDiv = document.getElementById('profile-div')
 
@@ -103,7 +66,7 @@ btnClose.addEventListener('click',function(){
 btnLogOut.style.display = 'inline-block'
 btnChange.style.display = 'inline-block'
 btnClose.style.display = 'none'
-form.style.display = 'none'
+divForm.style.display = 'none'
 for (let p of userParagraph){
     p.style.display = 'block'
 };})

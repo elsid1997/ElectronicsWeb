@@ -11,6 +11,7 @@ reg_bp = Blueprint('users_bt', __name__, template_folder='templates', static_fol
 @login_required
 def profile():
     file = FormFiles()
+    form = FormUser()
 
     is_auth = current_user.is_authenticated
     user_name = current_user.name
@@ -30,11 +31,17 @@ def profile():
             print(f'error : {str(e)}')
     else:
         print(file.errors)
+
+    if form.validate_on_submit():
+        print('ok')
+    else:
+        print(form.errors)
     if request.args.get('log_out'):
         logout_user()
         return redirect(url_for('users_bt.register'))
 
-    return render_template('auth/profile.html', file=file, is_auth=is_auth, user_name=user_name,
+
+    return render_template('auth/profile.html', form=form,csrf=form.csrf(), file=file, is_auth=is_auth, user_name=user_name,
                            user_surname=user_surname, user_age=user_age, user_date=user_date,
                            user_email=user_email, user_photo=user_photo)
 

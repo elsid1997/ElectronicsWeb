@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block css %}
 {{super()}}
+<link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/form.css')}}">
 <link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/profile.css')}}">
 {% endblock %}
 {% block title %}
@@ -10,7 +11,8 @@
 <div id="profile-div">
 <h1 id="profile-h1">Личные данные</h1>
     <div class="profile-ava"><img src="{{url_for('users_bt.static',filename='img/Skoro-zdes-budet-foto.jpg')
-     if user_photo == None else url_for('users_bt.userava') }}" alt="avatar"></div>
+     if user_photo == None else url_for('users_bt.userava') }}" alt="avatar">
+    </div>
     <form action="" enctype="multipart/form-data" method="post">
         {{file.hidden_tag()}}
         <label class="input-file">
@@ -19,19 +21,33 @@
             {{file.submit(class="input-file-btn")}}
         </label>
     </form>
-
-    <div id="container">
+<div id="container">
     <p class="user-p"><span>Имя : {{user_name}}</span></p>
     <p class="user-p"><span>Фамилие : {{user_surname}}</span></p>
     <p class="user-p"><span>Возраст : {{user_age}}</span></p>
     <p class="user-p"><span>Email : {{user_email}}</span></p>
     <p class="user-p"><span>Время регистрации : {{user_date}}</span></p>
-    </div>
 
-    <button id="btn-change">Изменить данные</button>
-    <form action="" method="get">
-        <input type="submit" id='log-out' value="Выйти" name="log_out" class="btn-submit">
-    </form>
+    <div class="div-form">
+            <form action="" method="post" class='form-register'>
+                <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
+                {% for field in form if field.name not in ('csrf_token','submit','remember') %}
+                {{field.label()}}<br/>
+                {{field()}}
+                <p class="error" id = '{{field.name + "_error"}}'></p>
+                {% if field.name == 'psw2' %}
+                <label id="label-check"><input type="checkbox" id="password-checkbox"> Показать пароль</label>
+                {% endif %}
+                {% endfor %}
+                {{form.submit(class='submit',id='register-button',value='Отправить')}}
+            </form>
+        </div>
+
+        <button id="btn-change">Изменить данные</button>
+        <form action="" method="get">
+            <input type="submit" id='log-out' value="Выйти" name="log_out" class="btn-submit">
+        </form>
+    </div>
 </div>
 {% endblock %}
 {% block js %}
