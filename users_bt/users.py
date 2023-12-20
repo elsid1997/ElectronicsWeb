@@ -7,7 +7,7 @@ from flask_login import login_required, login_user, current_user, logout_user
 reg_bp = Blueprint('users_bt', __name__, template_folder='templates', static_folder='static')
 
 
-@reg_bp.route('/profile', methods=['GET', 'POST'])
+@reg_bp.route('/profile', methods=['GET', 'POST', 'PUT'])
 @login_required
 def profile():
     file = FormFiles()
@@ -21,27 +21,35 @@ def profile():
     user_date = current_user.date.strftime('%Y-%m-%d')
     user_photo = current_user.photo
 
-    if file.validate_on_submit():
-        try:
-            img = file.file.data.read()
-            ava_user = Users.query.filter_by(id=current_user.id).first()
-            ava_user.photo = img
-            g.db.session.commit()
-        except Exception as e:
-            print(f'error : {str(e)}')
-    else:
-        print(file.errors)
+    if request.method == 'POST':
+        if file.validate():
+            try:
+                img = file.file.data.read()
+                ava_user = Users.query.filter_by(id=current_user.id).first()
+                ava_user.photo = img
+                g.db.session.commit()
+            except Exception as e:
+                print(f'error : {str(e)}')
+        else:
+            print(file.errors)
 
-    if form.validate_on_submit():
-        print('ok')
-    else:
-        print(form.errors)
+    if request.method == 'PUT':
+        if form.validate():
+            print(request.form)
+            print(request.data.decode('utf-8'), 'put is working')
+        else:
+            print(form.errors)
+            data = form.errors
+            print(jsonify(data))
+            response_data = {'message': 'PUT request успешно обработан', 'data': data}
+            return jsonify(response_data)
+
     if request.args.get('log_out'):
         logout_user()
         return redirect(url_for('users_bt.register'))
 
-
-    return render_template('auth/profile.html', form=form,csrf=form.csrf(), file=file, is_auth=is_auth, user_name=user_name,
+    return render_template('auth/profile.html', form=form, csrf=form.csrf(), file=file, is_auth=is_auth,
+                           user_name=user_name,
                            user_surname=user_surname, user_age=user_age, user_date=user_date,
                            user_email=user_email, user_photo=user_photo)
 

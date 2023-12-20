@@ -29,19 +29,19 @@
     <p class="user-p"><span>Время регистрации : {{user_date}}</span></p>
 
     <div class="div-form">
-            <form action="" method="post" class='form-register'>
-                <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
-                {% for field in form if field.name not in ('csrf_token','submit','remember') %}
-                {{field.label()}}<br/>
-                {{field()}}
-                <p class="error" id = '{{field.name + "_error"}}'></p>
-                {% if field.name == 'psw2' %}
-                <label id="label-check"><input type="checkbox" id="password-checkbox"> Показать пароль</label>
-                {% endif %}
-                {% endfor %}
-                {{form.submit(class='submit',id='register-button',value='Отправить')}}
-            </form>
-        </div>
+    <form action='#' class='form-register' id="form-put" onsubmit="sendPullRequest(event,this)">
+        <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
+        {% for field in form if field.name not in ('csrf_token','submit','remember') %}
+        {{field.label()}}<br/>
+        {{field()}}
+        <p class="error" id = '{{field.name + "_error"}}'></p>
+        {% if field.name == 'psw2' %}
+        <label id="label-check"><input type="checkbox" id="password-checkbox"> Показать пароль</label>
+        {% endif %}
+        {% endfor %}
+        {{form.submit(class='submit',id='register-button',value='Отправить')}}
+    </form>
+    </div>
 
         <button id="btn-change">Изменить данные</button>
         <form action="" method="get">

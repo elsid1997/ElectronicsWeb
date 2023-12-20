@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 $('.input-file input[type=file]').on('change', function(){
 	let file = this.files[0];
 	$(this).closest('.input-file').find('.input-file-text').html(file.name);
@@ -70,8 +71,42 @@ divForm.style.display = 'none'
 for (let p of userParagraph){
     p.style.display = 'block'
 };})
-
 })
 })
 
 
+// sozdanie ajax zaprosa na js
+
+function sendPullRequest(event,form){
+
+event.preventDefault()
+
+let url = '/auth/profile';
+
+let formData = new FormData(form)
+
+let urlParams = new URLSearchParams(formData).toString();
+
+let xhr = new XMLHttpRequest();
+
+xhr.open('PUT', url, true);
+
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4) {
+    // Проверка успешности запроса
+    if (xhr.status === 200) {
+      // Обработка успешного ответа
+      console.log('PUT-запрос выполнен успешно');
+      console.log(JSON.parse(xhr.responseText));
+    } else {
+      // Обработка ошибки
+      console.error('Ошибка выполнения PUT-запроса');
+      console.error('Статус:', xhr.status);
+    }
+  }
+};
+
+xhr.send(urlParams)
+};//end sendPullRequest
