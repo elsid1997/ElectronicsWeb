@@ -97,14 +97,25 @@ xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 function handleSuccess (response){
     console.log('PUT-запрос выполнен успешно')
     if (response.success){
-        console.log(response.success['name'])
         let userParagraph = document.querySelectorAll('.user-p')
         for(let p of userParagraph){
             let span = p.querySelector('span');
             let i = span.textContent.indexOf(':')
             let resString =  span.textContent.slice(0,i+2)
             p.querySelector('span').textContent = resString + response.success[p.id.slice(0,-5)]
-        }
+            p.style.display = 'block'
+        };
+        let divForm = document.getElementsByClassName('div-form')[0]
+        divForm.style.display = 'none'
+
+        let btnClose = document.getElementById('button-close')
+        btnClose.style.display = 'none'
+
+        let btnChange = document.getElementById('btn-change')
+        btnChange.style.display = 'inline-block'
+
+        let btnLogOut = document.getElementById('log-out')
+        btnLogOut.style.display = 'inline-block'
     }else if (response.errors){
          for (let key in response.errors){
         let er = document.getElementById(key+'_error')
