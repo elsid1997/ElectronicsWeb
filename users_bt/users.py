@@ -34,14 +34,32 @@ def profile():
             print(file.errors)
 
     if request.method == 'PUT':
+
         if form.validate():
-            print(request.form)
-            print(request.data.decode('utf-8'), 'put is working')
+            try:
+                form.psw1.data = generate_password_hash(form.psw1.data)
+                db = g.db
+                res = Users.query.get_or_404(current_user.id)
+                form.populate_obj(res)
+                db.session.commit()
+                login_user(res)
+                user_data = request.form.to_dict()
+                del user_data['csrf_token']
+                del user_data['psw1']
+                del user_data['psw2']
+                user_data['date'] = user_date
+                response_data = {'success': user_data}
+                return jsonify(response_data)
+            except Exception as e:
+                print(str(e))
+                db.session.rollback()
+                response_data = {'error_email': 'Пользователь с таким Email существует'}
+                return jsonify(response_data)
         else:
             print(form.errors)
-            data = form.errors
-            print(jsonify(data))
-            response_data = {'message': 'PUT request успешно обработан', 'data': data}
+            errors = form.errors
+            print(jsonify(errors))
+            response_data = {'errors': errors}
             return jsonify(response_data)
 
     if request.args.get('log_out'):

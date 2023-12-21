@@ -7,10 +7,16 @@ from flask_wtf.csrf import generate_csrf
 class FormUser(FlaskForm):
     name = StringField('Имя :', validators=[DataRequired(),
                                             Length(min=3, max=100,
-                                                   message='Имя должно быть не меньше трех символов')])
+                                                   message='Имя должно быть не меньше трех символов'),
+                                            Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
+                                                   message='Имя должна содержать только буквы')
+                                            ])
     surname = StringField('Фамилия :', validators=[DataRequired(),
                                                    Length(min=3, max=100,
-                                                          message='Фамилие должно быть не меньше трех символов')])
+                                                          message='Фамилие должно быть не меньше трех символов'),
+                                                   Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
+                                                          message='Фамилия должна содержать только буквы')
+                                                   ])
     age = IntegerField('Возраст :', validators=[DataRequired(), NumberRange(min=18, max=100)])
 
     email = StringField('Email :', validators=[DataRequired(), Email(message='некорректно введен email')])

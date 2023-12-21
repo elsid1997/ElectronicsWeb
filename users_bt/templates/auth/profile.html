@@ -22,11 +22,11 @@
         </label>
     </form>
 <div id="container">
-    <p class="user-p"><span>Имя : {{user_name}}</span></p>
-    <p class="user-p"><span>Фамилие : {{user_surname}}</span></p>
-    <p class="user-p"><span>Возраст : {{user_age}}</span></p>
-    <p class="user-p"><span>Email : {{user_email}}</span></p>
-    <p class="user-p"><span>Время регистрации : {{user_date}}</span></p>
+    <p class="user-p" id="name_user"><span>Имя : {{user_name}}</span></p>
+    <p class="user-p" id="surname_user"><span>Фамилие : {{user_surname}}</span></p>
+    <p class="user-p" id="age_user"><span>Возраст : {{user_age}}</span></p>
+    <p class="user-p" id="email_user"><span>Email : {{user_email}}</span></p>
+    <p class="user-p" id="date_user"><span>Время регистрации : {{user_date}}</span></p>
 
     <div class="div-form">
     <form action='#' class='form-register' id="form-put" onsubmit="sendPullRequest(event,this)">

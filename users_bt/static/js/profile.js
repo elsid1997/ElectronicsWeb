@@ -93,13 +93,41 @@ xhr.open('PUT', url, true);
 
 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
+//esli zapros k serveru uspeshen
+function handleSuccess (response){
+    console.log('PUT-запрос выполнен успешно')
+    if (response.success){
+        console.log(response.success['name'])
+        let userParagraph = document.querySelectorAll('.user-p')
+        for(let p of userParagraph){
+            let span = p.querySelector('span');
+            let i = span.textContent.indexOf(':')
+            let resString =  span.textContent.slice(0,i+2)
+            p.querySelector('span').textContent = resString + response.success[p.id.slice(0,-5)]
+        }
+    }else if (response.errors){
+         for (let key in response.errors){
+        let er = document.getElementById(key+'_error')
+        er.innerText = response.errors[key]
+        er.style.display='block'
+        };
+    }else if(response.error_email){
+        let div = document.getElementById('flash')
+        if(div == undefined){
+            let div = document.createElement('div')
+            div.innerText=response.error_email
+            div.id='flash'
+            document.querySelector('.div-form').insertBefore(div,document.querySelector('.form-register'))
+        };
+    };
+};
+
 xhr.onreadystatechange = function () {
   if (xhr.readyState === 4) {
     // Проверка успешности запроса
     if (xhr.status === 200) {
       // Обработка успешного ответа
-      console.log('PUT-запрос выполнен успешно');
-      console.log(JSON.parse(xhr.responseText));
+      handleSuccess(JSON.parse(xhr.responseText));
     } else {
       // Обработка ошибки
       console.error('Ошибка выполнения PUT-запроса');
