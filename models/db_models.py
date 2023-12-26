@@ -6,8 +6,8 @@ from flask_login import UserMixin
 db = SQLAlchemy()
 migrate = Migrate()
 
-class Users(db.Model,UserMixin):
 
+class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
     surname = db.Column(db.String(200))
@@ -16,23 +16,30 @@ class Users(db.Model,UserMixin):
     email = db.Column(db.String(200), unique=True)
     photo = db.Column(db.LargeBinary)
     date = db.Column(db.DateTime, default=datetime.datetime.now())
+
     # post_id = []
 
     def __repr__(self):
         return f'<user : {self.id}>'
 
+
 # class Admins(db.Model):
 #     pass
 #
 #
-# class Drons(db.Model):
-#     pass
-#
-#
-# class PhotoCameras(db.Model):
-#     pass
-#
-#
+class Drons(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    date = db.Column(db.DateTime)
+    photo = db.Column(db.LargeBinary)
+
+class PhotoCameras(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    date = db.Column(db.DateTime)
+    photo = db.Column(db.LargeBinary)
+
+
 # class Comments(db.Model):
 #     pass
 #
