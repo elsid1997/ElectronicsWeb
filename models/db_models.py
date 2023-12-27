@@ -16,8 +16,8 @@ class Users(db.Model, UserMixin):
     email = db.Column(db.String(200), unique=True)
     photo = db.Column(db.LargeBinary)
     date = db.Column(db.DateTime, default=datetime.datetime.now())
-
-    # post_id = []
+    myDrons = db.relationship('Drons', backref='Users', lazy=True)
+    myCameras = db.relationship('Cameras', backref='Users', lazy=True)
 
     def __repr__(self):
         return f'<user : {self.id}>'
@@ -29,16 +29,20 @@ class Users(db.Model, UserMixin):
 #
 class Drons(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    date = db.Column(db.DateTime)
-    photo = db.Column(db.LargeBinary)
+    model = db.Column(db.String)
+    date = db.Column(db.DateTime, nullable=False)
+    price = db.Column(db.Numeric(5, 2))
+    photo = db.Column(db.LargeBinary, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-class PhotoCameras(db.Model):
+
+class Cameras(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    date = db.Column(db.DateTime)
-    photo = db.Column(db.LargeBinary)
-
+    model = db.Column(db.String)
+    date = db.Column(db.DateTime, nullable=False)
+    price = db.Column(db.Numeric(5, 12))
+    photo = db.Column(db.LargeBinary, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
 # class Comments(db.Model):
 #     pass

@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, IntegerField, PasswordField, SubmitField, BooleanField, DateField, FloatField
 from wtforms.validators import DataRequired, Length, NumberRange, Regexp, EqualTo, Email
-from flask_wtf.file import FileRequired, FileAllowed, FileField
+from flask_wtf.file import FileRequired, FileAllowed, FileField, MultipleFileField
 from flask_wtf.csrf import generate_csrf
+
 
 class FormUser(FlaskForm):
     name = StringField('Имя :', validators=[DataRequired(),
@@ -36,7 +37,23 @@ class FormUser(FlaskForm):
     def csrf():
         return generate_csrf()
 
-class FormFiles(FlaskForm):
 
-    file = FileField('Выберите файл', validators=[FileRequired(), FileAllowed(['jpg', 'png'])])
+class FormFiles(FlaskForm):
+    file = FileField('Выберите файл', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'])])
+    submit = SubmitField('Отправить')
+
+
+class YearRenge:
+    def __init__(self):
+        pass
+class FormProducts(FlaskForm):
+    photo = MultipleFileField('Загрузите фотографии',
+                              validators=[FileRequired('Выберите хотя бы один файл для загрузки'),
+                                          FileAllowed(['jpg', 'png', 'jpeg']),
+                                          Length(min=1,
+                                                 max=5,
+                                                 message='Выберите от 1 до 5 файлов для загрузки.')])
+    model = StringField('Модель', validators=[DataRequired(), Length(min=1, max=100)])
+    date = DateField('Год выпуска', format='%Y-%m-%d', validators=[DataRequired()])
+    price = FloatField('Цена', validators=[DataRequired(), NumberRange(min=1, max=50000)])
     submit = SubmitField('Отправить')

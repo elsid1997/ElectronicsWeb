@@ -49,7 +49,22 @@
     </div>
 </div>
 <div id="user-goods">
-
+<form action="/auth/products_valid" enctype="multipart/form-data" method="post" type="file">
+    <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
+    {{products.photo.label()}}
+    {{products.photo}}
+    <br>
+    {{products.model.label()}}
+    {{products.model}}
+    <br>
+    {{products.date.label()}}
+    {{products.date}}
+    <br>
+    {{products.price.label()}}
+    {{products.price}}
+    <br>
+    {{products .submit(id='submit-products')}}
+</form>
 </div>
 {% endblock %}
 {% block js %}

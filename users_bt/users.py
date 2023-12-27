@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, url_for, g, request, jsonify, make_response
-from users_bt.forms import FormUser, FormFiles
+from users_bt.forms import FormUser, FormFiles, FormProducts
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.db_models import Users
 from flask_login import login_required, login_user, current_user, logout_user
@@ -12,6 +12,7 @@ reg_bp = Blueprint('users_bt', __name__, template_folder='templates', static_fol
 def profile():
     file = FormFiles()
     form = FormUser()
+    products = FormProducts()
 
     is_auth = current_user.is_authenticated
     user_name = current_user.name
@@ -69,7 +70,7 @@ def profile():
     return render_template('auth/profile.html', form=form, csrf=form.csrf(), file=file, is_auth=is_auth,
                            user_name=user_name,
                            user_surname=user_surname, user_age=user_age, user_date=user_date,
-                           user_email=user_email, user_photo=user_photo)
+                           user_email=user_email, user_photo=user_photo, products=products)
 
 
 @reg_bp.route('/login', methods=['GET', 'POST'])
@@ -124,3 +125,15 @@ def userava():
     response = make_response(img)
     response.headers['Content-Type'] = 'image/jpg'
     return response
+
+
+@reg_bp.route('/products_valid', methods=['POST'])
+def products_valid():
+    products = FormProducts()
+    if products.validate_on_submit():
+        print(products.photo.data, products.model.data, products.price.data, products.date.data)
+    else:
+        print(products.errors)
+    # print(request.args.get())
+    return redirect(url_for('.profile'))
+
