@@ -1,8 +1,26 @@
 $(document).ready(function(){
 
-$('.input-file input[type=file]').on('change', function(){
-	let file = this.files[0];
-	$(this).closest('.input-file').find('.input-file-text').html(file.name);
+let inputFile = document.querySelector('.input-file input[type=file]');
+
+inputFile.addEventListener('change', function() {
+    let fileInput = this;
+    let file = fileInput.files[0];
+    console.log(fileInput)
+
+    // Определение функции closestWithSelector
+    function closestWithSelector(element, selector) {
+        while ((element = element.parentElement) && !element.matches(selector));
+        return element;
+    }
+
+    let closestInputFile = closestWithSelector(fileInput, '.input-file');
+    let inputTextElement = closestInputFile.querySelector('.input-file-text');
+
+    if (file) {
+        inputTextElement.innerHTML = file.name;
+    } else {
+        inputTextElement.innerHTML = ''; // Если файл не выбран, очистить текст
+    }
 });
 
 let btnChange =document.getElementById('btn-change')

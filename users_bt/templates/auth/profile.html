@@ -31,8 +31,8 @@
     <form action='#' class='form-register' id="form-put" onsubmit="sendPullRequest(event,this)">
         <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
         {% for field in form if field.name not in ('csrf_token','submit','remember') %}
-        {{field.label()}}<br/>
-        {{field()}}
+        {{field.label()}}
+        {{field()}}<br/>
         <p class="error" id = '{{field.name + "_error"}}'></p>
         {% if field.name == 'psw2' %}
         <label id="label-check"><input type="checkbox" id="password-checkbox"> Показать пароль</label>
@@ -48,22 +48,21 @@
         </form>
     </div>
 </div>
-<div id="user-goods">
-<form action="/auth/products_valid" enctype="multipart/form-data" method="post" type="file">
+<div id="user-goods" class="div-product">
+<div class="photos">
+
+</div>
+<form action="/auth/products_valid" enctype="multipart/form-data" method="post" type="file" id="form-product" class="form-register">
     <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
-    {{products.photo.label()}}
-    {{products.photo}}
-    <br>
-    {{products.model.label()}}
-    {{products.model}}
-    <br>
-    {{products.date.label()}}
-    {{products.date}}
-    <br>
-    {{products.price.label()}}
-    {{products.price}}
-    <br>
-    {{products .submit(id='submit-products')}}
+    <label class="input-file">
+        <span class="input-file-text">{{products.photo.label.text}}</span>
+        {{products.photo}}
+    </label>
+    {% for field in products if field.name not in ('csrf_token','submit','photo') %}
+    {{field.label()}}
+    {{field()}}<br>
+    {% endfor %}
+    {{products.submit(class='submit',id='submit-product')}}
 </form>
 </div>
 {% endblock %}

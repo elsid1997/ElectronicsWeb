@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, PasswordField, SubmitField, BooleanField, DateField, FloatField
-from wtforms.validators import DataRequired, Length, NumberRange, Regexp, EqualTo, Email
+from wtforms.validators import DataRequired, Length, NumberRange, Regexp, EqualTo, Email, ValidationError
 from flask_wtf.file import FileRequired, FileAllowed, FileField, MultipleFileField
 from flask_wtf.csrf import generate_csrf
-
+from datetime import date
 
 class FormUser(FlaskForm):
     name = StringField('Имя :', validators=[DataRequired(),
@@ -43,9 +43,24 @@ class FormFiles(FlaskForm):
     submit = SubmitField('Отправить')
 
 
-class YearRenge:
-    def __init__(self):
-        pass
+class YearRenge(object):
+    def __init__(self, min_year, max_year, message=None):
+        self.min_year = min_year
+        self.max_year = max_year
+        if not message:
+            message = f'Год должен быть не ранее {min_year} и не позднее {max_year}.'
+        self.message = message
+
+    def __call__(self, form, field):
+        print(field.data)
+        if field.data:
+            print(field.data.year)
+            year = field.data.year
+            print(year)
+            if year < self.min_year or year > self.max_year:
+                raise ValidationError(self.message)
+
+
 class FormProducts(FlaskForm):
     photo = MultipleFileField('Загрузите фотографии',
                               validators=[FileRequired('Выберите хотя бы один файл для загрузки'),
@@ -54,6 +69,6 @@ class FormProducts(FlaskForm):
                                                  max=5,
                                                  message='Выберите от 1 до 5 файлов для загрузки.')])
     model = StringField('Модель', validators=[DataRequired(), Length(min=1, max=100)])
-    date = DateField('Год выпуска', format='%Y-%m-%d', validators=[DataRequired()])
-    price = FloatField('Цена', validators=[DataRequired(), NumberRange(min=1, max=50000)])
+    year = DateField('Год выпуска', format='%Y-%m-%d', validators=[DataRequired(), YearRenge(1950, date.today().year)])
+    price = FloatField('Цена в долларах', validators=[DataRequired(), NumberRange(min=1, max=50000)])
     submit = SubmitField('Отправить')

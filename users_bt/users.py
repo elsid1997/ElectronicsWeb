@@ -131,7 +131,7 @@ def userava():
 def products_valid():
     products = FormProducts()
     if products.validate_on_submit():
-        print(products.photo.data, products.model.data, products.price.data, products.date.data)
+        print(products.photo.data, products.model.data, products.price.data, products.year.data)
     else:
         print(products.errors)
     # print(request.args.get())

@@ -18,6 +18,17 @@ object-fit:cover;
 border:1px solid rgb(14,89,187);
 border-radius:5px;
 }
+/* div-product */
+.div-product{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+#form-product {
+border:1px solid black;
+}
 
 .user-p span{
 overflow: hidden;
@@ -46,7 +57,7 @@ margin:5px;
     font-size:16px;
 	padding: 0 10px;
 	line-height: 40px;
-	text-align: left;
+	text-align: center;
 	display:block;
 	float: left;
 	box-sizing: border-box;
