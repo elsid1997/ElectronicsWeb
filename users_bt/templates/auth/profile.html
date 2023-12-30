@@ -49,21 +49,21 @@
     </div>
 </div>
 <div id="user-goods" class="div-product">
-<div class="photos">
-
-</div>
-<form action="/auth/products_valid" enctype="multipart/form-data" method="post" type="file" id="form-product" class="form-register">
-    <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
-    <label class="input-file">
-        <span class="input-file-text">{{products.photo.label.text}}</span>
-        {{products.photo}}
-    </label>
-    {% for field in products if field.name not in ('csrf_token','submit','photo') %}
-    {{field.label()}}
-    {{field()}}<br>
-    {% endfor %}
-    {{products.submit(class='submit',id='submit-product')}}
-</form>
+    <div class="photos">
+        <h1>All photos</h1>
+    </div>
+    <form action="/auth/products_valid" enctype="multipart/form-data" method="post" type="file" id="form-product" class="form-register">
+        <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
+        <label class="input-file">
+            <span class="input-file-text">{{products.photo.label.text}}</span>
+            {{products.photo}}
+        </label>
+        {% for field in products if field.name not in ('csrf_token','submit','photo') %}
+        {{field.label()}}
+        {{field()}}<br>
+        {% endfor %}
+        {{products.submit(class='submit',id='submit-product')}}
+    </form>
 </div>
 {% endblock %}
 {% block js %}

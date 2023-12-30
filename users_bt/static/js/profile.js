@@ -1,27 +1,32 @@
 $(document).ready(function(){
 
-let inputFile = document.querySelector('.input-file input[type=file]');
+let inputFile = document.querySelectorAll('.input-file input[type=file]');
 
-inputFile.addEventListener('change', function() {
-    let fileInput = this;
-    let file = fileInput.files[0];
-    console.log(fileInput)
+/* функция для изменения тектса в нутри выбранных файлов */
+function changeText(event){
+    let inputTarget = event.target;
+    let fileInput = inputTarget.files;
+    let textFile =inputTarget.previousElementSibling;
 
-    // Определение функции closestWithSelector
-    function closestWithSelector(element, selector) {
-        while ((element = element.parentElement) && !element.matches(selector));
-        return element;
-    }
+    let divImage = document.getElementsByClassName('photos')[0]
+    let imageElement = document.createElement('img')
 
-    let closestInputFile = closestWithSelector(fileInput, '.input-file');
-    let inputTextElement = closestInputFile.querySelector('.input-file-text');
+    imageElement.src = URL.createObjectURL(inputTarget.files[0])
 
-    if (file) {
-        inputTextElement.innerHTML = file.name;
-    } else {
-        inputTextElement.innerHTML = ''; // Если файл не выбран, очистить текст
-    }
-});
+    console.log(divImage,imageElement)
+    divImage.appendChild(imageElement)
+
+    if(inputTarget.multiple == true){
+        textFile.innerText = `Выбрано ${fileInput.length}`;
+    }else{
+        textFile.innerText = fileInput[0].name;
+    };
+};
+
+for (let i of inputFile){
+    i.addEventListener('change',changeText);
+};
+
 
 let btnChange =document.getElementById('btn-change')
 
