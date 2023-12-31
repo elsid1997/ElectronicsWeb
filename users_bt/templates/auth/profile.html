@@ -52,7 +52,8 @@
     <div class="photos">
         <h1>All photos</h1>
     </div>
-    <form action="/auth/products_valid" enctype="multipart/form-data" method="post" type="file" id="form-product" class="form-register">
+    <form action="#" enctype="multipart/form-data" method="post" type="file" id="form-product"
+          class="form-register" onsubmit="sendPosts(event)">
         <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
         <label class="input-file">
             <span class="input-file-text">{{products.photo.label.text}}</span>
@@ -61,11 +62,13 @@
         {% for field in products if field.name not in ('csrf_token','submit','photo') %}
         {{field.label()}}
         {{field()}}<br>
+        <p class="error" id="{{field.name }}_error"></p>
         {% endfor %}
         {{products.submit(class='submit',id='submit-product')}}
     </form>
 </div>
 {% endblock %}
 {% block js %}
-<script src="{{url_for('users_bt.static',filename='js/profile.js')}}"></script>
+<!--<script src="{{url_for('users_bt.static',filename='js/profile.js')}}"></script>-->
+<script src="{{url_for('users_bt.static',filename='js/posts.js')}}"></script>
 {% endblock %}

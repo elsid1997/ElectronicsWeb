@@ -134,6 +134,6 @@ def products_valid():
         print(products.photo.data, products.model.data, products.price.data, products.year.data)
     else:
         print(products.errors)
-    # print(request.args.get())
+        response_data = {'error': products.errors}
+        return jsonify(response_data)
     return redirect(url_for('.profile'))
-

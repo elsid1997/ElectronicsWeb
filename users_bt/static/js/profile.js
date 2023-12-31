@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+console.log('profile.js')
 let inputFile = document.querySelectorAll('.input-file input[type=file]');
 
 /* функция для изменения тектса в нутри выбранных файлов */

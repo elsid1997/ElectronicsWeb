@@ -22,11 +22,11 @@ class FormUser(FlaskForm):
 
     email = StringField('Email :', validators=[DataRequired(), Email(message='некорректно введен email')])
 
-    psw1 = PasswordField('Пароль :', validators=[DataRequired(),
+    psw1 = PasswordField('Пароль :', render_kw={'autocomplete': 'current_password'}, validators=[DataRequired(),
                                                  Length(min=8, message='Пароль должен быть не меньше 8 символов'),
                                                  Regexp(regex=r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$',
                                                         message='Пароль должен содержать прописные и строчные буквы цифры и символы')])
-    psw2 = PasswordField('Повторите пароль :',
+    psw2 = PasswordField('Повторите пароль :', render_kw={'autocomplete': 'current_password'},
                          validators=[DataRequired(), EqualTo('psw1', message='Пароли не совпадают')])
 
     remember = BooleanField('Запомнить :', default=False)
@@ -70,5 +70,5 @@ class FormProducts(FlaskForm):
                                                  message='Выберите от 1 до 5 файлов для загрузки.')])
     model = StringField('Модель', validators=[DataRequired(), Length(min=1, max=100)])
     year = DateField('Год выпуска', format='%Y-%m-%d', validators=[DataRequired(), YearRenge(1950, date.today().year)])
-    price = FloatField('Цена в долларах', validators=[DataRequired(), NumberRange(min=1, max=50000)])
+    price = FloatField('Цена в долларах', validators=[DataRequired(message='Введите числа'), NumberRange(min=1, max=50000)])
     submit = SubmitField('Отправить')
