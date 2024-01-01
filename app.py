@@ -17,6 +17,8 @@ login_manager.login_view = 'users_bt.login'
 login_manager.login_message = 'Авторизуйтес для доступа к закрытым страницам'
 login_manager.login_message_category = 'error'
 
+print(app.config['MAX_CONTENT_LENGTH'])
+
 @login_manager.user_loader
 def load_user(user):
     user = Users.query.get(int(user))

@@ -15,32 +15,33 @@
     <form action="" enctype="multipart/form-data" method="post">
         {{file.hidden_tag()}}
         <label class="input-file">
-        <span class="input-file-text" type="text">Добавить фото профиля</span>
+            <span class="input-file-text" >Добавить фото профиля</span>
             {{file.file()}}
             {{file.submit(class="input-file-btn")}}
         </label>
     </form>
-<div id="container">
-    <p class="user-p" id="name_user"><span>Имя : {{user_name}}</span></p>
-    <p class="user-p" id="surname_user"><span>Фамилие : {{user_surname}}</span></p>
-    <p class="user-p" id="age_user"><span>Возраст : {{user_age}}</span></p>
-    <p class="user-p" id="email_user"><span>Email : {{user_email}}</span></p>
-    <p class="user-p" id="date_user"><span>Время регистрации : {{user_date}}</span></p>
+    <div id="container">
+        <p class="user-p" id="name_user"><span>Имя : {{user_name}}</span></p>
+        <p class="user-p" id="surname_user"><span>Фамилие : {{user_surname}}</span></p>
+        <p class="user-p" id="age_user"><span>Возраст : {{user_age}}</span></p>
+        <p class="user-p" id="email_user"><span>Email : {{user_email}}</span></p>
+        <p class="user-p" id="date_user"><span>Время регистрации : {{user_date}}</span></p>
 
-    <div class="div-form">
-    <form action='#' class='form-register' id="form-put" onsubmit="sendPullRequest(event,this)">
-        <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
-        {% for field in form if field.name not in ('csrf_token','submit','remember') %}
-        {{field.label()}}
-        {{field()}}<br/>
-        <p class="error" id = '{{field.name + "_error"}}'></p>
-        {% if field.name == 'psw2' %}
-        <label id="label-check"><input type="checkbox" id="password-checkbox"> Показать пароль</label>
-        {% endif %}
-        {% endfor %}
-        {{form.submit(class='submit',id='register-button',value='Отправить')}}
-    </form>
-    </div>
+        <div class="div-form">
+            <form action='#' class='form-request' id="form-put" onsubmit="sendPullRequest(event,this)">
+                <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
+                {% for field in form if field.name not in ('csrf_token','submit','remember') %}
+                {{field.label()}}
+                {{field()}}
+                <p class="error" id='{{field.name + "_error"}}'></p>
+                <br/>
+                {% if field.name == 'psw2' %}
+                <label id="label-check"><input type="checkbox" id="password-checkbox"> Показать пароль</label>
+                {% endif %}
+                {% endfor %}
+                {{form.submit(class='submit',id='register-button',value='Отправить')}}
+            </form>
+        </div>
 
         <button id="btn-change">Изменить данные</button>
         <form action="" method="get">
@@ -50,25 +51,36 @@
 </div>
 <div id="user-goods" class="div-product">
     <div class="photos">
-        <h1>All photos</h1>
+        <img id="select-photo">
+        <select id="options-select" onchange="changeImage(event)">
+            <option style="display:none;">Фотографии</option>
+            <option></option>
+            <option></option>
+            <option></option>
+            <option></option>
+            <option></option>
+        </select>
     </div>
-    <form action="#" enctype="multipart/form-data" method="post" type="file" id="form-product"
-          class="form-register" onsubmit="sendPosts(event)">
+    <p id="success"></p>
+    <form action="#" enctype="multipart/form-data" method="post" id="form-product"
+          class="form-request" onsubmit="sendPosts(event)">
         <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
         <label class="input-file">
             <span class="input-file-text">{{products.photo.label.text}}</span>
             {{products.photo}}
         </label>
+        <p class="error" id="{{products.photo.name}}_error"></p>
         {% for field in products if field.name not in ('csrf_token','submit','photo') %}
         {{field.label()}}
-        {{field()}}<br>
-        <p class="error" id="{{field.name }}_error"></p>
+        {{field()}}
+        <p class="error" id="{{field.name}}_error"></p>
+        <br/>
         {% endfor %}
         {{products.submit(class='submit',id='submit-product')}}
     </form>
 </div>
 {% endblock %}
 {% block js %}
-<!--<script src="{{url_for('users_bt.static',filename='js/profile.js')}}"></script>-->
+<script src="{{url_for('users_bt.static',filename='js/profile.js')}}"></script>
 <script src="{{url_for('users_bt.static',filename='js/posts.js')}}"></script>
 {% endblock %}

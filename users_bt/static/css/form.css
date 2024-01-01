@@ -17,7 +17,7 @@ header{
     font-size: 20px;
     color: #fff;
 }
-.form-register{
+.form-request{
 background-color:#fff;
 display: flex;
 flex-direction: column;
@@ -25,10 +25,10 @@ width: 500px;
 justify-content: space-around;
 align-items: center;
 }
-.form-register label{
+.form-request label{
     font-size: 20px;
 }
-.form-register input:not([type='submit']){
+.form-request input:not([type='submit']){
     width: 300px;
     height: 30px;
     font-size: 16px;

@@ -9,11 +9,15 @@ let form = event.target;
 
 let formData = new FormData(form);
 
+console.log('files',formData.get('photo'))
 console.log(formData)
 
-let urlParams = new URLSearchParams(formData).toString();
+'вы не должны устанавливать заголовок'
+'Content-Type вручную, поскольку браузер автоматически устанавливает правильное значение для данных FormData.'
 
-console.log(urlParams)
+//let urlParams = new URLSearchParams(formData).toString();
+
+//console.log(urlParams)
 
 let xhr = new XMLHttpRequest();
 
@@ -21,7 +25,25 @@ console.log(xhr)
 
 xhr.open('POST', url, true);
 
-xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+//xhr.setRequestHeader('Content-type', 'multipart/form-data');
+
+function handleSuccess(response){
+    if(response.success){
+        console.log(response.success)
+        let p = document.getElementById('success')
+        p.innerText = response.success
+        p.style.display = 'flex'
+
+    }else if(response.error){
+         for (let key in response.error){
+            let er = document.getElementById(key+'_error')
+            er.innerText = response.error[key]
+             er.style.display='block '
+        };
+    };
+};
+
+
 
 xhr.onreadystatechange = function (){
     if (xhr.readyState == 4){
@@ -29,9 +51,10 @@ xhr.onreadystatechange = function (){
         if(xhr.status == 200){
             console.log(xhr.status)
             console.log(JSON.parse(xhr.responseText))
+            handleSuccess(JSON.parse(xhr.responseText))
         };
     };
 };
 
-xhr.send(urlParams)
+xhr.send(formData);
 };

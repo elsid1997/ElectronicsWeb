@@ -130,10 +130,11 @@ def userava():
 @reg_bp.route('/products_valid', methods=['POST'])
 def products_valid():
     products = FormProducts()
+    print(products.photo.data)
     if products.validate_on_submit():
         print(products.photo.data, products.model.data, products.price.data, products.year.data)
+        return jsonify({'success':'Товар отправлен на рассмотрение'})
     else:
         print(products.errors)
         response_data = {'error': products.errors}
         return jsonify(response_data)
-    return redirect(url_for('.profile'))

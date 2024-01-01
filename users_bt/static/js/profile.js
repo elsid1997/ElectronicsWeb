@@ -1,3 +1,13 @@
+/* создаем функцию для выбора фотографии через option*/
+let optionSelect = document.querySelectorAll('#options-select option');
+console.log(optionSelect)
+function changeImage(event){
+    let indexOption = event.target.selectedIndex;
+    let urlImage = optionSelect[indexOption].value;
+    let photo = document.querySelector('#select-photo');
+    console.log(photo)
+    photo.src = urlImage;
+};
 $(document).ready(function(){
 console.log('profile.js')
 let inputFile = document.querySelectorAll('.input-file input[type=file]');
@@ -9,15 +19,20 @@ function changeText(event){
     let textFile =inputTarget.previousElementSibling;
 
     let divImage = document.getElementsByClassName('photos')[0]
-    let imageElement = document.createElement('img')
+    let imageElement = document.getElementById('select-photo')
 
     imageElement.src = URL.createObjectURL(inputTarget.files[0])
 
-    console.log(divImage,imageElement)
-    divImage.appendChild(imageElement)
-
     if(inputTarget.multiple == true){
         textFile.innerText = `Выбрано ${fileInput.length}`;
+        let selectPhoto = document.getElementById('options-select');
+        for(let i=1;i<fileInput.length+1;i++){
+
+           optionSelect[i].innerText = "Фото "+i;
+           optionSelect[i].value = URL.createObjectURL(inputTarget.files[i-1]);
+           optionSelect[i].style.display='inline'
+        };
+
     }else{
         textFile.innerText = fileInput[0].name;
     };
