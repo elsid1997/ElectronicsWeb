@@ -21,6 +21,9 @@ def profile():
     user_email = current_user.email
     user_date = current_user.date.strftime('%Y-%m-%d')
     user_photo = current_user.photo
+    user_gender = current_user.gender
+
+    print(user_gender)
 
     if request.method == 'POST':
         if file.validate():
@@ -70,7 +73,7 @@ def profile():
     return render_template('auth/profile.html', form=form, csrf=form.csrf(), file=file, is_auth=is_auth,
                            user_name=user_name,
                            user_surname=user_surname, user_age=user_age, user_date=user_date,
-                           user_email=user_email, user_photo=user_photo, products=products)
+                           user_email=user_email, user_photo=user_photo, products=products, user_gender=user_gender)
 
 
 @reg_bp.route('/login', methods=['GET', 'POST'])
@@ -103,7 +106,7 @@ def register():
         db = g.db
         try:
             res = Users(name=form.name.data, surname=form.surname.data, email=form.email.data, psw=hash_psw,
-                        age=form.age.data)
+                        age=form.age.data, gender=form.gender.data)
             db.session.add(res)
             db.session.commit()
             login_user(res)

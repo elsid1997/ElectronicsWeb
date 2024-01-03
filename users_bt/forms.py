@@ -1,9 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, PasswordField, SubmitField, BooleanField, DateField, FloatField
+from wtforms import StringField, IntegerField, PasswordField, SubmitField, BooleanField, DateField, FloatField, \
+    RadioField
 from wtforms.validators import DataRequired, Length, NumberRange, Regexp, EqualTo, Email, ValidationError
-from flask_wtf.file import FileRequired, FileAllowed, FileField, MultipleFileField
+from flask_wtf.file import FileRequired, FileAllowed, FileField, MultipleFileField, FileSize
 from flask_wtf.csrf import generate_csrf
 from datetime import date
+
 
 class FormUser(FlaskForm):
     name = StringField('Имя :', validators=[DataRequired(),
@@ -20,12 +22,16 @@ class FormUser(FlaskForm):
                                                    ])
     age = IntegerField('Возраст :', validators=[DataRequired(), NumberRange(min=18, max=100)])
 
+    gender = RadioField('Пол :', choices=[('Мужской', 'Мужской'), ('Женский', 'Женский')])
+
     email = StringField('Email :', validators=[DataRequired(), Email(message='некорректно введен email')])
 
     psw1 = PasswordField('Пароль :', render_kw={'autocomplete': 'current_password'}, validators=[DataRequired(),
-                                                 Length(min=8, message='Пароль должен быть не меньше 8 символов'),
-                                                 Regexp(regex=r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$',
-                                                        message='Пароль должен содержать прописные и строчные буквы цифры и символы')])
+                                                                                                 Length(min=8,
+                                                                                                        message='Пароль должен быть не меньше 8 символов'),
+                                                                                                 Regexp(
+                                                                                                     regex=r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$',
+                                                                                                     message='Пароль должен содержать прописные и строчные буквы цифры и символы')])
     psw2 = PasswordField('Повторите пароль :', render_kw={'autocomplete': 'current_password'},
                          validators=[DataRequired(), EqualTo('psw1', message='Пароли не совпадают')])
 
@@ -65,6 +71,8 @@ class FormProducts(FlaskForm):
     photo = MultipleFileField('Загрузите фотографии',
                               validators=[FileRequired('Выберите хотя бы один файл для загрузки'),
                                           FileAllowed(['jpg', 'png', 'jpeg']),
+                                          FileSize(max_size=5 * 1024 * 1024,
+                                                   message='Максимальный размер файла - 5 МБ.'),
                                           Length(min=1,
                                                  max=5,
                                                  message='Выберите от 1 до 5 файлов для загрузки.')])
@@ -73,5 +81,6 @@ class FormProducts(FlaskForm):
     price = FloatField('Цена в долларах',
                        validators=[DataRequired(message='Введите числа'),
                                    NumberRange(min=1, max=50000, message='Цена не должно привышать 50000 доллоров')])
-    count = IntegerField('Количество', validators=[DataRequired('Введите сколько имеется в наличии'), NumberRange(min=1)])
+    count = IntegerField('Количество',
+                         validators=[DataRequired('Введите сколько имеется в наличии'), NumberRange(min=1)])
     submit = SubmitField('Отправить')

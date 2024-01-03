@@ -16,24 +16,32 @@ let inputFile = document.querySelectorAll('.input-file input[type=file]');
 function changeText(event){
     let inputTarget = event.target;
     let fileInput = inputTarget.files;
+
+
+
     let textFile =inputTarget.previousElementSibling;
 
     let divImage = document.getElementsByClassName('photos')[0]
-    let imageElement = document.getElementById('select-photo')
+    let imageElementPhotos = document.getElementById('select-photo')
+    let imageElementProfile = document.getElementById('photo-profile')
 
-    imageElement.src = URL.createObjectURL(inputTarget.files[0])
-
-    if(inputTarget.multiple == true){
+    if(fileInput.length > 5){
+//        let buttonImage = document.querySelector('#multiple-files')
+        textFile.style.backgroundColor ='red'
+        textFile.innerText = 'Максимум 5 файлов'
+    }else if(inputTarget.multiple == true && inputTarget.files.length > 0){
+        textFile.style.backgroundColor = 'rgb(14,89,187)'
+        imageElementPhotos.src = URL.createObjectURL(inputTarget.files[0])
         textFile.innerText = `Выбрано ${fileInput.length}`;
         let selectPhoto = document.getElementById('options-select');
         for(let i=1;i<fileInput.length+1;i++){
-
            optionSelect[i].innerText = "Фото "+i;
            optionSelect[i].value = URL.createObjectURL(inputTarget.files[i-1]);
            optionSelect[i].style.display='inline'
         };
 
-    }else{
+    }else if(inputTarget.multiple == false){
+        imageElementProfile.src = URL.createObjectURL(inputTarget.files[0])
         textFile.innerText = fileInput[0].name;
     };
 };
@@ -124,6 +132,8 @@ let url = '/auth/profile';
 let formData = new FormData(form)
 
 let urlParams = new URLSearchParams(formData).toString();
+
+console.log(urlParams)
 
 let xhr = new XMLHttpRequest();
 

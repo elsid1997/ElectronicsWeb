@@ -28,7 +28,7 @@ align-items: center;
 .form-request label{
     font-size: 20px;
 }
-.form-request input:not([type='submit']){
+.form-request input:not([type='submit']):not([type='radio']){
     width: 300px;
     height: 30px;
     font-size: 16px;
@@ -61,7 +61,7 @@ align-items: center;
 .submit:hover{
     background-color:rgb(46, 83, 163);
 }
-#password-checkbox{
+#password-checkbox,#gender-0,#gender-1{
 width:20px;
 height:20px;
 }
@@ -71,3 +71,19 @@ margin:5px 0 5px 0;
 font-size:20px;
 display:flex;
 }
+
+
+#gender {
+margin-top:5px;
+display:flex;
+list-style-type:none;
+justify-content:space-between;
+width:220px;
+}
+
+#gender li label{
+vertical-align:top;
+}
+
+
+

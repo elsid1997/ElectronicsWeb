@@ -9,7 +9,7 @@
 {% endblock %}
 {% block main %}
 <div id="profile-div">
-    <div class="profile-ava"><img src="{{url_for('users_bt.static',filename='img/Skoro-zdes-budet-foto.jpg')
+    <div class="profile-ava"><img id="photo-profile" src="{{url_for('users_bt.static',filename='img/Skoro-zdes-budet-foto.jpg')
      if user_photo == None else url_for('users_bt.userava') }}" alt="avatar">
     </div>
     <form action="" enctype="multipart/form-data" method="post">
@@ -24,6 +24,7 @@
         <p class="user-p" id="name_user"><span>Имя : {{user_name}}</span></p>
         <p class="user-p" id="surname_user"><span>Фамилие : {{user_surname}}</span></p>
         <p class="user-p" id="age_user"><span>Возраст : {{user_age}}</span></p>
+        <p class="user-p" id="gender_user"><span>Пол : {{user_gender}}</span></p>
         <p class="user-p" id="email_user"><span>Email : {{user_email}}</span></p>
         <p class="user-p" id="date_user"><span>Время регистрации : {{user_date}}</span></p>
 
@@ -51,7 +52,7 @@
 </div>
 <div id="user-goods" class="div-product">
     <div class="photos">
-        <img id="select-photo">
+        <img id="select-photo" src="{{url_for('users_bt.static',filename='img/requiredPhoto.img')}}">
         <select id="options-select" onchange="changeImage(event)">
             <option style="display:none;">Фотографии</option>
             <option></option>
@@ -66,7 +67,7 @@
           class="form-request" onsubmit="sendPosts(event)">
         <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
         <label class="input-file">
-            <span class="input-file-text">{{products.photo.label.text}}</span>
+            <span class="input-file-text" id="multiple-files">{{products.photo.label.text}}</span>
             {{products.photo}}
         </label>
         <p class="error" id="{{products.photo.name}}_error"></p>

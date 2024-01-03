@@ -82,6 +82,7 @@ margin:5px;
 
 .input-file-text {
     border-radius:5px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     background-color:rgb(14,89,187);

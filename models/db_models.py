@@ -12,6 +12,7 @@ class Users(db.Model, UserMixin):
     name = db.Column(db.String(200))
     surname = db.Column(db.String(200))
     age = db.Column(db.Integer)
+    gender = db.Column(db.String(), default=None)
     psw = db.Column(db.String(200))
     email = db.Column(db.String(200), unique=True)
     photo = db.Column(db.LargeBinary)
