@@ -136,7 +136,7 @@ def products_valid():
     print(products.photo.data)
     if products.validate_on_submit():
         print(products.photo.data, products.model.data, products.price.data, products.year.data)
-        return jsonify({'success':'Товар отправлен на рассмотрение'})
+        return jsonify({'success': 'Товар отправлен на рассмотрение'})
     else:
         print(products.errors)
         response_data = {'error': products.errors}

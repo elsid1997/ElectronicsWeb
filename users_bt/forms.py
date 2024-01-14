@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, PasswordField, SubmitField, BooleanField, DateField, FloatField, \
-    RadioField
+    RadioField, TextAreaField
 from wtforms.validators import DataRequired, Length, NumberRange, Regexp, EqualTo, Email, ValidationError
 from flask_wtf.file import FileRequired, FileAllowed, FileField, MultipleFileField, FileSize
 from flask_wtf.csrf import generate_csrf
@@ -8,34 +8,36 @@ from datetime import date
 
 
 class FormUser(FlaskForm):
-    name = StringField('Имя :', validators=[DataRequired(),
+    name = StringField('Имя ', validators=[DataRequired(),
                                             Length(min=3, max=100,
                                                    message='Имя должно быть не меньше трех символов'),
                                             Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
                                                    message='Имя должна содержать только буквы')
                                             ])
-    surname = StringField('Фамилия :', validators=[DataRequired(),
+    surname = StringField('Фамилия', validators=[DataRequired(),
                                                    Length(min=3, max=100,
                                                           message='Фамилие должно быть не меньше трех символов'),
                                                    Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
                                                           message='Фамилия должна содержать только буквы')
                                                    ])
-    age = IntegerField('Возраст :', validators=[DataRequired(), NumberRange(min=18, max=100)])
+    age = IntegerField('Возраст', validators=[DataRequired(), NumberRange(min=18, max=100)])
 
-    gender = RadioField('Пол :', choices=[('Мужской', 'Мужской'), ('Женский', 'Женский')])
 
-    email = StringField('Email :', validators=[DataRequired(), Email(message='некорректно введен email')])
+    email = StringField('Email', validators=[DataRequired(), Email(message='некорректно введен email')])
 
-    psw1 = PasswordField('Пароль :', render_kw={'autocomplete': 'current_password'}, validators=[DataRequired(),
+    gender = RadioField('Пол', choices=[('Мужской', 'Мужской'), ('Женский', 'Женский')])
+
+    psw1 = PasswordField('Пароль', render_kw={'autocomplete': 'current_password'}, validators=[DataRequired(),
                                                                                                  Length(min=8,
                                                                                                         message='Пароль должен быть не меньше 8 символов'),
                                                                                                  Regexp(
                                                                                                      regex=r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$',
                                                                                                      message='Пароль должен содержать прописные и строчные буквы цифры и символы')])
-    psw2 = PasswordField('Повторите пароль :', render_kw={'autocomplete': 'current_password'},
+    psw2 = PasswordField('Повторите пароль', render_kw={'autocomplete': 'current_password'},
                          validators=[DataRequired(), EqualTo('psw1', message='Пароли не совпадают')])
 
-    remember = BooleanField('Запомнить :', default=False)
+
+    remember = BooleanField('Запомнить', default=False)
 
     submit = SubmitField('Зарегестрироваться')
 
@@ -83,4 +85,6 @@ class FormProducts(FlaskForm):
                                    NumberRange(min=1, max=50000, message='Цена не должно привышать 50000 доллоров')])
     count = IntegerField('Количество',
                          validators=[DataRequired('Введите сколько имеется в наличии'), NumberRange(min=1)])
+    description = TextAreaField('Описание')
+
     submit = SubmitField('Отправить')

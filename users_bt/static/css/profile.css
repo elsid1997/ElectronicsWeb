@@ -170,10 +170,11 @@ color:rgb(14,89,187);
 /* User Goods */
 #user-goods{
 width:700px;
-height:737px;
+min-height:737px;
 border-radius:10px;
 background-color:#fff;
 }
+
 #success{
 display:none;
 align-items:center;
@@ -184,7 +185,6 @@ height:50px;
 font-size:30px;
 color:#fff;
 margin:10px 0 10px 0;
-
 }
 
 
