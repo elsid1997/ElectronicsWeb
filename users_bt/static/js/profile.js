@@ -57,6 +57,10 @@ btnChange.addEventListener('click',function(event){
 
 event.target.style.display = 'none'
 
+var profileDiv = document.getElementById('profile-div')
+
+profileDiv.style.height = '1070px'
+
 let userParagraph = document.getElementsByClassName('user-p')
 for (let p of userParagraph){
 p.style.display = 'none'
@@ -66,7 +70,9 @@ let btnLogOut = document.getElementById('log-out')
 btnLogOut.style.display = 'none'
 
 
-let divForm = document.getElementsByClassName('div-form')[0]
+var divForm = document.getElementsByClassName('div-form')[0]
+
+console.log(divForm[0])
 
 let divDisplay = window.getComputedStyle(divForm).display
 
@@ -91,7 +97,6 @@ passwordCheckbox.addEventListener('click',function(event){
 })
 
 
-let profileDiv = document.getElementById('profile-div')
 
 let btnClose = document.getElementById('button-close')
 
@@ -106,14 +111,16 @@ btnClose.style.textDecoration = 'underline'
 btnClose.style.margin = '10px 0 10px 0'
 btnClose.style.fontSize = '16px'
 btnClose.style.color = 'red'
-profileDiv.appendChild(btnClose)
+divForm.appendChild(btnClose)
 }else{btnClose.style.display = 'inline-block'};
 
 btnClose.addEventListener('click',function(){
+
 btnLogOut.style.display = 'inline-block'
 btnChange.style.display = 'inline-block'
 btnClose.style.display = 'none'
 divForm.style.display = 'none'
+profileDiv.style.height = '750px'
 for (let p of userParagraph){
     p.style.display = 'block'
 };})

@@ -5,10 +5,15 @@ position:static;
 #profile-div{
 text-align:center;
 width:500px;
+height:750px;
 background-color:#fff;
 border-radius:10px;
+margin-bottom:50px;
 }
 
+.form-request{
+    width: 400px;
+}
 .profile-ava img,#select-photo {
 margin:10px 0 10px 0;
 width:300px;
@@ -60,6 +65,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+height: 900px;
 }
 
 
@@ -89,6 +95,7 @@ margin:5px;
     color:#fff;
     font-size:16px;
 	padding: 0 10px;
+	margin:5px 0;
 	line-height: 40px;
 	text-align: center;
 	display:block;
@@ -114,7 +121,7 @@ margin:5px;
 	padding: 10px 20px;
 	box-sizing: border-box;
 	border: none;
-	margin: 0;
+	margin: 5px 0;
 	transition: background-color 0.2s;
 }
 .input-file input[type=file] {
