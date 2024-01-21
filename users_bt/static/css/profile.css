@@ -1,40 +1,119 @@
 header{
-position:static;
+    position: static;
 }
 
+/*Стили для блока профиля*/
+
 #profile-div{
-text-align:center;
-width:500px;
-height:750px;
-background-color:#fff;
-border-radius:10px;
-margin-bottom:50px;
+    text-align: center;
+    width: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+    /* problema v display flex */
 }
+
+/* Стили для аватара профиля */
+
+.profile-ava img,#select-photo {
+    margin: 10px 0 10px 0;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border: 1px solid rgb(14,89,187);
+    border-radius: 5px;
+}
+
+/* Стили для отображения информации о пользователе */
+
+.user-p span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    height: 30px;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 20px;
+    border-bottom: 2px solid rgb(14,89,187);
+    margin: 5px;
+}
+
+/* блок для изменения данных пользователя */
+
+.div-form{
+    display: none;
+    margin-top: 0;
+}
+
+/* form-request класс из файла form.css */
 
 .form-request{
     width: 400px;
 }
-.profile-ava img,#select-photo {
-margin:10px 0 10px 0;
-width:300px;
-height:300px;
-object-fit:cover;
-border:1px solid rgb(14,89,187);
-border-radius:5px;
-}
-#select-photo{
-width:502px;
-height:300px;
-object-fit:contain;
-background-color:gray;
+
+/* кнопка для изменения данных пользователя */
+
+#btn-change{
+    background: none;
+    border: none;
+    font-size: 16px;
+    text-decoration: underline;
+    margin: 10px 0 10px 0;
 }
 
-.photos{
-position:relative;
-display:flex;
-flex-direction:column;
-justify-content:center;
+#btn-change:hover{
+    text-decoration: none;
+    color: rgb(14,89,187);
 }
+
+#btn-change:active {
+    background-color: #fff;
+}
+
+
+.btn-logout{
+    border-radius: 5px;
+    margin-bottom: 10px;
+    height: 40px;
+	background-color: rgb(14,89,187);
+	font-size: 14px;
+	padding: 10px 20px;
+	cursor: pointer;
+    color:#fff;
+	text-decoration: none;
+	border: none;
+}
+
+/* блок для добавления товаров */
+
+#user-goods {
+    width: 700px;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 900px;
+}
+
+/* блок для фотографии товаров */
+
+.photos{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* стили для тега img */
+
+#select-photo{
+    width: 502px;
+    height: 300px;
+    object-fit: contain;
+    background-color: gray;
+}
+
+/* стили для списка фотографии */
 
 #options-select{
 position:absolute;
@@ -49,36 +128,30 @@ margin:5px 0 0 5px;
 color:#fff;
 }
 
-.photos select:focus{
+#options-select :focus{
 outline:none;
 }
 
-.photos select option{
+#options-select option{
 background-color:#5499C7 ;
 display:none;
 }
 
+/* сообшение об успешной отправки товвара */
 
-/* div-product */
-.div-product{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height: 900px;
+#success{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color:#00CC66;
+    width: 502px;
+    height:50px;
+    font-size:30px;
+    color: #fff;
+    margin: 10px 0 10px 0;
 }
 
-
-.user-p span{
-overflow: hidden;
-text-overflow: ellipsis;
-display:inline-block;
-height:30px;
-font-family: 'Roboto', Arial, sans-serif;
-font-size:20px;
-border-bottom:2px solid rgb(14,89,187);
-margin:5px;
-}
+/* кнопки для выбора изоброжения */
 
 .input-file {
 	position: relative;
@@ -87,26 +160,27 @@ margin:5px;
 }
 
 .input-file-text {
-    border-radius:5px;
+    border-radius: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background-color:rgb(14,89,187);
-    color:#fff;
-    font-size:16px;
+    background-color: rgb(14,89,187);
+    color: #fff;
+    font-size: 16px;
 	padding: 0 10px;
-	margin:5px 0;
+	margin: 5px 0;
 	line-height: 40px;
 	text-align: center;
-	display:block;
+	display: block;
 	float: left;
 	box-sizing: border-box;
 	width: 200px;
 	border-right: 2px solid #fff;
 }
+
 .input-file-btn {
-    border-radius:5px;
-    color:#fff;
+    border-radius: 5px;
+    color: #fff;
     position: relative;
 	display: inline-block;
 	outline: none;
@@ -124,6 +198,7 @@ margin:5px;
 	margin: 5px 0;
 	transition: background-color 0.2s;
 }
+
 .input-file input[type=file] {
 	position: absolute;
 	z-index: -1;
@@ -133,40 +208,8 @@ margin:5px;
 	height: 0;
 }
 
-.div-form{
-display:none;
-margin-top:0;
-}
-.submit{
-border-radius:5px;
-}
-
-#btn-change{
-background:none;
-border:none;
-font-size:16px;
-text-decoration:underline;
-margin:10px 0 10px 0;
-}
-.btn-submit{
-    border-radius:5px;
-    margin-bottom:10px;
-    height: 40px;
-	background-color: rgb(14,89,187);
-	font-size: 14px;
-	padding: 10px 20px;
-	cursor: pointer;
-    color:#fff;
-	text-decoration: none;
-	border: none;
-}
-
-
 /* Hover/active */
-#btn-change:hover{
-text-decoration:none;
-color:rgb(14,89,187);
-}
+
 .input-file-btn:hover,.input-file-text:hover,.btn-submit:hover{
     background-color:rgb(46, 83, 163);
 }
@@ -174,25 +217,7 @@ color:rgb(14,89,187);
 	background-color: #fff;
 }
 
-/* User Goods */
-#user-goods{
-width:700px;
-min-height:737px;
-border-radius:10px;
-background-color:#fff;
-}
 
-#success{
-display:none;
-align-items:center;
-justify-content:center;
-background-color:#00CC66;
-width:502px;
-height:50px;
-font-size:30px;
-color:#fff;
-margin:10px 0 10px 0;
-}
 
 
 

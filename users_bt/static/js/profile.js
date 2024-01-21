@@ -29,6 +29,8 @@ function changeText(event){
 //        let buttonImage = document.querySelector('#multiple-files')
         textFile.style.backgroundColor ='red'
         textFile.innerText = 'Максимум 5 файлов'
+        console.log(fileInput)
+
     }else if(inputTarget.multiple == true && inputTarget.files.length > 0){
         textFile.style.backgroundColor = 'rgb(14,89,187)'
         imageElementPhotos.src = URL.createObjectURL(inputTarget.files[0])
@@ -58,8 +60,6 @@ btnChange.addEventListener('click',function(event){
 event.target.style.display = 'none'
 
 var profileDiv = document.getElementById('profile-div')
-
-profileDiv.style.height = '1070px'
 
 let userParagraph = document.getElementsByClassName('user-p')
 for (let p of userParagraph){
@@ -116,11 +116,12 @@ divForm.appendChild(btnClose)
 
 btnClose.addEventListener('click',function(){
 
+console.log('button close')
 btnLogOut.style.display = 'inline-block'
 btnChange.style.display = 'inline-block'
 btnClose.style.display = 'none'
 divForm.style.display = 'none'
-profileDiv.style.height = '750px'
+
 for (let p of userParagraph){
     p.style.display = 'block'
 };})

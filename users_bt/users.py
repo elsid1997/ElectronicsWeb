@@ -75,7 +75,12 @@ def profile():
                            user_surname=user_surname, user_age=user_age, user_date=user_date,
                            user_email=user_email, user_photo=user_photo, products=products, user_gender=user_gender)
 
-
+@reg_bp.route('/userava')
+def userava():
+    img = current_user.photo
+    response = make_response(img)
+    response.headers['Content-Type'] = 'image/jpg'
+    return response
 @reg_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -121,13 +126,6 @@ def register():
 
     return render_template('auth/registration.html', form=form)
 
-
-@reg_bp.route('/userava')
-def userava():
-    img = current_user.photo
-    response = make_response(img)
-    response.headers['Content-Type'] = 'image/jpg'
-    return response
 
 
 @reg_bp.route('/products_valid', methods=['POST'])

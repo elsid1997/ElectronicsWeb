@@ -1,87 +1,94 @@
 {% extends 'base.html' %}
-{% block css %}
-{{super()}}
-<link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/form.css')}}">
-<link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/profile.css')}}">
-{% endblock %}
-{% block title %}
-Профиль
-{% endblock %}
-{% block main %}
-<div id="profile-div">
-    <div class="profile-ava"><img id="photo-profile" src="{{url_for('users_bt.static',filename='img/Skoro-zdes-budet-foto.jpg')
-     if user_photo == None else url_for('users_bt.userava') }}" alt="avatar">
-    </div>
-    <form action="" enctype="multipart/form-data" method="post">
-        {{file.hidden_tag()}}
-        <label class="input-file">
-            <span class="input-file-text" >Добавить фото профиля</span>
-            {{file.file()}}
-            {{file.submit(class="input-file-btn")}}
-        </label>
-    </form>
-    <div id="container">
-        <p class="user-p" id="name_user"><span>Имя : {{user_name}}</span></p>
-        <p class="user-p" id="surname_user"><span>Фамилие : {{user_surname}}</span></p>
-        <p class="user-p" id="age_user"><span>Возраст : {{user_age}}</span></p>
-        <p class="user-p" id="gender_user"><span>Пол : {{user_gender}}</span></p>
-        <p class="user-p" id="email_user"><span>Email : {{user_email}}</span></p>
-        <p class="user-p" id="date_user"><span>Время регистрации : {{user_date}}</span></p>
 
-        <div class="div-form">
-            <form action='#' class='form-request' id="form-put" onsubmit="sendPullRequest(event,this)">
-                <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
-                {% for field in form if field.name not in ('csrf_token','submit','remember') %}
-                {{field.label()}}
-                {{field()}}
-                <p class="error" id='{{field.name + "_error"}}'></p>
-                <br/>
-                {% if field.name == 'psw2' %}
-                <label id="label-check"><input type="checkbox" id="password-checkbox"> Показать пароль</label>
-                {% endif %}
-                {% endfor %}
-                {{form.submit(class='submit',id='register-button',value='Отправить')}}
+{% block css %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/form.css')}}">
+    <link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/profile.css')}}">
+{% endblock %}
+
+{% block title %}
+    Профиль
+{% endblock %}
+
+{% block main %}
+    <div id="profile-div">
+        <div class="profile-ava">
+            <img id="photo-profile" src="{{url_for('users_bt.static',filename='img/Skoro-zdes-budet-foto.jpg')
+         if user_photo == None else url_for('users_bt.userava') }}" alt="avatar">
+        </div>
+        <form action="" enctype="multipart/form-data" method="post">
+            {{file.hidden_tag()}}
+            <label class="input-file">
+                <span class="input-file-text" >Добавить фото профиля</span>
+                {{file.file()}}
+                {{file.submit(class="input-file-btn")}}
+            </label>
+        </form>
+        <div id="container">
+            <p class="user-p" id="name_user"><span>Имя : {{user_name}}</span></p>
+            <p class="user-p" id="surname_user"><span>Фамилие : {{user_surname}}</span></p>
+            <p class="user-p" id="age_user"><span>Возраст : {{user_age}}</span></p>
+            <p class="user-p" id="gender_user"><span>Пол : {{user_gender}}</span></p>
+            <p class="user-p" id="email_user"><span>Email : {{user_email}}</span></p>
+            <p class="user-p" id="date_user"><span>Время регистрации : {{user_date}}</span></p>
+
+            <div class="div-form">
+                <form action='#' class='form-request' id="form-put" onsubmit="sendPullRequest(event,this)">
+                    <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
+                    {% for field in form if field.name not in ('csrf_token','submit','remember') %}
+                    {{field.label()}}
+                    {{field()}}
+                    <p class="error" id='{{field.name + "_error"}}'></p>
+                    <br/>
+                    {% if field.name == 'psw2' %}
+                    <label id="label-check">
+                        <input type="checkbox" id="password-checkbox">
+                        Показать пароль
+                    </label>
+                    {% endif %}
+                    {% endfor %}
+                    {{form.submit(class='submit',id='register-button',value='Отправить')}}
+                </form>
+            </div>
+
+            <button id="btn-change">Изменить данные</button>
+            <form action="" method="get">
+                <input type="submit" id='log-out' value="Выйти" name="log_out" class="btn-logout">
             </form>
         </div>
-
-        <button id="btn-change">Изменить данные</button>
-        <form action="" method="get">
-            <input type="submit" id='log-out' value="Выйти" name="log_out" class="btn-submit">
+    </div>
+    <div id="user-goods" class="div-product">
+        <div class="photos">
+            <img id="select-photo" src="{{url_for('users_bt.static',filename='img/requiredPhoto.img')}}">
+            <select id="options-select" onchange="changeImage(event)">
+                <option style="display:none;">Фотографии</option>
+                <option></option>
+                <option></option>
+                <option></option>
+                <option></option>
+                <option></option>
+            </select>
+        </div>
+        <p id="success"></p>
+        <form action="#" enctype="multipart/form-data" method="post" id="form-product"
+              class="form-request" onsubmit="sendPosts(event)">
+            <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
+            <label class="input-file">
+                <span class="input-file-text" id="multiple-files">{{products.photo.label.text}}</span>
+                {{products.photo}}
+            </label>
+            <p class="error" id="{{products.photo.name}}_error"></p>
+            {% for field in products if field.name not in ('csrf_token','submit','photo') %}
+            {{field.label()}}
+            {{field()}}
+            <p class="error" id="{{field.name}}_error"></p>
+            <br/>
+            {% endfor %}
+            {{products.submit(class='submit',id='submit-product')}}
         </form>
     </div>
-</div>
-<div id="user-goods" class="div-product">
-    <div class="photos">
-        <img id="select-photo" src="{{url_for('users_bt.static',filename='img/requiredPhoto.img')}}">
-        <select id="options-select" onchange="changeImage(event)">
-            <option style="display:none;">Фотографии</option>
-            <option></option>
-            <option></option>
-            <option></option>
-            <option></option>
-            <option></option>
-        </select>
-    </div>
-    <p id="success"></p>
-    <form action="#" enctype="multipart/form-data" method="post" id="form-product"
-          class="form-request" onsubmit="sendPosts(event)">
-        <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
-        <label class="input-file">
-            <span class="input-file-text" id="multiple-files">{{products.photo.label.text}}</span>
-            {{products.photo}}
-        </label>
-        <p class="error" id="{{products.photo.name}}_error"></p>
-        {% for field in products if field.name not in ('csrf_token','submit','photo') %}
-        {{field.label()}}
-        {{field()}}
-        <p class="error" id="{{field.name}}_error"></p>
-        <br/>
-        {% endfor %}
-        {{products.submit(class='submit',id='submit-product')}}
-    </form>
-</div>
 {% endblock %}
 {% block js %}
-<script src="{{url_for('users_bt.static',filename='js/profile.js')}}"></script>
-<script src="{{url_for('users_bt.static',filename='js/posts.js')}}"></script>
+    <script src="{{url_for('users_bt.static',filename='js/profile.js')}}"></script>
+    <script src="{{url_for('users_bt.static',filename='js/posts.js')}}"></script>
 {% endblock %}
