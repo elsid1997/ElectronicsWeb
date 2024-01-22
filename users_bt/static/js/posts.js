@@ -1,60 +1,57 @@
+
+//функция для отправки товаров
+
 function sendPosts(event){
-event.preventDefault();
 
-console.log('function exam is working')
+    event.preventDefault();
 
-let url = '/auth/products_valid';
+    let url = '/auth/products_valid';
 
-let form = event.target;
+    let form = event.target;
 
-let formData = new FormData(form);
+    let formData = new FormData(form);
 
-console.log('files',formData.get('photo'))
-console.log(formData)
+    'вы не должны устанавливать заголовок'
+    'Content-Type вручную, поскольку браузер автоматически устанавливает правильное значение для данных FormData.'
 
-'вы не должны устанавливать заголовок'
-'Content-Type вручную, поскольку браузер автоматически устанавливает правильное значение для данных FormData.'
+    //let urlParams = new URLSearchParams(formData).toString();
 
-//let urlParams = new URLSearchParams(formData).toString();
+    let xhr = new XMLHttpRequest();
 
-//console.log(urlParams)
+    console.log(xhr)
 
-let xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
 
-console.log(xhr)
+    //xhr.setRequestHeader('Content-type', 'multipart/form-data');
 
-xhr.open('POST', url, true);
+    function handleSuccess(response){
+        if(response.success){
+            console.log(response.success)
+            let p = document.getElementById('success')
+            p.innerText = response.success
+            p.style.display = 'flex'
 
-//xhr.setRequestHeader('Content-type', 'multipart/form-data');
-
-function handleSuccess(response){
-    if(response.success){
-        console.log(response.success)
-        let p = document.getElementById('success')
-        p.innerText = response.success
-        p.style.display = 'flex'
-
-    }else if(response.error){
-         for (let key in response.error){
-            let er = document.getElementById(key+'_error')
-            er.innerText = response.error[key]
-             er.style.display='block '
+        }else if(response.error){
+             for (let key in response.error){
+                let er = document.getElementById(key+'_error')
+                er.innerText = response.error[key]
+                 er.style.display='block '
+            };
         };
     };
-};
 
 
 
-xhr.onreadystatechange = function (){
-    if (xhr.readyState == 4){
-        console.log(xhr.readyState)
-        if(xhr.status == 200){
-            console.log(xhr.status)
-            console.log(JSON.parse(xhr.responseText))
-            handleSuccess(JSON.parse(xhr.responseText))
+    xhr.onreadystatechange = function (){
+        if (xhr.readyState == 4){
+            console.log(xhr.readyState)
+            if(xhr.status == 200){
+                console.log(xhr.status)
+                console.log(JSON.parse(xhr.responseText))
+                handleSuccess(JSON.parse(xhr.responseText))
+            };
         };
     };
-};
 
-xhr.send(formData);
+    xhr.send(formData);
 };

@@ -23,10 +23,13 @@ header{
     margin-left: 5%;
     margin-right: 5%;
     position: static;
+    box-sizing:border-box;
 }
 main{
 display:flex;
-justify-content:space-around;
+justify-content:space-between;
+align-items: flex-start;
+box-sizing: border-box;
 width:90%;
 margin:50px 5% 0 5%;
 flex-wrap:wrap;

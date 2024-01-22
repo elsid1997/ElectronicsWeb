@@ -9,7 +9,7 @@ header{
     width: 500px;
     background-color: #fff;
     border-radius: 10px;
-    /* problema v display flex */
+    margin-bottom: 50px;
 }
 
 /* Стили для аватара профиля */
@@ -92,7 +92,6 @@ header{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 900px;
 }
 
 /* блок для фотографии товаров */

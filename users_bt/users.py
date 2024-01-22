@@ -57,7 +57,7 @@ def profile():
             except Exception as e:
                 print(str(e))
                 db.session.rollback()
-                response_data = {'error_email': 'Пользователь с таким Email существует'}
+                response_data = {'userIsExisting': 'Пользователь с таким Email существует'}
                 return jsonify(response_data)
         else:
             print(form.errors)
