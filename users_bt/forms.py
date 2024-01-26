@@ -9,33 +9,32 @@ from datetime import date
 
 class FormUser(FlaskForm):
     name = StringField('Имя ', validators=[DataRequired(),
-                                            Length(min=3, max=100,
-                                                   message='Имя должно быть не меньше трех символов'),
-                                            Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
-                                                   message='Имя должна содержать только буквы')
-                                            ])
+                                           Length(min=3, max=100,
+                                                  message='Имя должно быть не меньше трех символов'),
+                                           Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
+                                                  message='Имя должна содержать только буквы')
+                                           ])
     surname = StringField('Фамилия', validators=[DataRequired(),
-                                                   Length(min=3, max=100,
-                                                          message='Фамилие должно быть не меньше трех символов'),
-                                                   Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
-                                                          message='Фамилия должна содержать только буквы')
-                                                   ])
+                                                 Length(min=3, max=100,
+                                                        message='Фамилие должно быть не меньше трех символов'),
+                                                 Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
+                                                        message='Фамилия должна содержать только буквы')
+                                                 ])
     age = IntegerField('Возраст', validators=[DataRequired(), NumberRange(min=18, max=100)])
-
 
     email = StringField('Email', validators=[DataRequired(), Email(message='некорректно введен email')])
 
-    gender = RadioField('Пол', choices=[('Мужской', 'Мужской'), ('Женский', 'Женский')])
+    gender = RadioField('Пол', choices=[('Мужской', 'Мужской'), ('Женский', 'Женский'), ('Не выбран', 'default')],
+                        default='Не выбран')
 
     psw1 = PasswordField('Пароль', render_kw={'autocomplete': 'current_password'}, validators=[DataRequired(),
-                                                                                                 Length(min=8,
-                                                                                                        message='Пароль должен быть не меньше 8 символов'),
-                                                                                                 Regexp(
-                                                                                                     regex=r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$',
-                                                                                                     message='Пароль должен содержать прописные и строчные буквы цифры и символы')])
+                                                                                               Length(min=8,
+                                                                                                      message='Пароль должен быть не меньше 8 символов'),
+                                                                                               Regexp(
+                                                                                                   regex=r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$',
+                                                                                                   message='Пароль должен содержать прописные и строчные буквы цифры и символы')])
     psw2 = PasswordField('Повторите пароль', render_kw={'autocomplete': 'current_password'},
                          validators=[DataRequired(), EqualTo('psw1', message='Пароли не совпадают')])
-
 
     remember = BooleanField('Запомнить', default=False)
 
@@ -47,7 +46,8 @@ class FormUser(FlaskForm):
 
 
 class FormFiles(FlaskForm):
-    file = FileField('Выберите файл', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'])])
+    file = FileField('Выберите файл', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'],
+                                                                              message='Файл должен быть только с расширениями ".jpg",".png","jpeg"')])
     submit = SubmitField('Отправить')
 
 

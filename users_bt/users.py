@@ -10,9 +10,9 @@ reg_bp = Blueprint('users_bt', __name__, template_folder='templates', static_fol
 @reg_bp.route('/profile', methods=['GET', 'POST', 'PUT'])
 @login_required
 def profile():
-    file = FormFiles()
-    form = FormUser()
-    products = FormProducts()
+    fileForm = FormFiles()
+    formUser = FormUser()
+    productsForm = FormProducts()
 
     is_auth = current_user.is_authenticated
     user_name = current_user.name
@@ -26,31 +26,35 @@ def profile():
     print(user_gender)
 
     if request.method == 'POST':
-        if file.validate():
+        if fileForm.validate():
             try:
-                img = file.file.data.read()
+                img = fileForm.file.data.read()
                 ava_user = Users.query.filter_by(id=current_user.id).first()
                 ava_user.photo = img
                 g.db.session.commit()
             except Exception as e:
                 print(f'error : {str(e)}')
         else:
-            print(file.errors)
+            print(fileForm.errors)
 
     if request.method == 'PUT':
 
-        if form.validate():
+        if formUser.validate():
             try:
-                form.psw1.data = generate_password_hash(form.psw1.data)
+                formUser.psw1.data = generate_password_hash(formUser.psw1.data)
                 db = g.db
                 res = Users.query.get_or_404(current_user.id)
-                form.populate_obj(res)
+                formUser.populate_obj(res)
                 db.session.commit()
                 login_user(res)
+
                 user_data = request.form.to_dict()
                 del user_data['csrf_token']
                 del user_data['psw1']
                 del user_data['psw2']
+
+                if 'gender' not in user_data:
+                    user_data['gender'] = formUser.gender.data
                 user_data['date'] = user_date
                 response_data = {'success': user_data}
                 return jsonify(response_data)
@@ -60,8 +64,8 @@ def profile():
                 response_data = {'userIsExisting': 'Пользователь с таким Email существует'}
                 return jsonify(response_data)
         else:
-            print(form.errors)
-            errors = form.errors
+            print(formUser.errors)
+            errors = formUser.errors
             print(jsonify(errors))
             response_data = {'errors': errors}
             return jsonify(response_data)
@@ -70,10 +74,10 @@ def profile():
         logout_user()
         return redirect(url_for('users_bt.register'))
 
-    return render_template('auth/profile.html', form=form, csrf=form.csrf(), file=file, is_auth=is_auth,
+    return render_template('auth/profile.html', formUser=formUser, csrf=formUser.csrf(), fileForm=fileForm, is_auth=is_auth,
                            user_name=user_name,
                            user_surname=user_surname, user_age=user_age, user_date=user_date,
-                           user_email=user_email, user_photo=user_photo, products=products, user_gender=user_gender)
+                           user_email=user_email, user_photo=user_photo, productsForm=productsForm, user_gender=user_gender)
 
 @reg_bp.route('/userava')
 def userava():

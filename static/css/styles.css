@@ -1,83 +1,83 @@
-*{
-margin:0;
-padding:0;
-text-decoration: none;
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
 }
-a{
-  color:#2E2E2E;
-  font-family: 'Roboto', Arial, sans-serif;
+a {
+    color:#2E2E2E;
+    font-family: 'Roboto', Arial, sans-serif;
 }
-body{
-background-color:gray;
-height:4000px;
-background-image: url(../img/background_img/Silego_clock_generator.jpeg);
-background-size: contain;
+body {
+    background-color: gray;
+    height: 4000px;
+    background-image: url(../img/background_img/Silego_clock_generator.jpeg);
+    background-size: contain;
 }
 :root {
-    --color_for_all:rgb(14,89,187);
+    --color_for_all: rgb(14,89,187);
 }
-header{
+header {
     display: flex;
     flex-direction: column;
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
     position: static;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
-main{
-display:flex;
-justify-content:space-between;
-align-items: flex-start;
-box-sizing: border-box;
-width:90%;
-margin:50px 5% 0 5%;
-flex-wrap:wrap;
+main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width:90%;
+    margin:50px 5% 0 5%;
+    flex-wrap: wrap;
 }
-.header_style{
-display: flex;
-align-items: center;
-justify-content: space-around;
-flex-wrap: wrap;
-min-height:120px;
-background-color:#fff;
-padding: 10px;
+.header_style {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    min-height: 120px;
+    background-color: #fff;
+    padding: 10px;
 }
 
-#search{
-height:30px;
-width:400px;
-border:1px solid var(--color_for_all);
-padding:0 10px 0 10px;
+#search {
+    height: 30px;
+    width: 400px;
+    border: 1px solid var(--color_for_all);
+    padding: 0 10px 0 10px;
 }
-#search_button{
+#search_button {
     width: 100px;
     height: 31px;
-    border:0;
-    background-color:var(--color_for_all);
-    color:#fff;
+    border: 0;
+    background-color: var(--color_for_all);
+    color: #fff;
 }
-#logo_div{
+#logo_div {
     display: flex;
     align-items: center;
 }
 
-#logo{
-    width:80px;
+#logo {
+    width: 80px;
     height: 80px;
-    object-fit:cover;
+    object-fit: cover;
 }
-#logo_text{
+#logo_text {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 30px;
-    color :var(--color_for_all) ;
+    color: var(--color_for_all) ;
 }
 nav {
     margin-top: 2px;
     background-color: #fff;
-    border-radius:0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
 }
-nav ul{
+nav ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,7 +88,7 @@ nav ul{
     font-size: 20px;
     font-style: normal;
 }
-nav ul li{
+nav ul li {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,43 +96,43 @@ nav ul li{
     width: 130px;
 }
 
-.dropbtn{
+.dropbtn {
     display: inline;
     width: 100px ;
     height: 31px;
     background-color: var(--color_for_all);
     border: 0;
-    color:#fff;
+    color: #fff;
 }
 
 /* all-goods */
-#all-goods{
-width:100%;
-min-height:700px;
-background-color:#fff;
-margin-top:10px;
-border-radius:10px;
+#all-goods {
+    width: 100%;
+    min-height: 700px;
+    background-color: #fff;
+    margin-top: 10px;
+    border-radius: 10px;
 }
 
 /* Slideshoew */
 
-.slideshow-container{
-position: relative;
-width:80%;
-margin-right:10%;
-margin-left:10%;
-margin-top:20px;
-height:300px;
-background-color:gray;
+.slideshow-container {
+    position: relative;
+    width: 80%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 20px;
+    height: 300px;
+    background-color: gray;
 }
-.my-slide{
-background-color:black;
-display:none;
+.my-slide {
+    background-color: black;
+    display: none;
 }
-#image-goods{
-background-color:gray;
-width:100%;
-height:300px;
+#image-goods {
+    background-color: gray;
+    width: 100%;
+    height: 300px;
 }
 /* Next & previous buttons */
 .prev, .next {
@@ -157,7 +157,7 @@ height:300px;
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color:rgb(46, 83, 163);
+  background-color: rgb(46, 83, 163);
 }
 
 .number-text {
@@ -169,45 +169,45 @@ height:300px;
 }
 
 .text{
-color:#f2f2f2;
-font-size:20px;
-position:absolute;
-padding-bottom:10px;
-bottom:8px;
-text-align:center;
-width:100%;
+    color: #f2f2f2;
+    font-size: 20px;
+    position: absolute;
+    padding-bottom: 10px;
+    bottom: 8px;
+    text-align: center;
+    width: 100%;
 }
 
 .dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
 }
 .active, .dot:hover {
-  background-color: #717171;
+    background-color: #717171;
 }
 
 /* Fading animation */
 .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
 }
 
 @-webkit-keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+    from {opacity: .4}
+    to {opacity: 1}
 }
 
 @keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+    from {opacity: .4}
+    to {opacity: 1}
 }
 @media(max-width:1070px){
     #search{
@@ -230,16 +230,16 @@ width:100%;
     }
    #logo_text{
         width:200px
-    }
+
 }
 @media(max-width:500px){
     #form-search{
-    width:280px;
+    width: 280px;
     }
     #search{
-    width:180px;
+    width: 180px;
     }
     #search_button{
-    width:70px
+    width: 70px
     }
 }
