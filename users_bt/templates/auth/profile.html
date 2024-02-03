@@ -84,7 +84,6 @@
                 <option></option>
             </select>
         </div>
-        <p id="success"></p>
         <form action="#" enctype="multipart/form-data" method="post" id="form-product"
               class="form-request" onsubmit="sendPosts(event)">
             <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
@@ -102,10 +101,10 @@
             {% endfor %}
             {{productsForm.submit(class='submit',id='submit-product')}}
         </form>
+        <p id="success"></p>
     </div>
 {% endblock %}
 {% block js %}
     <script src="{{url_for('users_bt.static',filename='js/profile.js')}}"></script>
-    <script src="{{url_for('users_bt.static',filename='js/posts.js')}}"></script>
     <script src="{{url_for('users_bt.static',filename='js/profileAva.js')}}"></script>
 {% endblock %}

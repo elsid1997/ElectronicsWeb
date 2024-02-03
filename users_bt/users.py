@@ -7,6 +7,12 @@ from flask_login import login_required, login_user, current_user, logout_user
 reg_bp = Blueprint('users_bt', __name__, template_folder='templates', static_folder='static')
 
 
+@reg_bp.route('/exam', methods=['GET', 'POST'])
+def exam():
+    user = {'name': 'name', 'surname': 'surname', 'age': 27}
+    return jsonify(user)
+
+
 @reg_bp.route('/profile', methods=['GET', 'POST', 'PUT'])
 @login_required
 def profile():
@@ -74,10 +80,13 @@ def profile():
         logout_user()
         return redirect(url_for('users_bt.register'))
 
-    return render_template('auth/profile.html', formUser=formUser, csrf=formUser.csrf(), fileForm=fileForm, is_auth=is_auth,
+    return render_template('auth/profile.html', formUser=formUser, csrf=formUser.csrf(), fileForm=fileForm,
+                           is_auth=is_auth,
                            user_name=user_name,
                            user_surname=user_surname, user_age=user_age, user_date=user_date,
-                           user_email=user_email, user_photo=user_photo, productsForm=productsForm, user_gender=user_gender)
+                           user_email=user_email, user_photo=user_photo, productsForm=productsForm,
+                           user_gender=user_gender)
+
 
 @reg_bp.route('/userava')
 def userava():
@@ -85,6 +94,8 @@ def userava():
     response = make_response(img)
     response.headers['Content-Type'] = 'image/jpg'
     return response
+
+
 @reg_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -129,7 +140,6 @@ def register():
         return jsonify(form_error=form.errors)
 
     return render_template('auth/registration.html', form=form)
-
 
 
 @reg_bp.route('/products_valid', methods=['POST'])
