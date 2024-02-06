@@ -6,19 +6,14 @@ from flask_login import login_required, login_user, current_user, logout_user
 
 reg_bp = Blueprint('users_bt', __name__, template_folder='templates', static_folder='static')
 
-
-@reg_bp.route('/exam', methods=['GET', 'POST'])
-def exam():
-    user = {'name': 'name', 'surname': 'surname', 'age': 27}
-    return jsonify(user)
-
-
 @reg_bp.route('/profile', methods=['GET', 'POST', 'PUT'])
 @login_required
 def profile():
-    fileForm = FormFiles()
+    usersAvaForm = FormFiles()
     formUser = FormUser()
     productsForm = FormProducts()
+
+    print(current_user)
 
     is_auth = current_user.is_authenticated
     user_name = current_user.name
@@ -28,20 +23,6 @@ def profile():
     user_date = current_user.date.strftime('%Y-%m-%d')
     user_photo = current_user.photo
     user_gender = current_user.gender
-
-    print(user_gender)
-
-    if request.method == 'POST':
-        if fileForm.validate():
-            try:
-                img = fileForm.file.data.read()
-                ava_user = Users.query.filter_by(id=current_user.id).first()
-                ava_user.photo = img
-                g.db.session.commit()
-            except Exception as e:
-                print(f'error : {str(e)}')
-        else:
-            print(fileForm.errors)
 
     if request.method == 'PUT':
 
@@ -80,7 +61,7 @@ def profile():
         logout_user()
         return redirect(url_for('users_bt.register'))
 
-    return render_template('auth/profile.html', formUser=formUser, csrf=formUser.csrf(), fileForm=fileForm,
+    return render_template('auth/profile.html', formUser=formUser, csrf=formUser.csrf(), usersAvaForm=usersAvaForm,
                            is_auth=is_auth,
                            user_name=user_name,
                            user_surname=user_surname, user_age=user_age, user_date=user_date,
@@ -93,6 +74,21 @@ def userava():
     img = current_user.photo
     response = make_response(img)
     response.headers['Content-Type'] = 'image/jpg'
+
+    usersAvaForm = FormFiles()
+
+    if request.method == 'POST':
+        if usersAvaForm.validate():
+            try:
+                img = usersAvaForm.file.data.read()
+                ava_user = Users.query.filter_by(id=current_user.id).first()
+                ava_user.photo = img
+                g.db.session.commit()
+            except Exception as e:
+                print(f'error : {str(e)}')
+        else:
+            print(usersAvaForm.errors)
+
     return response
 
 

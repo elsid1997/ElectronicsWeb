@@ -72,7 +72,8 @@ class YearRenge(object):
 class FormProducts(FlaskForm):
     photo = MultipleFileField('Загрузите фотографии',
                               validators=[FileRequired('Выберите хотя бы один файл для загрузки'),
-                                          FileAllowed(['jpg', 'png', 'jpeg']),
+                                          FileAllowed(['jpg', 'png', 'jpeg'],
+                                                      message='Файл не имеет утвержденного расширения: jpg, png, jpeg'),
                                           FileSize(max_size=5 * 1024 * 1024,
                                                    message='Максимальный размер файла - 5 МБ.'),
                                           Length(min=1,

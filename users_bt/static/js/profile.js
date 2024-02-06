@@ -29,8 +29,7 @@ document.addEventListener('DOMContentLoaded', function(){
             textSpanFile.style.backgroundColor = 'red';
             textSpanFile.innerText = 'Максимум 5 файлов';
 
-        } else if ( inputTarget.multiple) {
-
+        } else if ( inputTarget.multiple && fileFromInput[0] != undefined) {
             textSpanFile.style.backgroundColor = 'rgb(14, 89, 187)';
             imageElementPhotos.src = URL.createObjectURL(fileFromInput[0]);
             textSpanFile.innerText = `Выбрано ${fileFromInput.length}`;

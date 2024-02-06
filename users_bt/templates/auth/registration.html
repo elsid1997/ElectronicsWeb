@@ -14,7 +14,22 @@
         <form action="#" method="post" class='form-request'>
             {{ form.hidden_tag() }}
 
-            {% for field in form if field.name not in ('csrf_token','submit','remember') %}
+            {% for field in form if field.name not in ('csrf_token','submit','remember','gender') %}
+
+                {% if field.name == 'email' %}
+                    {{form.gender.label}}
+                    <ul id="gender">
+                        <li>
+                            <input id="gender-0" name="gender" type="radio" value="Мужской">
+                            <label for="gender-0">Мужской</label>
+                        </li>
+                        <li>
+                            <input id="gender-1" name="gender" type="radio" value="Женский">
+                            <label for="gender-1">Женский</label>
+                        </li>
+                    </ul>
+                    <br/>
+                {% endif %}
                 {{field.label()}}
                 {{field()}}
                 <p class="error" id = '{{field.name + "_error"}}'></p>

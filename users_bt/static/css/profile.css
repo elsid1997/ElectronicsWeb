@@ -14,13 +14,15 @@ header{
 
 /* Стили для аватара профиля */
 
-.profile-ava img,#select-photo {
+.profile-ava img{
     margin: 10px 0 10px 0;
     width: 300px;
     height: 300px;
+    display: inline-block;
     object-fit: cover;
     border: 1px solid rgb(14,89,187);
     border-radius: 5px;
+    background-color:gray;
 }
 
 /* Стили для отображения информации о пользователе */
@@ -106,34 +108,37 @@ header{
 /* стили для тега img */
 
 #select-photo{
+    margin: 10px 0 10px 0;
     width: 502px;
     height: 300px;
     object-fit: contain;
     background-color: gray;
+    border: 1px solid rgb(14,89,187);
+    border-radius: 5px;
 }
 
 /* стили для списка фотографии */
 
 #options-select{
-position:absolute;
-top:0;
-transform: translateY(50%);
-border:1px solid #fff;
-background-color:rgb(14,89,187);
-height:30px;
-font-size:20px;
-border-radius:5px;
-margin:5px 0 0 5px;
-color:#fff;
+    position:absolute;
+    top:0;
+    transform: translateY(50%);
+    border:1px solid #fff;
+    background-color:rgb(14,89,187);
+    height:30px;
+    font-size:20px;
+    border-radius:5px;
+    margin:5px 0 0 5px;
+    color:#fff;
 }
 
 #options-select :focus{
-outline:none;
+    outline:none;
 }
 
 #options-select option{
-background-color:#5499C7 ;
-display:none;
+    background-color:#5499C7 ;
+    display:none;
 }
 
 /* сообшение об успешной отправки товвара */

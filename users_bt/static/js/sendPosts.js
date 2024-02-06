@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
-    console.log('profileAva.js')
+    console.log('sendPosts.js')
+
     function sendPosts(event){
 
         event.preventDefault();
@@ -19,7 +20,9 @@ document.addEventListener('DOMContentLoaded', function(){
                 p.innerText = data.success
                 p.style.display = 'flex'
             }
-        })
+        }).catch(error => console.error('Ошибка:', error));
+
     }
     window.sendPosts = sendPosts
+
 });
