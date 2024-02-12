@@ -160,7 +160,6 @@ header{
 .input-file {
 	position: relative;
 	display: inline-block;
-	cursor: pointer;
 }
 
 .input-file-text {
@@ -188,7 +187,6 @@ header{
     position: relative;
 	display: inline-block;
 	outline: none;
-	cursor: pointer;
 	text-decoration: none;
 	font-size: 14px;
 	vertical-align: top;
@@ -220,7 +218,6 @@ header{
 .input-file-btn:active,.input-file-text:active,.btn-submit:active {
 	background-color: #fff;
 }
-
 
 
 

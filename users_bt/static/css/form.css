@@ -50,6 +50,7 @@ header{
     /*margin:10px 0;*/
     font-size: 16px;
     padding:0 10px;
+    border:1px solid black;
 }
 
 /* Стили для текстового поля "description" */
@@ -110,6 +111,7 @@ header{
     color: #fff;
     border-radius: 5px;
     padding: 5px;
+    text-align:center;
 }
 
 /* Стили для отображения пароля */

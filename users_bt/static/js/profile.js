@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 optionSelect[i].value = URL.createObjectURL(inputTarget.files[i-1]);
                 optionSelect[i].style.display='inline'
             };
-        } else if (!inputTarget.multiple) {
+        } else if (!inputTarget.multiple && fileFromInput[0] != undefined) {
             imageElementProfile.src = URL.createObjectURL(fileFromInput[0]);
             textSpanFile.innerText = fileFromInput[0].name;
         };

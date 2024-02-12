@@ -6,23 +6,13 @@ from flask_login import login_required, login_user, current_user, logout_user
 
 reg_bp = Blueprint('users_bt', __name__, template_folder='templates', static_folder='static')
 
+
 @reg_bp.route('/profile', methods=['GET', 'POST', 'PUT'])
 @login_required
 def profile():
     usersAvaForm = FormFiles()
     formUser = FormUser()
     productsForm = FormProducts()
-
-    print(current_user)
-
-    is_auth = current_user.is_authenticated
-    user_name = current_user.name
-    user_surname = current_user.surname
-    user_age = current_user.age
-    user_email = current_user.email
-    user_date = current_user.date.strftime('%Y-%m-%d')
-    user_photo = current_user.photo
-    user_gender = current_user.gender
 
     if request.method == 'PUT':
 
@@ -42,7 +32,8 @@ def profile():
 
                 if 'gender' not in user_data:
                     user_data['gender'] = formUser.gender.data
-                user_data['date'] = user_date
+                user_data['date'] = current_user.date.strftime('%Y-%m-%d')
+
                 response_data = {'success': user_data}
                 return jsonify(response_data)
             except Exception as e:
@@ -51,9 +42,7 @@ def profile():
                 response_data = {'userIsExisting': 'Пользователь с таким Email существует'}
                 return jsonify(response_data)
         else:
-            print(formUser.errors)
             errors = formUser.errors
-            print(jsonify(errors))
             response_data = {'errors': errors}
             return jsonify(response_data)
 
@@ -62,14 +51,10 @@ def profile():
         return redirect(url_for('users_bt.register'))
 
     return render_template('auth/profile.html', formUser=formUser, csrf=formUser.csrf(), usersAvaForm=usersAvaForm,
-                           is_auth=is_auth,
-                           user_name=user_name,
-                           user_surname=user_surname, user_age=user_age, user_date=user_date,
-                           user_email=user_email, user_photo=user_photo, productsForm=productsForm,
-                           user_gender=user_gender)
+                           productsForm=productsForm)
 
 
-@reg_bp.route('/userava')
+@reg_bp.route('/userava', methods=['POST', 'GET'])
 def userava():
     img = current_user.photo
     response = make_response(img)
@@ -84,10 +69,13 @@ def userava():
                 ava_user = Users.query.filter_by(id=current_user.id).first()
                 ava_user.photo = img
                 g.db.session.commit()
+                response = {'success': 'Фотография профиля обновлена'}
+                return jsonify(response)
             except Exception as e:
                 print(f'error : {str(e)}')
         else:
-            print(usersAvaForm.errors)
+            response = {'error': usersAvaForm.errors}
+            return jsonify(response)
 
     return response
 

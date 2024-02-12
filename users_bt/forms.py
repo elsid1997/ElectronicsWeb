@@ -80,7 +80,8 @@ class FormProducts(FlaskForm):
                                                  max=5,
                                                  message='Выберите от 1 до 5 файлов для загрузки.')])
     model = StringField('Модель', validators=[DataRequired(), Length(min=1, max=100)])
-    year = DateField('Год выпуска', format='%Y-%m-%d', validators=[DataRequired(), YearRenge(1950, date.today().year)])
+    year = DateField('Год выпуска', format='%Y-%m-%d', validators=[DataRequired(message='Введите правильную дату'),
+                                                                   YearRenge(1950, date.today().year)])
     price = FloatField('Цена в долларах',
                        validators=[DataRequired(message='Введите числа'),
                                    NumberRange(min=1, max=50000, message='Цена не должно привышать 50000 доллоров')])

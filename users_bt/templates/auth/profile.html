@@ -27,12 +27,12 @@
         </form>
         <br/>
         <div id="container">
-            <p class="user-p" id="name_user"><span>Имя : {{user_name}}</span></p>
-            <p class="user-p" id="surname_user"><span>Фамилие : {{user_surname}}</span></p>
-            <p class="user-p" id="age_user"><span>Возраст : {{user_age}}</span></p>
-            <p class="user-p" id="gender_user"><span>Пол : {{user_gender}}</span></p>
-            <p class="user-p" id="email_user"><span>Email : {{user_email}}</span></p>
-            <p class="user-p" id="date_user"><span>Время регистрации : {{user_date}}</span></p>
+            <p class="user-p" id="name_user"><span>Имя : {{current_user.name}}</span></p>
+            <p class="user-p" id="surname_user"><span>Фамилие : {{current_user.surname}}</span></p>
+            <p class="user-p" id="age_user"><span>Возраст : {{current_user.age}}</span></p>
+            <p class="user-p" id="gender_user"><span>Пол : {{current_user.gender}}</span></p>
+            <p class="user-p" id="email_user"><span>Email : {{current_user.email}}</span></p>
+            <p class="user-p" id="date_user"><span>Время регистрации : {{current_user.date.strftime('%Y-%m-%d')}}</span></p>
             <div class="div-form">
                 <form action='#' class='form-request' id="form-put" onsubmit="sendPullRequest(event,this)">
                     <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
