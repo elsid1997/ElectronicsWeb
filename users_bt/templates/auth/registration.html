@@ -3,6 +3,12 @@
 {% block css %}
     {{super()}}
     <link rel="stylesheet" href="{{url_for('users_bt.static', filename='./css/form.css')}}">
+    <style>
+        main{
+            dispaly:flex;
+            justify-content:center;
+        }
+    </style>
 {% endblock %}
 
 {% block title %}

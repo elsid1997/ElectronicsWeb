@@ -1,0 +1,74 @@
+*{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+header {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    position: static;
+    box-sizing: border-box;
+}
+.search_and_logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    min-height: 120px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+#search {
+    height: 30px;
+    width: 400px;
+    border: 1px solid rgb(14,89,187);
+    padding: 0 10px 0 10px;
+}
+#search_button {
+    width: 100px;
+    height: 31px;
+    border: 0;
+    background-color: rgb(14,89,187);
+    color: #fff;
+}
+.logo_div {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.logo_text {
+    font-size: 30px;
+    color: rgb(14,89,187);
+}
+#header-nav {
+    margin-top: 2px;
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+}
+#header-ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 50px;
+    list-style-type: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+}
+#header-ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 130px;
+}
+
+

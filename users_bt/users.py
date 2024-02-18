@@ -48,7 +48,7 @@ def profile():
 
     if request.args.get('log_out'):
         logout_user()
-        return redirect(url_for('users_bt.register'))
+        return redirect(url_for('index'))
 
     return render_template('auth/profile.html', formUser=formUser, csrf=formUser.csrf(), usersAvaForm=usersAvaForm,
                            productsForm=productsForm)
