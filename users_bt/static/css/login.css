@@ -1,7 +1,6 @@
-header{
-    position: static;
+main{
+    height:400px;
 }
-
 #div-login{
     margin-top: 100px;
     display: flex;

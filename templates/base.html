@@ -7,8 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% block css %}
     <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/burger.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/header.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/footer.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/footer.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/allgoods.css')}}">
     {% endblock %}
     <script src="{{url_for('static',filename='js/jquery.js')}}"></script>
     <title>{% block title%}Магазин электроники{% endblock %}</title>
@@ -25,39 +28,22 @@
             <input type="submit" id="search_button" value="Поиск">
         </form>
     </div>
+    {% include 'burger.html' %}
     <nav id="header-nav">
         <ul id="header-ul">
             <li><a href="{{url_for('index')}}">Главная</a></li>
             <li><a href="{{url_for('allgoods')}}">Все товары</a></li>
             <li><a>Дроны</a></li>
             <li><a>Камеры</a></li>
-<!--            <li><b>Аксессуары</b></li>-->
             <li><a>Распродажа</a></li>
             <li><a href="{{url_for('users_bt.profile')}}">Профиль</a></li>
             <li><a>О нас</a></li>
-<!--            <li><b>Больше</b></li>-->
         </ul>
     </nav>
 </header>
 <main>
 {% block main %}
-<div id="all-goods">
-    <div class="slideshow-container">
-        <div class="my-slide fade">
-            <div class="number-text">1/3</div>
-            <img src="" id="image-goods">
-            <div class="text">Name item</div>
-        </div>
-        <a class="prev" onclick="plusSlides(-1)">❮</a>
-        <a class="next" onclick="plusSlides(1)">❯</a>
-    </div>
-    <br>
-    <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
-</div>
+    {% include 'allgoods.html' %}
 {% endblock %}
 </main>
 <footer>
