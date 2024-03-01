@@ -7,7 +7,7 @@
 
 body {
     background-color: gray;
-    background-image: url(../img/background_img/Silego_clock_generator.jpeg);
+    /* background-image: url(../img/background_img/Silego_clock_generator.jpeg); */
     background-size: cover;
 }
 :root {
@@ -15,13 +15,11 @@ body {
 }
 
 main {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
     box-sizing: border-box;
-    width:90%;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
     margin:50px 5% 0 5%;
-    flex-wrap: wrap;
 }
 
 

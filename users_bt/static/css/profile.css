@@ -1,11 +1,23 @@
+main{
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(auto,max-content));
+    gap: 20px;
+
+}
+
+:root {
+    --login-input: clamp(290px,100%,300px);
+}
+
 /*Стили для блока профиля*/
 
 #profile-div{
     text-align: center;
-    width: 500px;
+    width: clamp(320px,100%,400px);
     background-color: #fff;
     border-radius: 10px;
-    margin-bottom: 50px;
+    height: 780px;
+    margin:0;
 }
 
 /* Стили для аватара профиля */
@@ -42,9 +54,7 @@
 
 /* form-request класс из файла form.css */
 
-.form-request{
-    width: 400px;
-}
+
 
 /* кнопка для изменения данных пользователя */
 
@@ -82,13 +92,19 @@
 /* блок для добавления товаров */
 
 #user-goods {
-    width: 700px;
+    width: clamp(320px,100%,700px);
+    margin: 0;
+    height: 900px;
+    grid-area: 1 / 2 / 1 / -1;
+    justify-self:end;
     border-radius: 10px;
+    padding:10px;
     background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 /* блок для фотографии товаров */
@@ -98,18 +114,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: clamp(290px,100%,502px);
+    border: 1px solid rgb(14,89,187);
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
 /* стили для тега img */
 
-#select-photo{
-    margin: 10px 0 10px 0;
-    width: 502px;
-    height: 300px;
-    object-fit: contain;
+#product-photo{
     background-color: gray;
-    border: 1px solid rgb(14,89,187);
-    border-radius: 5px;
+    object-fit: contain;
+    height: 300px;
 }
 
 /* стили для списка фотографии */
@@ -214,7 +230,28 @@
 	background-color: #fff;
 }
 
+@media (max-width: 360px){
+    #profile-div {
+        transform: scale(0.9);
+    }
+    #user-goods {
+        transform: scale(0.9);
+    }
+}
 
+@media(max-width: 850px){
+    main {
+        grid-template-columns: minmax(90%,1fr);
+        gap: 0;
+    }
+    #profile-div {
+        justify-self: center;
+    }
+    #user-goods {
+        justify-self: center;
+        grid-area: 2 / 1 / 2 / 1;
+    }
+}
 
 
 

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
     function changeImage(event) {
         let indexOption = event.target.selectedIndex;
         let urlImage = optionSelect[indexOption].value;
-        let photo = document.querySelector('#select-photo');
+        let photo = document.querySelector('#product-photo');
 
         photo.src = urlImage;
     };
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let inputTarget = event.target;
         let fileFromInput = inputTarget.files;
         let textSpanFile = inputTarget.previousElementSibling;
-        let imageElementPhotos = document.getElementById('select-photo');
+        let imageElementPhotos = document.getElementById('product-photo');
         let imageElementProfile = document.getElementById('photo-profile');
 
         if (fileFromInput.length > 5) {
@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
         let profileDiv = document.getElementById('profile-div');
         let userParagraph = document.querySelectorAll('.user-p');
+
+        profileDiv.style.height = 'auto';
 
         userParagraph.forEach(function (p) {
             p.style.display = 'none';
@@ -121,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function(){
             event.target.style.display = 'inline-block';
             btnClose.style.display = 'none';
             divForm.style.display = 'none';
+            profileDiv.style.height = '780px';
 
             userParagraph.forEach(function (p) {
                 p.style.display = 'block';

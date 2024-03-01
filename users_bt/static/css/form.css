@@ -1,3 +1,8 @@
+:root {
+    --width-login: clamp(300px,100%,500px);
+    --login-input: clamp(290px,100%,300px);
+}
+
 /* Общий блок формы */
 
 .div-form{
@@ -16,7 +21,7 @@
     justify-content: center;
     align-items: center;
     background-color: #e24a4a;
-    width: 500px;
+    width: var(--width-login);
     height: 50px;
     font-size: 20px;
     color: #fff;
@@ -26,7 +31,7 @@
 
 .form-request{
     display: flex;
-    width: 500px;
+    width: var(--width-login);
     flex-direction: column;
     /*justify-content: space-around;*/
     align-items: center;
@@ -39,23 +44,24 @@
 /* Стили для общего вида полей ввода */
 
 .form-request input:not([type='submit']):not([type='radio']){
-    width: 300px;
+    width: var(--login-input);
     height: 30px;
-    /*margin:10px 0;*/
     font-size: 16px;
     padding:0 10px;
     border:1px solid black;
+    box-sizing: border-box;
 }
 
 /* Стили для текстового поля "description" */
 
 #description{
     box-sizing:border-box;
-    width:324px;
+    width: var(--login-input);
     height:100px;
     padding:10px;
     font-size:16px;
     resize:none;
+    border: 1px solid black;
 }
 
 /* Стили для радио-кнопок */
@@ -80,7 +86,8 @@
     border-radius:5px;
     padding: 0;
     margin:20px 0;
-    width:324px;
+    width: var(--login-input);
+    box-sizing: border-box;
     height: 35px;
     border: none;
     color:#fff;
@@ -99,7 +106,7 @@
 
 .error{
     display:none;
-    width: 314px;
+    width: var(--login-input);
     border: 1px solid rgb(238, 67, 45);
     background-color: rgb(214, 63, 36);
     color: #fff;

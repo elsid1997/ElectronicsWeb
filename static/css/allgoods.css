@@ -3,8 +3,8 @@
     width: 100%;
     min-height: 700px;
     background-color: #fff;
-    margin-top: 10px;
     border-radius: 10px;
+    grid-area: 1 / 1 / -1 / -1;
 }
 
 /* Slideshoew */

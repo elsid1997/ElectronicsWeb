@@ -14,7 +14,7 @@
     <div id="profile-div">
         <div class="profile-ava">
             <img id="photo-profile" src="{{url_for('users_bt.static',filename='img/Skoro-zdes-budet-foto.jpg')
-         if user_photo == None else url_for('users_bt.userava') }}" alt="avatar">
+         if current_user.photo == None else url_for('users_bt.userava') }}" alt="avatar">
         </div>
         <form action="" enctype="multipart/form-data" method="post" onsubmit="sendAva(event,this)">
             {{usersAvaForm.hidden_tag()}}
@@ -74,7 +74,7 @@
     </div>
     <div id="user-goods" class="div-product">
         <div class="photos">
-            <img id="select-photo" src="{{url_for('users_bt.static',filename='img/requiredPhoto.img')}}">
+            <img id="product-photo" src="{{url_for('users_bt.static',filename='img/requiredPhoto.img')}}">
             <select id="options-select" onchange="changeImage(event)">
                 <option style="display:none;">Фотографии</option>
                 <option></option>
