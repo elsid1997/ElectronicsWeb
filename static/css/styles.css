@@ -3,6 +3,7 @@
     padding: 0;
     text-decoration: none;
     font-family: 'Roboto', Arial, sans-serif;
+    list-style-type: none;
 }
 
 body {
@@ -21,5 +22,6 @@ main {
     grid-template-columns: repeat(3, auto);
     margin:50px 5% 0 5%;
 }
+
 
 

@@ -1,6 +1,5 @@
 footer {
     background-color:gray;
-    width: 90%;
     margin-left: 5%;
     margin-right: 5%;
     box-sizing: border-box;
@@ -9,63 +8,76 @@ footer {
     border-radius:10px 10px 0 0;
     padding: 10px 10px 10px 10px;
 }
-#footer-links nav{
-
-}
 
 #footer-ul{
     list-style-type: none;
     display:grid;
-    grid-template: repeat(9,minmax(25px,auto)) /repeat(6,1fr);
+    grid-template-columns: repeat(auto-fill,minmax(280px,33.333%));
     justify-content: center;
 }
-#footer-ul li{
+
+#section_1,
+#section_2,
+#section_3 {
+    width:clamp(200px,100%, 250px);
+    align-self: center;
+    justify-self: center;
 }
-#footer-ul #logo{
-     grid-area: 1 / 2 / 4  / 1;
+
+
+@media(max-width:970px){
+    #footer-ul{
+        transform: scale(0.9);
+        grid-template-columns: 1fr 1fr;
+        justify-content: space-around;
+    }
+    #section_1{
+        grid-area: 1 / 1 / 1 / -1;
+        width: 100%;
+    }
+    #section_3{
+        align-self: center;
+    }
+    #section_1 ul{
+        display: grid;
+        grid-template-columns: 80% 10% 10%;
+    }
+    #logo_div{
+        grid-area: 1 / 1 / 1 / 2;
+    }
+    #facebook-link{
+        display: inline-block;
+        align-self: center;
+    }
+    #twitter-link{
+        align-self: center;
+        display: inline-block;
+    }
 }
-#facebook-link{
-    grid-area: 4 / 1 / 7 / 1;
-    align-self:center;
-    justify-self:center;
-}
-#twitter-link{
-    grid-area: 7 / 1 / 10 / 1;
-    align-self:center;
-    justify-self:center;
-}
-#about-link{
-    grid-area: 4 / 3 / 5 / 3;
-    align-self:center;
-}
-#contacts-link{
-    grid-area: 5 / 3 / 6 / 3;
-    align-self:end;
-}
-#privacy-policy{
-    grid-area: 6 / 3 / 7 / 5;
-    align-self:end;
-}
-#terms-of-use{
-    grid-area: 7 / 3 / 8 / 5;
-    align-self:end;
-}
-#products{
-    grid-area: 4 / 5 / 5 / 6;
-}
-#drones{
-    grid-area: 5 / 5 / 6 / 6;
-    align-self:end;
-}
-#cameras{
-    grid-area: 6 / 5 / 7 / 6;
-    align-self: end;
-}
-#sale{
-    grid-area: 7 / 5 / 8 / 6;
-    align-self: end;
-}
-#copyright{
-    text-align:center;
-    font-size:20px;
+
+@media(max-width: 500px){
+    #footer-ul{
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+    }
+    #section_1{
+        grid-area: 1;
+    }
+    #section_1 ul{
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    #logo_div{
+        display: inline;
+    }
+    #facebook-link,
+    #twitter-link{
+        transform: scale(0.8);
+        grid-area: 2 / 1 / 2 / 1;
+    }
+    #twitter-link{
+        position: absolute;
+        left: 60px;
+    }
 }

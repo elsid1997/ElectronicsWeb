@@ -1,6 +1,6 @@
 :root {
-    --width-login: clamp(300px,100%,500px);
-    --login-input: clamp(290px,100%,300px);
+    --width-login: clamp(200px,100%,500px);
+    --login-input: clamp(250px,100%,300px);
 }
 
 /* Общий блок формы */
@@ -31,11 +31,12 @@
 
 .form-request{
     display: flex;
-    width: var(--width-login);
     flex-direction: column;
     /*justify-content: space-around;*/
     align-items: center;
+    width: var(--width-login);
     padding:10px;
+    box-sizing: border-box;
 }
 .form-request label{
     font-size: 20px;
