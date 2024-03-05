@@ -5,6 +5,12 @@
     font-family: 'Roboto', Arial, sans-serif;
     list-style-type: none;
 }
+:root {
+	--main-color: #2471A3;
+}
+a {
+    color: var(--main-color);
+}
 
 body {
     background-color: gray;

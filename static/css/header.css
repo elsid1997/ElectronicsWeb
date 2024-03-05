@@ -1,7 +1,3 @@
-:root {
-	--main-color: #2471A3;
-}
-
 header {
     position: sticky;
     top:0;
@@ -118,32 +114,3 @@ header {
         transform: scale(0.9);
     }
 }
-/*
-@media(max-width:850px){
-
-    #search{
-        margin-left: 0;
-        width: 270px;
-
-    }
-    .header_style form{
-        display: flex;
-        justify-content: space-between;
-        width: 399.78px;
-    }
-   #logo_text{
-        width:200px
-
-}
-@media(max-width:500px){
-    #form-search{
-    width: 280px;
-    }
-    #search{
-    width: 180px;
-    }
-    #search_button{
-    width: 70px
-    }
-}
-*/
