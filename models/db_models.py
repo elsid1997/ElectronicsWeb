@@ -19,7 +19,8 @@ class Users(db.Model, UserMixin):
     date = db.Column(db.DateTime, default=datetime.datetime.now())
     myDrons = db.relationship('Drons', backref='Users', lazy=True)
     myCameras = db.relationship('Cameras', backref='Users', lazy=True)
-
+    def __str__(self):
+        return self.email
     def __repr__(self):
         return f'<user : {self.id}>'
 

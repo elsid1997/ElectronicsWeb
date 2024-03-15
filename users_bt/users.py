@@ -137,3 +137,4 @@ def products_valid():
         print(products.errors)
         response_data = {'error': products.errors}
         return jsonify(response_data)
+
