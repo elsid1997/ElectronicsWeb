@@ -66,9 +66,10 @@
                 </form>
             </div>
 
-            <button id="btn-change">Изменить данные</button>
-
-            <button style="display: block;"><a href="{{url_for('admin.index')}}">Зайти как администратор</a></button>
+            <button id="btn-change">Изменить данные</button></br>
+            {% if current_user.admin %}
+                <button id="btn-admin"><a href="{{url_for('admin.index')}}">Зайти как администратор</a></button>
+            {% endif %}
             <form action="" method="get">
                 <input type="submit" id='log-out' value="Выйти" name="log_out" class="btn-logout">
             </form>

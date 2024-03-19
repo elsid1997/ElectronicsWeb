@@ -1,14 +1,16 @@
 from flask import render_template, Flask, g
 from app_config import Config
 from users_bt.users import reg_bp
-from administration.admin import init_admin
+from administration.admin import admin_bt
 from models.db_models import db, migrate, Users
 from flask_login import LoginManager
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
 app.register_blueprint(reg_bp, url_prefix='/auth')
+app.register_blueprint(admin_bt, url_prefix='/administration')
 
 db.init_app(app)
 migrate.init_app(app, db)
@@ -48,6 +50,4 @@ def onsale():
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        init_admin(app,db)
     app.run(debug=True)

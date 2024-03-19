@@ -5,6 +5,17 @@
     font-family: 'Roboto', Arial, sans-serif;
     list-style-type: none;
 }
+html,body{
+    position: relative;
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex-grow: 1;
+}
 :root {
 	--main-color: #2471A3;
 }

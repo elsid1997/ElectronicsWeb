@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded',function (){
         event.preventDefault()
         const formData = new FormData(form)
 
-        obj = fetch('http://127.0.0.1:5000/auth/userava',{
+        let obj = fetch('http://127.0.0.1:5000/auth/userava',{
             method:'POST',
             body:formData,
         })

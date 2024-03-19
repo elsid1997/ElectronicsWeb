@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, url_for, g, request, jsonify, make_response
-from users_bt.forms import FormUser, FormFiles, FormProducts
+from forms import FormUser, FormFiles, FormProducts
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.db_models import Users
 from flask_login import login_required, login_user, current_user, logout_user

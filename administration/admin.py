@@ -1,72 +1,25 @@
-from flask_admin import Admin
-from flask_admin.form import Select2Widget
-from flask_admin.contrib.sqla import ModelView
-from models.db_models import Users, Drons, Cameras
+from flask import Blueprint, render_template, jsonify
+from models.db_models import Users
 
-admin = Admin()
+admin_bt = Blueprint('admin', __name__, template_folder='templates', static_folder='static')
 
 
-class UsersView(ModelView):
-    # form_columns = [
-    #     'name',
-    #     'surname',
-    #     'age',
-    #     'gender',
-    #     'psw',
-    #     'email',
-    #     'photo',
-    #     'date',
-    #     'myDrons',
-    #     'myCameras'
-    # ]
-    #
-    # column_list = [
-    #     'name',
-    #     'surname',
-    #     'age',
-    #     'gender',
-    #     'psw',
-    #     'email',
-    #     'photo',
-    #     'date',
-    #     'myDrons',
-    #     'myCameras'
-    # ]
-
-    column_searchable_list = ['email']
-
-    column_formatters = {
-        'psw':
-            lambda v, c, m, p: m.psw[:50] + '...' if m.psw else '',
-
-        'photo': lambda view, context, model, name: 'profile photo' if model.photo else None,
+def serialize(user):
+    return {
+        'name': user.name,
+        'surname': user.surname,
+        'email': user.email,
+        'admin': user.admin,
     }
 
-class DronsView(ModelView):
 
-    column_labels = {
-        'user_id': 'User email'
-    }
+@admin_bt.route('/')
+def index():
+    return render_template('admin/index.html')
 
-    form_columns = [
-        'model',
-        'date',
-        'price',
-        'photo',
-        'user_id'
-    ]
 
-    column_list = [
-        'model',
-        'date',
-        'price',
-        'photo',
-        'user_id'
-    ]
-
-def init_admin(app, db):
-    admin.init_app(app)
-
-    admin.add_view(UsersView(Users, db.session))
-    admin.add_view(DronsView(Drons, db.session))
-    admin.add_view(ModelView(Cameras, db.session))
+@admin_bt.route('/get_users')
+def get_users():
+    users = Users.query.all()
+    serialized_users = [serialize(user) for user in users]
+    return jsonify(serialized_users)

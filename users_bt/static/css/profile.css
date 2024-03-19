@@ -60,7 +60,7 @@ main{
 
 /* кнопка для изменения данных пользователя */
 
-#btn-change{
+#btn-change, #btn-admin{
     background: none;
     border: none;
     font-size: 16px;
@@ -68,12 +68,16 @@ main{
     margin: 10px 0 10px 0;
 }
 
-#btn-change:hover{
+#btn-admin a{
+    all: unset;
+}
+
+#btn-change:hover, #btn-admin:hover{
     text-decoration: none;
     color: rgb(14,89,187);
 }
 
-#btn-change:active {
+#btn-change:active, #btn-admin:active {
     background-color: #fff;
 }
 
