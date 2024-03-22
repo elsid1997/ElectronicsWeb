@@ -12,10 +12,19 @@
     width: 20%;
 }
 
-#tabel-data tr td {
-    border-left: 1px solid black;
+tr td {
+    border: 1px solid black;
+}
+
+tr td:first-child{
+    border-left: none;
+}
+
+tr td:last-child{
+    border-right: none;
+}
+#admin {
     border-right: 1px solid black;
-    border-bottom: 1px solid black;
 }
 #tabel-data td {
     box-sizing: border-box;

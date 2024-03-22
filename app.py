@@ -1,10 +1,11 @@
-from flask import render_template, Flask, g
+from flask import render_template, Flask, g, send_from_directory
 from app_config import Config
 from users_bt.users import reg_bp
 from administration.admin import admin_bt
 from models.db_models import db, migrate, Users
 from flask_login import LoginManager
-
+# import mimetypes
+# mimetypes.add_type('application/javascript', '.js')
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -21,6 +22,10 @@ login_manager.login_message = 'Авторизуйтес для доступа к
 login_manager.login_message_category = 'error'
 
 print(app.config['MAX_CONTENT_LENGTH'])
+
+# @app.route('/js/<path:filename>')
+# def serve_js(filename):
+#     return send_from_directory('js', filename, mimetype='application/javascript')
 
 @login_manager.user_loader
 def load_user(user):
