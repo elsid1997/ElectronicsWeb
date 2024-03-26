@@ -21,6 +21,7 @@ def index():
 @admin_bt.route('/get_users')
 @login_required
 def get_users():
+    print('get users is working')
     try:
         users = Users.query.all()
         serialized_users = [serialize(user) for user in users]

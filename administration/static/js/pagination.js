@@ -1,7 +1,51 @@
 document.addEventListener('DOMContentLoaded', function (){
     console.log('pagination.js is working')
 
-    function createPagination(totalRecords, recordsPerPage, currentPages){
+     function changePage() {
+        console.log('changePage is working')
+
+        let tableBody = document.querySelector('tbody')
+        let users = JSON.parse(localStorage.getItem('userData'))
+
+        createRows(tableBody,users.slice(10,20))
+    };
+    function createRows(tableBody,res){
+
+        console.log(res)
+
+        if(res){
+            for(i=0;i< 10;i++){
+                let newRow = tableBody.insertRow();
+
+                let cel1 = newRow.insertCell(-1);
+                cel1.textContent = res[i].name
+
+                let cel2 = newRow.insertCell(-1);
+                cel2.textContent = res[i].surname
+
+                let cel3 = newRow.insertCell(-1);
+                cel3.textContent = res[i].email
+
+                let cel4 = newRow.insertCell(-1);
+                cel4.textContent = res[i].admin
+
+                let cel5 = newRow.insertCell(-1);
+                let imgChange = document.createElement('img');
+                imgChange.src = "static/img/icons/change.png";
+                imgChange.alt = 'change';
+                imgChange.classList.add('change');
+                cel5.appendChild(imgChange);
+
+                let cel6 = newRow.insertCell(-1);
+                let imgDelete = document.createElement('img');
+                imgDelete.src = "static/img/icons/delete.png";
+                imgDelete.alt = 'delete';
+                imgDelete.classList.add('delete')
+                cel6.appendChild(imgDelete)
+            }
+        }
+    }
+    function createPagination(totalRecords, recordsPerPage, currentPages = 1){
 
         console.log('createPagination is working')
 
@@ -19,9 +63,10 @@ document.addEventListener('DOMContentLoaded', function (){
             const pageButton = document.createElement('a');
             pageButton.href = '#';
             pageButton.textContent = i;
-            if (i === currentPages) {
-                pageButton.classList.add('active');
-            }
+//            if (i === currentPages) {
+//                pageButton.classList.add('active');
+//            }
+            pageButton.addEventListener('click',changePage)
             pagination.appendChild(pageButton);
         };
 
@@ -32,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function (){
         pagination.appendChild(nextButton);
     }
 
-    function createTableRows(res){
+    function createTableData(){
 
         console.log('createTableRows is working')
 
@@ -46,45 +91,16 @@ document.addEventListener('DOMContentLoaded', function (){
 
 //            console.log(tableBody.innerHTML.trim())
             if(!tableBody.innerHTML.trim()) {
-                for(i=0;i< res.length;i++){
-                    let newRow = tableBody.insertRow();
-
-                    let cel1 = newRow.insertCell(-1);
-                    cel1.textContent = res[i].name
-
-                    let cel2 = newRow.insertCell(-1);
-                    cel2.textContent = res[i].surname
-
-                    let cel3 = newRow.insertCell(-1);
-                    cel3.textContent = res[i].email
-
-                    let cel4 = newRow.insertCell(-1);
-                    cel4.textContent = res[i].admin
-
-                    let cel5 = newRow.insertCell(-1);
-                    let imgChange = document.createElement('img');
-                    imgChange.src = "static/img/icons/change.png";
-                    imgChange.alt = 'change';
-                    imgChange.classList.add('change');
-                    cel5.appendChild(imgChange);
-
-                    let cel6 = newRow.insertCell(-1);
-                    let imgDelete = document.createElement('img');
-                    imgDelete.src = "static/img/icons/delete.png";
-                    imgDelete.alt = 'delete';
-                    imgDelete.classList.add('delete')
-                    cel6.appendChild(imgDelete)
+                    createRows(tableBody,res)
                 }
 
                 const totalRecords = res.length;
-                const currentPage = 1;
-                const recordsPerPage = 20
+                const recordsPerPage = 10
 
-                createPagination(totalRecords, recordsPerPage, currentPage)
+                createPagination(totalRecords, recordsPerPage)
             }
 
         }
-    }
 
-    window.createTableRows = createTableRows
+    window.createTableData = createTableData
 })

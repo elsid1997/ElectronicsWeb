@@ -23,12 +23,17 @@ document.addEventListener('DOMContentLoaded',function(){
                 divNoResult.style.margin = '10px';
                 tableData.insertAdjacentElement('afterend', divNoResult);
             }else{
+                for(i=0; i < res.length; i++){
+                    res[i]['id'] = i
+                };
+                console.log(res)
                 localStorage.setItem('userData', JSON.stringify(res))
-                createTableRows()
+                createTableData()
             }
-        }).catch( error=>{
-                console.log('there was a problem with the fetch operation: ',error);
         })
+//        .catch( error=>{
+//                console.log('there was a problem with the fetch operation: ',error);
+//        })
     };
 
     function checkUserData(){
@@ -36,7 +41,7 @@ document.addEventListener('DOMContentLoaded',function(){
         if(!localStorage.getItem('userData')){
             getUser()
         }else{
-            createTableRows()
+            createTableData()
         }
     }
     checkUserData()
