@@ -29,23 +29,36 @@ document.addEventListener('DOMContentLoaded', function (){
             }else{
                 createRows(tableBody,users.slice(b/10,a/10))
             }
-        }else if(this.textContent === '<' && !this.id){
+        }else if(this.textContent === '<' && !this.id || this.id == '0'){
+            nextPage.id = 2
+            backPage.id = 0
             createRows(tableBody,users.slice(0,10))
         }else if(this.textContent === '<' && this.id){
-            let back = Number(this.id)*10
+
+            let back = Number(this.id)
+            nextPage.id = back + 1
+            backPage.id = back - 1
+
+            back *= 10
             createRows(tableBody,users.slice(back-10,back))
         }else if(this.textContent === '>' && !this.id){
+            nextPage.id= 3
+            backPage.id = 1
             createRows(tableBody,users.slice(10,20))
-        }else if(this.textContent === '>' && this.id){
-            let next = Number(this.id)*10
+        }else if(this.textContent === '>' && this.id && users.slice((Number(backPage.id)+1)*10, (Number(nextPage.id))*10)[0]){
+            console.log(users.slice((Number(backPage.id)+1)*10, (Number(nextPage.id))*10)[0])
+            let next = Number(this.id)
+            nextPage.id = next + 1
+            backPage.id = next - 1
+            next*=10
             createRows(tableBody,users.slice(next-10,next))
+        }else if(!users.slice((Number(backPage.id)+1)*10, (Number(nextPage.id))*10)[0]){
+            createRows(tableBody, users.slice((Number(backPage.id))*10, (Number(nextPage.id)-1)*10))
         }
     };
     function createRows(tableBody,res){
 
-//        console.log(res)
         console.log('createRows is working')
-//        console.log(tableBody.lastElementChild)
 
         if(res){
             for(i=0;i< res.length;i++){
@@ -79,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function (){
             }
         }
     }
-    function createPagination(totalRecords, recordsPerPage){
+    function createPagination(totalRecords, recordsPerPage = 10){
 
         console.log('createPagination is working')
 
@@ -122,15 +135,13 @@ document.addEventListener('DOMContentLoaded', function (){
 
             let tableBody = document.querySelector('tbody')
 
-//            console.log(tableBody.innerHTML.trim())
             if(!tableBody.innerHTML.trim()) {
                     createRows(tableBody,res.slice(0,10))
                 }
 
                 const totalRecords = res.length;
-                const recordsPerPage = 10
 
-                createPagination(totalRecords, recordsPerPage)
+                createPagination(totalRecords)
             }
 
         }

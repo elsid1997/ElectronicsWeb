@@ -1,49 +1,40 @@
-//import { createPagination } from './pagination.js';
-
 console.log('users js is working');
 
-document.addEventListener('DOMContentLoaded',function(){
-    function getUser(){
-        console.log('getUser is working');
-        const currentUrl = window.location.href;
-//        console.log(currentUrl)
-        let obj = fetch(currentUrl+'get_users')
-        obj.then(res=> {
-            if(!res.ok){
-                throw new Error('Network response was not ok')
-            }
+document.addEventListener('DOMContentLoaded', function(){
+    function getUser() {
+        console.log('getUser is working')
+        const currentUrl = window.location.origin
+        fetch(currentUrl + '/administration/get_users').then(res => {
             return res.json()
         }).then(res => {
-            if (!res){
-                console.log('not result');
-                let tableData = document.getElementById('tabel-data');
+            console.log(res)
+
+            if (!res) {
+                console.log('No result');
+                let tableData = document.getElementById('table-data');
                 let divNoResult = document.createElement('div');
                 divNoResult.textContent = 'Пока что нет пользователей';
                 divNoResult.style.fontSize = '20px';
                 divNoResult.style.margin = '10px';
                 tableData.insertAdjacentElement('afterend', divNoResult);
             }else{
-//                for(i=0; i < res.length; i++){
-//                    res[i]['id'] = i
-//                };
-//                console.log(res)
-                localStorage.setItem('userData', JSON.stringify(res))
+                localStorage.setItem('userData',JSON.stringify(res));
                 createTableData()
             }
-        })
-//        .catch( error=>{
-//                console.log('there was a problem with the fetch operation: ',error);
-//        })
-    };
+        }).catch(error =>{
+                    console.error('there was a problem with the fetch operation: ', error);
+                })
+    }
 
-    function checkUserData(){
-        console.log('checkUserData is working')
-        if(!localStorage.getItem('userData')){
-            getUser()
+    function checkUserData() {
+        console.log('checkUserData is working');
+        const userData = localStorage.getItem('userData');
+        if (userData) {
+            createTableData(JSON.parse(userData))
         }else{
-            createTableData()
+            getUser()
         }
     }
     checkUserData()
-    window.checkUserData = checkUserData;
-})
+    window.checkUserData = checkUserData
+});
