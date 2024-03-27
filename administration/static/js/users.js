@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded',function(){
                 divNoResult.style.margin = '10px';
                 tableData.insertAdjacentElement('afterend', divNoResult);
             }else{
-                for(i=0; i < res.length; i++){
-                    res[i]['id'] = i
-                };
-                console.log(res)
+//                for(i=0; i < res.length; i++){
+//                    res[i]['id'] = i
+//                };
+//                console.log(res)
                 localStorage.setItem('userData', JSON.stringify(res))
                 createTableData()
             }

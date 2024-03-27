@@ -5,16 +5,50 @@ document.addEventListener('DOMContentLoaded', function (){
         console.log('changePage is working')
 
         let tableBody = document.querySelector('tbody')
-        let users = JSON.parse(localStorage.getItem('userData'))
+        tableBody.innerHTML = '';
 
-        createRows(tableBody,users.slice(10,20))
+        let users = JSON.parse(localStorage.getItem('userData'))
+        let backPage = document.querySelector('.back-page')
+        let nextPage = document.querySelector('.next-page')
+
+        if (this.textContent !== '<' && this.textContent !== '>'){
+
+            let a = Number(this.textContent)
+            let b = Number(this.previousSibling.textContent)
+
+            nextPage.id = a+1
+            backPage.id = a-1
+            console.log(this.textContent,this.previousSibling.textContent)
+
+            if(a > b){
+                  createRows(tableBody,users.slice(b*10,a*10))
+                  console.log(users.slice(b*10,a*100))
+                  console.log(users)
+            }else if(a===1){
+                createRows(tableBody,users.slice(0,a*10))
+            }else{
+                createRows(tableBody,users.slice(b/10,a/10))
+            }
+        }else if(this.textContent === '<' && !this.id){
+            createRows(tableBody,users.slice(0,10))
+        }else if(this.textContent === '<' && this.id){
+            let back = Number(this.id)*10
+            createRows(tableBody,users.slice(back-10,back))
+        }else if(this.textContent === '>' && !this.id){
+            createRows(tableBody,users.slice(10,20))
+        }else if(this.textContent === '>' && this.id){
+            let next = Number(this.id)*10
+            createRows(tableBody,users.slice(next-10,next))
+        }
     };
     function createRows(tableBody,res){
 
-        console.log(res)
+//        console.log(res)
+        console.log('createRows is working')
+//        console.log(tableBody.lastElementChild)
 
         if(res){
-            for(i=0;i< 10;i++){
+            for(i=0;i< res.length;i++){
                 let newRow = tableBody.insertRow();
 
                 let cel1 = newRow.insertCell(-1);
@@ -45,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function (){
             }
         }
     }
-    function createPagination(totalRecords, recordsPerPage, currentPages = 1){
+    function createPagination(totalRecords, recordsPerPage){
 
         console.log('createPagination is working')
 
@@ -55,25 +89,24 @@ document.addEventListener('DOMContentLoaded', function (){
 
         const prevButton = document.createElement('a');
         prevButton.href = '#';
-        prevButton.textContent = 'Назад';
+        prevButton.textContent = '<';
         prevButton.classList.add('back-page');
+        prevButton.addEventListener('click',changePage)
         pagination.appendChild(prevButton);
 
-        for(let i=1; i < totalPages; i++){
+        for(let i=1; i < totalPages+1; i++){
             const pageButton = document.createElement('a');
             pageButton.href = '#';
             pageButton.textContent = i;
-//            if (i === currentPages) {
-//                pageButton.classList.add('active');
-//            }
             pageButton.addEventListener('click',changePage)
             pagination.appendChild(pageButton);
         };
 
         const nextButton = document.createElement('a');
         nextButton.href = '#';
-        nextButton.textContent = 'Вперед';
+        nextButton.textContent = '>';
         nextButton.classList.add('next-page');
+        nextButton.addEventListener('click',changePage)
         pagination.appendChild(nextButton);
     }
 
@@ -91,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function (){
 
 //            console.log(tableBody.innerHTML.trim())
             if(!tableBody.innerHTML.trim()) {
-                    createRows(tableBody,res)
+                    createRows(tableBody,res.slice(0,10))
                 }
 
                 const totalRecords = res.length;
