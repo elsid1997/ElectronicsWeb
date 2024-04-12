@@ -1,0 +1,24 @@
+<header >
+    <div class="search_and_logo">
+        <div  class="logo_div">
+            <img src="{{url_for('static',filename='img/logo/dronsCamera.png')}}" alt="" class="logo">
+            <i class="logo_text">Магазин Электроники</i>
+        </div>
+        <form id="form-search">
+            <input type="text" id="search">
+            <input type="submit" id="search_button" value="Поиск">
+        </form>
+    </div>
+    {% include 'burger.html' %}
+    <nav id="header-nav">
+        <ul id="header-ul">
+            <li><a href="{{url_for('index')}}">Главная</a></li>
+            <li><a href="{{url_for('allgoods')}}">Все товары</a></li>
+            <li><a>Дроны</a></li>
+            <li><a>Камеры</a></li>
+            <li><a>Распродажа</a></li>
+            <li><a href="{{url_for('users_bt.profile')}}">Профиль</a></li>
+            <li><a>О нас</a></li>
+        </ul>
+    </nav>
+</header>

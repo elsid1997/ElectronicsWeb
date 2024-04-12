@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('admin.static', filename='css/admin-nav.css')}}">
+<link rel="stylesheet" href="{{url_for('admin.static', filename='css/data-tabel.css')}}">
+{% endblock %}
+{% block main %}
+<section id="admin-panel">
+    <h1 id="hi-admin">Че ты такой серьезный ?</h1>
+    <nav id="admin-nav">
+        <ul>
+            <li><a onclick="checkUserData()">Пользовательи</a></li>
+            <li><a>Дроны</a></li>
+            <li><a>Камеры</a></li>
+            <li><a>Сообшения</a></li>
+            <li><a>Распродажа</a></li>
+        </ul>
+    </nav>
+    <article>
+        {% include 'admin/data/users-data.html' %}
+        <div id="pagination" class="pagination"></div>
+    </article>
+</section>
+{% endblock %}
+{% block js %}
+    <script>
+
+    </script>
+    <script src="{{url_for('admin.static',filename='js/pagination.js')}}"></script>
+    <script src="{{url_for('admin.static',filename='js/users.js')}}"></script>
+{% endblock %}

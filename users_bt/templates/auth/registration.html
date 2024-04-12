@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('users_bt.static', filename='./css/form.css')}}">
+    <style>
+        main{
+            dispaly:flex;
+            justify-content:center;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block main %}
+    <div class="div-form">
+        <form action="#" method="post" class='form-request'>
+            {{ form.hidden_tag() }}
+
+            {% for field in form if field.name not in ('csrf_token','submit','remember','gender') %}
+
+                {% if field.name == 'email' %}
+                    {{form.gender.label}}
+                    <ul id="gender">
+                        <li>
+                            <input id="gender-0" name="gender" type="radio" value="Мужской">
+                            <label for="gender-0">Мужской</label>
+                        </li>
+                        <li>
+                            <input id="gender-1" name="gender" type="radio" value="Женский">
+                            <label for="gender-1">Женский</label>
+                        </li>
+                    </ul>
+                    <br/>
+                {% endif %}
+                {{field.label()}}
+                {{field()}}
+                <p class="error" id = '{{field.name + "_error"}}'></p>
+                <br/>
+                {% if field.name == 'psw2' %}
+                    <label id="label-check">
+                        <input type="checkbox" id="password-checkbox">
+                        <span>Показать пароль</span>
+                    </label>
+                {% endif %}
+            {% endfor %}
+            {{form.submit(class='submit',id='register-button')}}
+        </form>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{url_for('users_bt.static',filename='js/registration.js')}}"></script>
+{% endblock %}

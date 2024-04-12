@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/form.css')}}">
+    <link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/profile.css')}}">
+{% endblock %}
+
+{% block title %}
+    Профиль
+{% endblock %}
+
+{% block main %}
+    <div id="profile-div">
+        <div class="profile-ava">
+            <img id="photo-profile" src="{{url_for('users_bt.static',filename='img/Skoro-zdes-budet-foto.jpg')
+         if current_user.photo == None else url_for('users_bt.userava') }}" alt="avatar">
+        </div>
+        <form action="" enctype="multipart/form-data" method="post" onsubmit="sendAva(event,this)">
+            {{usersAvaForm.hidden_tag()}}
+            <label class="input-file">
+                <span class="input-file-text" >Добавить фото профиля</span>
+                {{usersAvaForm.file()}}
+                {{usersAvaForm.submit(class="input-file-btn")}}
+            </label>
+            <p class="error" id="{{usersAvaForm.file.name + '_error'}}"></p>
+        </form>
+        <br/>
+        <div id="container">
+            <p class="user-p" id="name_user"><span>Имя : {{current_user.name}}</span></p>
+            <p class="user-p" id="surname_user"><span>Фамилие : {{current_user.surname}}</span></p>
+            <p class="user-p" id="age_user"><span>Возраст : {{current_user.age}}</span></p>
+            <p class="user-p" id="gender_user"><span>Пол : {{current_user.gender}}</span></p>
+            <p class="user-p" id="email_user"><span>Email : {{current_user.email}}</span></p>
+            <p class="user-p" id="date_user"><span>Время регистрации : {{current_user.date.strftime('%Y-%m-%d')}}</span></p>
+            <div class="div-form">
+                <form action='#' class='form-request' id="form-put" onsubmit="sendPullRequest(event,this)">
+                    <input type="hidden" id="csrf" name='csrf_token' value="{{csrf}}">
+                    {% for field in formUser if field.name not in ('csrf_token','submit','remember', 'gender') %}
+                    {% if field.name == 'email' %}
+                        {{formUser.gender.label}}
+                        <ul id="gender">
+                            <li>
+                                <input id="gender-0" name="gender" type="radio" value="Мужской">
+                                <label for="gender-0">Мужской</label>
+                            </li>
+                            <li>
+                                <input id="gender-1" name="gender" type="radio" value="Женский">
+                                <label for="gender-1">Женский</label>
+                            </li>
+                        </ul>
+                    <br/>
+                    {% endif %}
+                    {{field.label()}}
+                    {{field()}}
+                    <p class="error" id='{{field.name + "_error"}}'></p>
+                    <br/>
+                    {% if field.name == 'psw2' %}
+                    <label id="label-check">
+                        <input type="checkbox" id="password-checkbox">
+                        Показать пароль
+                    </label>
+                    {% endif %}
+                    {% endfor %}
+                    {{formUser.submit(class='submit',id='register-button',value='Отправить')}}
+                </form>
+            </div>
+
+            <button id="btn-change">Изменить данные</button></br>
+            {% if current_user.admin %}
+                <button id="btn-admin"><a href="{{url_for('admin.index')}}">Зайти как администратор</a></button>
+            {% endif %}
+            <form action="" method="get">
+                <input type="submit" id='log-out' value="Выйти" name="log_out" class="btn-logout">
+            </form>
+        </div>
+    </div>
+    <div id="user-goods" class="div-product">
+        <div class="photos">
+            <img id="product-photo" src="{{url_for('users_bt.static',filename='img/requiredPhoto.img')}}">
+            <select id="options-select" onchange="changeImage(event)">
+                <option style="display:none;">Фотографии</option>
+                <option></option>
+                <option></option>
+                <option></option>
+                <option></option>
+                <option></option>
+            </select>
+        </div>
+        <form action="#" enctype="multipart/form-data" method="post" id="form-product"
+              class="form-request" onsubmit="sendPosts(event)">
+            <input type="hidden" id="csrf_t" name='csrf_token' value="{{csrf}}">
+            <label class="input-file">
+                <span class="input-file-text" id="multiple-files">{{productsForm.photo.label.text}}</span>
+                {{productsForm.photo}}
+            </label>
+            <br/>
+            <p class="error" id="{{productsForm.photo.name}}_error"></p>
+            {% for field in productsForm if field.name not in ('csrf_token','submit','photo') %}
+            {{field.label()}}
+            {{field()}}
+            <p class="error" id="{{field.name}}_error"></p>
+            <br/>
+            {% endfor %}
+            {{productsForm.submit(class='submit',id='submit-product')}}
+        </form>
+        <p id="success"></p>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{{url_for('users_bt.static',filename='js/profile.js')}}"></script>
+    <script src="{{url_for('users_bt.static',filename='js/sendPosts.js')}}"></script>
+    <script src="{{url_for('users_bt.static',filename='js/sendAva.js')}}"></script>
+{% endblock %}

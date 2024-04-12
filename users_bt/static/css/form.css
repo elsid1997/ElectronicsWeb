@@ -1,0 +1,142 @@
+:root {
+    --width-login: clamp(200px,100%,500px);
+    --login-input: clamp(250px,100%,300px);
+}
+
+/* Общий блок формы */
+
+.div-form{
+    margin-top: 100px;
+    display: flex;
+    background-color: #fff;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Стили для всплывающего сообщения (flash) */
+
+#flash{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e24a4a;
+    width: var(--width-login);
+    height: 50px;
+    font-size: 20px;
+    color: #fff;
+}
+
+/* Стили для формы запроса */
+
+.form-request{
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-around;*/
+    align-items: center;
+    width: var(--width-login);
+    padding:10px;
+    box-sizing: border-box;
+}
+.form-request label{
+    font-size: 20px;
+}
+
+/* Стили для общего вида полей ввода */
+
+.form-request input:not([type='submit']):not([type='radio']){
+    width: var(--login-input);
+    height: 30px;
+    font-size: 16px;
+    padding:0 10px;
+    border:1px solid black;
+    box-sizing: border-box;
+}
+
+/* Стили для текстового поля "description" */
+
+#description{
+    box-sizing:border-box;
+    width: var(--login-input);
+    height:100px;
+    padding:10px;
+    font-size:16px;
+    resize:none;
+    border: 1px solid black;
+}
+
+/* Стили для радио-кнопок */
+
+#gender {
+    margin:10px 0;
+    display:flex;
+    list-style-type:none;
+    justify-content:space-between;
+    width:220px;
+}
+
+#gender li label{
+    vertical-align:top;
+}
+
+/* Стили для кнопки "Submit" */
+
+.submit{
+    font-weight: normal;
+    font-size: 20px;
+    border-radius:5px;
+    padding: 0;
+    margin:20px 0;
+    width: var(--login-input);
+    box-sizing: border-box;
+    height: 35px;
+    border: none;
+    color:#fff;
+    background-color: rgb(14,89,187);
+}
+
+.submit:hover{
+    background-color:rgb(46, 83, 163);
+}
+
+.submit:active {
+    background-color: #fff;
+}
+
+/* Стили для отображения ошибок ввода */
+
+.error{
+    display:none;
+    width: var(--login-input);
+    border: 1px solid rgb(238, 67, 45);
+    background-color: rgb(214, 63, 36);
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    text-align:center;
+}
+
+/* Стили для отображения пароля */
+
+#label-check{
+    margin: 5px 0 5px 0;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#label-check input{
+    margin-right: 5px;
+}
+
+/* Стили для чекбоксов и радио-кнопок */
+
+#password-checkbox,
+#gender-0,
+#gender-1 {
+    width:20px;
+    height:20px;
+}
+
+
+

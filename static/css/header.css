@@ -1,0 +1,116 @@
+header {
+    position: sticky;
+    top:0;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    box-sizing: border-box;
+    z-index: 1;
+}
+.search_and_logo {
+    display: grid;
+    gap: 10px;
+    min-height: 120px;
+    background-color: #fff;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(300px,49%));
+    align-content: center;
+    justify-content: center;
+}
+
+#form-search {
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+    box-sizing: border-box;
+}
+#search {
+    height: 30px;
+    width: clamp(60%,72%,72.5%);
+    border: 1px solid rgb(14,89,187);
+    box-sizing: border-box;
+    padding: 0 10px 0 10px;
+}
+#search_button {
+    width: 26.25%;
+    height: 30px;
+    border: 0;
+    background-color: rgb(14,89,187);
+    color: #fff;
+}
+.logo_div {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    max-width: 400px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.logo_text {
+    font-size: 30px;
+    color: rgb(14,89,187);
+    width: clamp(320px,80%,400px);
+}
+#header-nav {
+    margin-top: 2px;
+    border-radius: 0 0 10px 10px;
+    background-color: #fff;
+}
+#header-ul {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 50px;
+    list-style-type: none;
+}
+#header-ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 130px;
+    transition: transform .3s;
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+}
+
+#header-ul li a {
+    color: var(--main-color);
+    width: 100%;
+    font-size: 20px;
+    font-style: normal;
+    text-align: center;
+}
+
+#header-ul li:hover {
+    border-bottom: 2px solid #2471A3;
+	color: rgba(84,153,199,1);
+	transform: translateY(10px);
+}
+
+@media screen and (max-width: 1030px){
+    #header-nav {
+        display:none;
+    }
+    .search_and_logo {
+        border-radius: 0 0 10px 10px;
+    }
+    .menu{
+        display: block;
+    }
+}
+
+@media(max-width: 460px) {
+    .logo_div{
+	    transform: scale(0.9);
+    }
+    #form-search {
+        transform: scale(0.9);
+    }
+}

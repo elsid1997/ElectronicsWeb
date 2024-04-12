@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block css %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('users_bt.static',filename='css/login.css')}}">
+{% endblock %}
+{% block main %}
+    <div id="div-login">
+        <div id="flash"></div>
+        <form action="#" method="post" id="login-form">
+            {{form.hidden_tag()}}
+            {{form.email.label()}}
+            {{form.email()}}
+            {{form.psw1.label()}}
+            {{form.psw1()}}
+            <p id="remember-style">{{form.remember.label()}}
+            {{form.remember(class='re')}}</p>
+            {{form.submit(id='submit',value='Войти')}}
+        </form>
+        <a href="{{url_for('users_bt.register')}}" id="register">Зарегистрироваться</a>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        next_url='{{next_url}}'
+        {% if get_flashed_messages() %}
+        flash_message='{{get_flashed_messages(True)[0][1]}}'
+        {% else %}
+        flash_message=null
+        {% endif %}
+    </script>
+    <script src="{{url_for('users_bt.static',filename='js/login.js')}}"></script>
+    <script src="{{url_for('users_bt.static',filename='js/asincawait.js')}}"></script>
+{% endblock %}

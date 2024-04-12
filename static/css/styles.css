@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: 'Roboto', Arial, sans-serif;
+    list-style-type: none;
+}
+html,body{
+    position: relative;
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex-grow: 1;
+}
+:root {
+	--main-color: #2471A3;
+}
+a {
+    color: var(--main-color);
+}
+
+body {
+    background-color: gray;
+    /* background-image: url(../img/background_img/Silego_clock_generator.jpeg); */
+    background-size: cover;
+}
+:root {
+    --color_for_all: rgb(14,89,187);
+}
+
+main {
+    box-sizing: border-box;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    margin:50px 5% 0 5%;
+}
+
+
+

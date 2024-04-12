@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/burger.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/header.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/footer.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/allgoods.css')}}">
+    {% endblock %}
+    <script src="{{url_for('static',filename='js/jquery.js')}}"></script>
+    <title>{% block title%}Магазин электроники{% endblock %}</title>
+</head>
+<body>
+    {% include 'header.html' %}
+<main>
+{% block main %}
+    {% include 'allgoods.html' %}
+{% endblock %}
+</main>
+<footer>
+    {% block footer %}
+        {% include 'footer.html' %}
+    {% endblock %}
+</footer>
+{% block js %}
+{% endblock %}
+</body>
+</html>
