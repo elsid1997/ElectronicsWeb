@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded',function(){
             }
 
             const changeCell = document.createElement('td');
+            changeCell.classList.add('changeAdmin');
             const imgChange = document.createElement('img');
             imgChange.src = 'static/img/icons/change.png';
             imgChange.alt = 'change';
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded',function(){
             newRow.appendChild(changeCell);
 
             const deleteCell = document.createElement('td');
+            deleteCell.classList.add('deleteAdmin');
             const imgDelete = document.createElement('img');
             imgDelete.src = 'static/img/icons/delete.png';
             imgDelete.alt = 'delete';
