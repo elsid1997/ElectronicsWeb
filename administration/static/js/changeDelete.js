@@ -1,13 +1,34 @@
 document.addEventListener('DOMContentLoaded', function(){
     console.log('changeDelete is working')
-    let changeUserAdmin = document.getElementsByClassName('changeUser')
-    for(let change of changeUserAdmin){
-        change.addEventListener('click', function(){
+
+    function changeDataUser(){
             console.log('change is working')
             let  userData = this.parentNode;
             for(let data  of userData.children){
                 data.style.padding = '0'
-                if(data.children[0] == undefined){
+                console.log(data.textContent)
+                if(data.textContent == 'No' || data.textContent == 'Yes'){
+                    let yesORno = data.textContent;
+                    data.textContent = '';
+                    data.style.backgroundColor = 'gray';
+                    data.style.color = '#fff'
+
+                    let arrYesNo = ['Yes', 'No']
+                    arrYesNo.forEach(value => {
+                        let input = document.createElement('input');
+                        input.type = 'radio';
+                        input.style.marginLeft = '5px';
+                        input.checked = yesORno == value;
+                        input.style.transform = 'scale(1.3)';
+
+                        let label = document.createElement('label');
+                        label.textContent = value;
+                        if (value == 'No') label.style.marginLeft = '10px';
+
+                        data.appendChild(label);
+                        data.appendChild(input);
+                    });
+                }else if(data.children[0] == undefined){
                     let input = document.createElement('input');
                     input.type = 'text';
                     input.style.backgroundColor = 'gray';
@@ -54,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function(){
                     data.appendChild(btn);
                 }
             }
-
-        })
     }
+    window.changeDataUser = changeDataUser;
 })

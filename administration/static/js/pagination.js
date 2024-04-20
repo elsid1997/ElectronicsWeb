@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
             for(const data of cellsData){
                 const cell = document.createElement('td');
-                cell.textContent = user[data];
+                cell.textContent = user[data] == false ? 'No' : user[data] == true ? 'Yes' : user[data];
                 newRow.appendChild(cell);
             }
 
@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded',function(){
             imgChange.classList.add('change');
             changeCell.appendChild(imgChange);
             newRow.appendChild(changeCell);
+            changeCell.addEventListener('click',changeDataUser)
 
             const deleteCell = document.createElement('td');
             deleteCell.classList.add('deleteUser');
