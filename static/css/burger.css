@@ -2,9 +2,9 @@
 	--main-color: #2471A3; 
 }
 .menu {
-    position: relative;
+    position: fixed;
     display: none;
-    margin-top: 10px;
+    top: 150px;
 }
 .burger-checkbox {
 	position: absolute;
@@ -96,12 +96,14 @@
 .burger-checkbox:checked + .burger::before {
 	top: 11px;
 	transform: rotate(45deg);
+	width: 32px;
 	box-shadow: 0 6px 0 rgba(0,0,0,0);
     transition: box-shadow .15s, top .3s, transform .3s .15s;
 }
 
 .burger-checkbox:checked + .burger::after {
   bottom: 11px;
+  width: 32px;
   transform: rotate(-45deg);
   transition: bottom .3s, transform .3s .15s;
 }

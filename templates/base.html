@@ -18,9 +18,10 @@
 <body>
     {% include 'header.html' %}
 <main>
-{% block main %}
-    {% include 'allgoods.html' %}
-{% endblock %}
+    {% include 'burger.html' %}
+    {% block main %}
+        {% include 'allgoods.html' %}
+    {% endblock %}
 </main>
 <footer>
     {% block footer %}
