@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
     console.log('changeDelete is working')
+    let countForId = 1;
     function changeDataUser(){
             console.log('change is working')
             let userData = this.parentNode;
@@ -8,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function(){
             }
             for(let data  of userData.children){
                 data.style.padding = '0'
-                console.log(data.textContent)
                 if(data.textContent == 'No' || data.textContent == 'Yes'){
                     let yesORno = data.textContent;
                     data.textContent = '';
@@ -22,21 +22,25 @@ document.addEventListener('DOMContentLoaded', function(){
                         input.style.marginLeft = '5px';
                         input.checked = yesORno == value;
                         input.style.transform = 'scale(1.3)';
-                        input.id = !document.getElementById(value) ? value : value + 1;
-                        console.log(!document.getElementById(value),input.id)
-                        input.id = value;
+                        input.id = value + countForId;
                         input.addEventListener('change', function(){
-                            let secondInput = this.id == 'Yes' ? document.getElementById('No') : document.getElementById('Yes');
+                            let secondInput = this.id.slice(0, 3) == 'Yes' ? document.getElementById('No' + this.id.slice(3)) : document.getElementById('Yes' + this.id.slice(2));
                             secondInput.checked = false;
-                        })
+                            console.log(secondInput)
+                        });
 
                         let label = document.createElement('label');
                         label.textContent = value;
-                        if (value == 'No') label.style.marginLeft = '10px';
-                        label.setAttribute('for', value);
+                        if (value == 'No'){
+                            label.style.marginLeft = '10px';
+                            countForId += 1;
+                        }
+;
+                        label.setAttribute('for', input.id);
 
                         data.appendChild(label);
                         data.appendChild(input);
+
                     });
                 }else if(data.children[0] == undefined){
                     let input = document.createElement('input');
