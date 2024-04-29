@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="{{url_for('static',filename='css/footer.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/allgoods.css')}}">
     {% endblock %}
+    {% block jsHead %}
     <script src="{{url_for('static',filename='js/jquery.js')}}"></script>
+    {% endblock %}
     <title>{% block title%}Магазин электроники{% endblock %}</title>
 </head>
 <body>

@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{{url_for('admin.static', filename='css/admin-nav.css')}}">
 <link rel="stylesheet" href="{{url_for('admin.static', filename='css/data-tabel.css')}}">
 {% endblock %}
+{% block jsHead %}
+    {{ super() }}
+    <script src="{{url_for('admin.static',filename='js/deleteUsers.js')}}" type="module" defer></script>
+{% endblock %}
 {% block main %}
 <section id="admin-panel">
     <h1 id="hi-admin">Че ты такой серьезный ?</h1>
@@ -23,7 +27,7 @@
 </section>
 {% endblock %}
 {% block js %}
-    <script src="{{url_for('admin.static',filename='js/changeDelete.js')}}"></script>
-    <script src="{{url_for('admin.static',filename='js/pagination.js')}}"></script>
-    <script src="{{url_for('admin.static',filename='js/users.js')}}"></script>
+    <script src="{{url_for('admin.static',filename='js/changeDelete.js')}}"  type="module"></script>
+    <script src="{{url_for('admin.static',filename='js/pagination.js')}}" type="module"></script>
+    <script src="{{url_for('admin.static',filename='js/users.js')}}" type="module"></script>
 {% endblock %}

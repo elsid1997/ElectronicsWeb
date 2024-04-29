@@ -1,177 +1,176 @@
-document.addEventListener('DOMContentLoaded',function(){
-    console.log('pagination.js is working')
+import {changeDataUser} from './changeDelete.js';
 
-    function changePage(pageNumber) {
-        console.log('changePage is working')
+console.log('pagination.js is working')
 
-        let tableBody = document.querySelector('tbody');
-        tableBody.innerHTML = '';
+function changePage(pageNumber) {
+    console.log('changePage is working')
 
-        let users = JSON.parse(localStorage.getItem('userData'));
-        let backPage = document.querySelector('.back-page');
-        let nextPage = document.querySelector('.next-page');
+    let tableBody = document.querySelector('tbody');
+    tableBody.innerHTML = '';
 
-        let currentPage = pageNumber;
-        let prevPage = currentPage - 1;
-        let nextPageNum = currentPage + 1;
-        let startIndex = (currentPage - 1) * 10;
-        let endIndex = currentPage * 10;
-        createRows(tableBody, users.slice(startIndex, endIndex));
+    let users = JSON.parse(localStorage.getItem('userData'));
+    let backPage = document.querySelector('.back-page');
+    let nextPage = document.querySelector('.next-page');
+
+    let currentPage = pageNumber;
+    let prevPage = currentPage - 1;
+    let nextPageNum = currentPage + 1;
+    let startIndex = (currentPage - 1) * 10;
+    let endIndex = currentPage * 10;
+    createRows(tableBody, users.slice(startIndex, endIndex));
+}
+
+function createRows(tableBody, res){
+    if(!res || !Array.isArray(res)){
+        console.error('Invalid input data');
+        return;
     }
 
-    function createRows(tableBody, res){
-        if(!res || !Array.isArray(res)){
-            console.error('Invalid input data');
-            return;
+    const fragment = document.createDocumentFragment();
+
+    for(const user of res){
+        const newRow = document.createElement('tr');
+
+        const cellsData = ['name', 'surname','email', 'admin'];
+
+        for(const data of cellsData){
+            const cell = document.createElement('td');
+            cell.textContent = user[data] == false ? 'No' : user[data] == true ? 'Yes' : user[data];
+            newRow.appendChild(cell);
         }
 
-        const fragment = document.createDocumentFragment();
+        const changeCell = document.createElement('td');
+        changeCell.classList.add('changeUser');
+        const imgChange = document.createElement('img');
+        imgChange.src = 'static/img/icons/change.png';
+        imgChange.alt = 'change';
+        imgChange.classList.add('change');
+        changeCell.appendChild(imgChange);
+        newRow.appendChild(changeCell);
+        changeCell.addEventListener('click',changeDataUser)
 
-        for(const user of res){
-            const newRow = document.createElement('tr');
+        const deleteCell = document.createElement('td');
+        deleteCell.classList.add('deleteUser');
+        const imgDelete = document.createElement('img');
+        imgDelete.src = 'static/img/icons/delete.png';
+        imgDelete.alt = 'delete';
+        imgDelete.classList.add('delete');
+        deleteCell.appendChild(imgDelete);
+        newRow.appendChild(deleteCell);
 
-            const cellsData = ['name', 'surname','email', 'admin'];
-
-            for(const data of cellsData){
-                const cell = document.createElement('td');
-                cell.textContent = user[data] == false ? 'No' : user[data] == true ? 'Yes' : user[data];
-                newRow.appendChild(cell);
-            }
-
-            const changeCell = document.createElement('td');
-            changeCell.classList.add('changeUser');
-            const imgChange = document.createElement('img');
-            imgChange.src = 'static/img/icons/change.png';
-            imgChange.alt = 'change';
-            imgChange.classList.add('change');
-            changeCell.appendChild(imgChange);
-            newRow.appendChild(changeCell);
-            changeCell.addEventListener('click',changeDataUser)
-
-            const deleteCell = document.createElement('td');
-            deleteCell.classList.add('deleteUser');
-            const imgDelete = document.createElement('img');
-            imgDelete.src = 'static/img/icons/delete.png';
-            imgDelete.alt = 'delete';
-            imgDelete.classList.add('delete');
-            deleteCell.appendChild(imgDelete);
-            newRow.appendChild(deleteCell);
-
-            fragment.appendChild(newRow);
-        }
-
-        tableBody.appendChild(fragment)
+        fragment.appendChild(newRow);
     }
 
-    function createPagination(totalRecords){
-        console.log('create pagination is working');
+    tableBody.appendChild(fragment)
+}
 
-        const totalPages = Math.ceil(totalRecords / 10);
-        const pagination = document.getElementById('pagination');
+function createPagination(totalRecords){
+    console.log('create pagination is working');
+
+    const totalPages = Math.ceil(totalRecords / 10);
+    const pagination = document.getElementById('pagination');
 
 
 
-        if(!pagination){
-            console.error('pagination element not found')
-            return;
-        }
-        pagination.innerHTML= '';
+    if(!pagination){
+        console.error('pagination element not found')
+        return;
+    }
+    pagination.innerHTML= '';
 
-        const handlePageClick = function(){
-        const page = parseInt(this.textContent);
-            if(!isNaN(page)){
-                changePage(page);
-            };
-         };
+    const handlePageClick = function(){
+    const page = parseInt(this.textContent);
+        if(!isNaN(page)){
+            changePage(page);
+        };
+     };
 
-        const prevButton = document.createElement('a');
-        prevButton.href = '#';
-        prevButton.textContent = '<';
-        prevButton.classList.add('back-page');
-        prevButton.addEventListener('click', function(event){
-            event.preventDefault()
-            const currentPage = document.querySelector('.active-page');
-            if(currentPage != null){
-                const pageNumber = +currentPage.textContent
-                if(pageNumber != 1){
-                    currentPage.classList.remove('active-page')
-                    currentPage.previousSibling.classList.add('active-page')
-                    changePage(pageNumber - 1);
-                }
-            }else{
-                prevButton.nextElementSibling.classList.add('active-page')
-                return;
+    const prevButton = document.createElement('a');
+    prevButton.href = '#';
+    prevButton.textContent = '<';
+    prevButton.classList.add('back-page');
+    prevButton.addEventListener('click', function(event){
+        event.preventDefault()
+        const currentPage = document.querySelector('.active-page');
+        if(currentPage != null){
+            const pageNumber = +currentPage.textContent
+            if(pageNumber != 1){
+                currentPage.classList.remove('active-page')
+                currentPage.previousSibling.classList.add('active-page')
+                changePage(pageNumber - 1);
             }
-        })
-
-        pagination.appendChild(prevButton);
-
-        for(let i = 1; i < totalPages + 1; i++){
-        const pageButton = document.createElement('a')
-        pageButton.href = '#';
-        pageButton.textContent = i;
-        pageButton.addEventListener('click', function(){
-            changePage(parseInt(this.textContent));
-        });
-
-        pagination.appendChild(pageButton);
-        }
-
-        const nextButton = document.createElement('a');
-        nextButton.src = '#';
-        nextButton.textContent = '>';
-        nextButton.classList.add('next-page');
-        nextButton.addEventListener('click', function(event){
-            event.preventDefault()
-            const currentPage = document.querySelector('.active-page');
-
-            if(currentPage !== null){
-
-                const pageNumber = +currentPage.textContent
-
-                if(pageNumber < totalPages){
-                    currentPage.classList.remove('active-page')
-                    currentPage.nextElementSibling.classList.add('active-page')
-                    changePage(pageNumber + 1)
-                }
-            }else{
-                  const nextPageElement = document.querySelector('#pagination a:nth-child(3)');
-                  nextPageElement.classList.add('active-page')
-                  changePage(+nextPageElement.textContent)
-            }
-
-        });
-
-        pagination.appendChild(nextButton);
-    };
-
-    function createTableData(){
-        console.log('createTableData is working');
-
-        let userDataString = localStorage.getItem('userData');
-        if(!userDataString){
-            console.error('User data not found in localStorage');
+        }else{
+            prevButton.nextElementSibling.classList.add('active-page')
             return;
         }
+    })
 
-        let res;
+    pagination.appendChild(prevButton);
 
-        try{
-            res = JSON.parse(userDataString);
-        }catch (error){
-            console.error('Error parsing user data: ',error);
-            return;
-        }
+    for(let i = 1; i < totalPages + 1; i++){
+    const pageButton = document.createElement('a')
+    pageButton.href = '#';
+    pageButton.textContent = i;
+    pageButton.addEventListener('click', function(){
+        changePage(parseInt(this.textContent));
+    });
 
-        let tableBody = document.querySelector('tbody');
-        if(!tableBody.innerHTML.trim()){
-            createRows(tableBody, res.slice(0,10));
-        }
-
-        let totalRecords = res.length;
-        createPagination(totalRecords);
+    pagination.appendChild(pageButton);
     }
 
-    window.createTableData = createTableData;
-})
+    const nextButton = document.createElement('a');
+    nextButton.src = '#';
+    nextButton.textContent = '>';
+    nextButton.classList.add('next-page');
+    nextButton.addEventListener('click', function(event){
+        event.preventDefault()
+        const currentPage = document.querySelector('.active-page');
+
+        if(currentPage !== null){
+
+            const pageNumber = +currentPage.textContent
+
+            if(pageNumber < totalPages){
+                currentPage.classList.remove('active-page')
+                currentPage.nextElementSibling.classList.add('active-page')
+                changePage(pageNumber + 1)
+            }
+        }else{
+              const nextPageElement = document.querySelector('#pagination a:nth-child(3)');
+              nextPageElement.classList.add('active-page')
+              changePage(+nextPageElement.textContent)
+        }
+
+    });
+
+    pagination.appendChild(nextButton);
+};
+
+export function createTableData(){
+    console.log('createTableData is working');
+
+    let userDataString = localStorage.getItem('userData');
+    if(!userDataString){
+        console.error('User data not found in localStorage');
+        return;
+    }
+
+    let res;
+
+    try{
+        res = JSON.parse(userDataString);
+    }catch (error){
+        console.error('Error parsing user data: ',error);
+        return;
+    }
+
+    let tableBody = document.querySelector('tbody');
+    if(!tableBody.innerHTML.trim()){
+        createRows(tableBody, res.slice(0,10));
+    }
+
+    let totalRecords = res.length;
+    createPagination(totalRecords);
+}
+
 

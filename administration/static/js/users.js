@@ -1,3 +1,5 @@
+import {createTableData} from './pagination.js';
+
 console.log('users js is working');
 
 document.addEventListener('DOMContentLoaded', function(){
