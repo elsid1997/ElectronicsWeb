@@ -2,11 +2,7 @@ console.log('deleteUsers.js is working')
 export function sendChangedDataUser(){
     const row = this.closest('tr');
     const inputs = row.querySelectorAll('input[type="text"],input[type="radio"]');
-    console.log(inputs.length)
-    const formData ={}
-    if (inputs.length == 5){
 
-    }
     const formData = {
         name : inputs[0].value,
         surname : inputs[1].value,
@@ -14,16 +10,22 @@ export function sendChangedDataUser(){
         administrator: inputs[3].checked ,
     };
     console.log(formData)
-    inputs.forEach(input => {
-        let value;
 
-        if(input.type === 'radio'){
-            if(input.checked){
-                value = input.value
-            }
-        }else {
-            value = input.value;
-            console.log(value)
-        }
+    const url = window.location.href + 'change'
+
+    console.log(url)
+
+    const requestOptions = {
+        method : 'PUT',
+        headers : {
+            'Content-Type':'application/json'
+        },
+        body : JSON.stringify(formData)
+    }
+
+    fetch(url, requestOptions).then(response => {
+        return response.json()
+    }).then(data => {
+        console.log(data)
     })
 }
