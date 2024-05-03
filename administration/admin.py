@@ -37,26 +37,28 @@ def get_users():
 @admin_bt.route('/change', methods=['PUT'])
 @login_required
 def change():
-    if request.method == 'PUT':
-        json_data = request.get_json()
+    json_data = request.get_json()
+    print(json_data)
+    if len(json_data) > 0:
+
         form_change = FormUser(name=json_data.get('name'),
                                surname=json_data['surname'],
                                email=json_data['email']
                                )
-        response_data = []
-        if form_change.name.validate(form_change):
-            name = form_change.name.data
-            response_data.append(name)
+        response_data = {}
+        error_data = {}
 
-        if form_change.surname.validate(form_change):
-            surname = form_change.surname.data
-            response_data.append(surname)
+        for key in json_data:
+            if key != 'administrator':
+                if form_change[key].validate(form_change):
+                    value = form_change[key].data
+                    response_data[key] = value
+                else:
+                    error_data[key] = form_change[key].errors
 
-        if form_change.email.validate(form_change):
-            email = form_change.email.data
-            response_data.append(email)
-
-        name_errors = form_change.name.errors
-        surname_errors = form_change.surname.errors
-        email_errors = form_change.email.errors
-        return jsonify({'errors': [name_errors, surname_errors, email_errors]})
+        if len(error_data) > 0:
+            return jsonify(error_data)
+        else:
+            return response_data
+    else:
+        return jsonify({'error': 'Данные отсутствуют'})
