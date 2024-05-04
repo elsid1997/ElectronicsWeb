@@ -38,8 +38,7 @@ def get_users():
 @login_required
 def change():
     json_data = request.get_json()
-    print(json_data)
-    if len(json_data) > 0:
+    if json_data:
 
         form_change = FormUser(name=json_data.get('name'),
                                surname=json_data['surname'],
@@ -56,9 +55,9 @@ def change():
                 else:
                     error_data[key] = form_change[key].errors
 
-        if len(error_data) > 0:
-            return jsonify(error_data)
+        if error_data:
+            return jsonify(error_data), 400
         else:
-            return response_data
+            return response_data, 200
     else:
-        return jsonify({'error': 'Данные отсутствуют'})
+        return jsonify({'error': 'Данные отсутствуют'}), 400
