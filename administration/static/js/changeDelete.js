@@ -1,4 +1,4 @@
-import {sendChangedDataUser} from './deleteUsers.js';
+import {sendChangedDataUser} from './updateUsers.js';
 
 console.log('changeDelete is working')
 let countForId = 1;

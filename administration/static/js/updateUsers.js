@@ -1,4 +1,4 @@
-console.log('deleteUsers.js is working')
+console.log('updateUsers.js is working')
 
 
 export function sendChangedDataUser(){
@@ -59,11 +59,18 @@ export function sendChangedDataUser(){
                 margin-bottom: 10px;
             `);
 
-            const errorMessage = document.createElement('p');
-            errorMessage.innerText = error;
-
+            const messageError = JSON.parse(error.message)
             alert.appendChild(h3)
-            alert.appendChild(errorMessage);
+
+            for(let key in messageError){
+                const errorMessage = document.createElement('p');
+                errorMessage.innerText = messageError[key][0];
+                errorMessage.setAttribute('style', `
+                    text-align: center;
+                    font-size: 18px;
+                `)
+                alert.appendChild(errorMessage);
+            }
 
             document.body.appendChild(alert)
         }
