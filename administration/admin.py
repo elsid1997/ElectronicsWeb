@@ -47,6 +47,12 @@ def change():
         response_data = {}
         error_data = {}
 
+        user = Users.query.filter_by(email=json_data['email']).first()
+
+        if not user:
+            error_data['error'] = ['Пользователь не найден']
+            return jsonify(error_data), 404
+
         for key in json_data:
             if key != 'administrator':
                 if form_change[key].validate(form_change):
