@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, abort, request
+from flask import Blueprint, render_template, jsonify, abort, request, g
 from models.db_models import Users
 from flask_login import login_required, current_user
 from forms import FormUser
@@ -47,14 +47,8 @@ def change():
         response_data = {}
         error_data = {}
 
-        user = Users.query.filter_by(email=json_data['email']).first()
-
-        if not user:
-            error_data['error'] = ['Пользователь не найден']
-            return jsonify(error_data), 404
-
         for key in json_data:
-            if key != 'administrator':
+            if key != 'admin':
                 if form_change[key].validate(form_change):
                     value = form_change[key].data
                     response_data[key] = value
@@ -64,6 +58,22 @@ def change():
         if error_data:
             return jsonify(error_data), 400
         else:
+            user = Users.query.filter_by(email=json_data['email']).first()
+            if not user:
+                error_data['error'] = ['Пользователь не найден']
+                return jsonify(error_data), 404
+            else:
+                user.name = form_change.name.data
+                user.surname = form_change.surname.data
+                user.email = form_change.email.data
+                user.admin = json_data.get('administrator')
+                response_data['admin'] = json_data['admin']
+            try:
+                g.db.session.commit()
+            except Exception as e:
+                g.db.session.rollback()
+                return jsonify({'error': str(e)}), 500
+
             return response_data, 200
     else:
         return jsonify({'error': 'Данные отсутствуют'}), 400

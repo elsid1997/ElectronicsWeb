@@ -1,5 +1,6 @@
-console.log('updateUsers.js is working')
+import {changeDataUser,oldRow} from './change.js'
 
+console.log('updateUsers.js is working')
 
 export async function sendChangedDataUser(){
     try{
@@ -10,7 +11,7 @@ export async function sendChangedDataUser(){
             name : inputs[0].value,
             surname : inputs[1].value,
             email: inputs[2].value,
-            administrator: inputs[3].checked ,
+            admin: inputs[3].checked ,
         };
 
         const url = window.location.href + 'change'
@@ -26,11 +27,14 @@ export async function sendChangedDataUser(){
         const response = await fetch(url, requestOptions);
 
         if (!response.ok) {
+            console.log('response is working')
             const error = await response.json()
             throw new Error(JSON.stringify(error));
+        }else{
+            const data = await response.json()
+            oldRow(data,row.id,null,null,null)
         }
 
-        const data = await response.json()
    }catch (error){  handleFetchError(error) };
 }
 

@@ -1,4 +1,4 @@
-import {changeDataUser} from './changeDelete.js';
+import {changeDataUser} from './change.js';
 
 console.log('pagination.js is working')
 
@@ -17,10 +17,10 @@ function changePage(pageNumber) {
     let nextPageNum = currentPage + 1;
     let startIndex = (currentPage - 1) * 10;
     let endIndex = currentPage * 10;
-    createRows(tableBody, users.slice(startIndex, endIndex));
+    createRows(tableBody, users.slice(startIndex, endIndex),currentPage);
 }
 
-function createRows(tableBody, res){
+function createRows(tableBody, res, currentPage=1){
     if(!res || !Array.isArray(res)){
         console.error('Invalid input data');
         return;
@@ -28,16 +28,28 @@ function createRows(tableBody, res){
 
     const fragment = document.createDocumentFragment();
 
+    let id;
+
+    if(currentPage == 1){
+        id = 0;
+    }else{
+        id = (currentPage - 1) * 10
+    }
+
     for(const user of res){
         const newRow = document.createElement('tr');
+        newRow.id = id
 
         const cellsData = ['name', 'surname','email', 'admin'];
 
         for(const data of cellsData){
             const cell = document.createElement('td');
+            cell.id = data+id
             cell.textContent = user[data] == false ? 'No' : user[data] == true ? 'Yes' : user[data];
             newRow.appendChild(cell);
         }
+
+        id++
 
         const changeCell = document.createElement('td');
         changeCell.classList.add('changeUser');

@@ -8,26 +8,26 @@ from datetime import date
 
 
 class FormUser(FlaskForm):
-    name = StringField('Имя ', validators=[DataRequired(),
+    name = StringField('Имя ', validators=[DataRequired(message='Имя обязательно для заполнения'),
                                            Length(min=3, max=100,
                                                   message='Имя должно быть не меньше трех символов'),
                                            Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
                                                   message='Имя должно содержать только буквы')
                                            ])
-    surname = StringField('Фамилия', validators=[DataRequired(),
+    surname = StringField('Фамилия', validators=[DataRequired(message='Фамилие обязательно для заполнения'),
                                                  Length(min=3, max=100,
                                                         message='Фамилие должно быть не меньше трех символов'),
                                                  Regexp('^[а-яА-ЯёЁa-zA-Z]+$',
                                                         message='Фамилия должно содержать только буквы')
                                                  ])
-    age = IntegerField('Возраст', validators=[DataRequired(), NumberRange(min=18, max=100)])
+    age = IntegerField('Возраст', validators=[DataRequired(message='Это поле обязательно для заполнения'), NumberRange(min=18, max=100)])
 
-    email = StringField('Email', validators=[DataRequired(), Email(message='Некорректно введен email')])
+    email = StringField('Email', validators=[DataRequired(message='Email обязательное поле для заполнения'), Email(message='Некорректно введен email')])
 
     gender = RadioField('Пол', choices=[('Мужской', 'Мужской'), ('Женский', 'Женский'), ('Не выбран', 'default')],
                         default='Не выбран')
 
-    psw1 = PasswordField('Пароль', render_kw={'autocomplete': 'current_password'}, validators=[DataRequired(),
+    psw1 = PasswordField('Пароль', render_kw={'autocomplete': 'current_password'}, validators=[DataRequired(message='Это поле обязательно для заполнения'),
                                                                                                Length(min=8,
                                                                                                       message='Пароль '
                                                                                                               'должен '
@@ -52,7 +52,7 @@ class FormUser(FlaskForm):
                                                                                                            'цифры и '
                                                                                                            'символы')])
     psw2 = PasswordField('Повторите пароль', render_kw={'autocomplete': 'current_password'},
-                         validators=[DataRequired(), EqualTo('psw1', message='Пароли не совпадают')])
+                         validators=[DataRequired(message='Это поле обязательно для заполнения'), EqualTo('psw1', message='Пароли не совпадают')])
 
     remember = BooleanField('Запомнить', default=False)
 
@@ -99,7 +99,7 @@ class FormProducts(FlaskForm):
                                           Length(min=1,
                                                  max=5,
                                                  message='Выберите от 1 до 5 файлов для загрузки.')])
-    model = StringField('Модель', validators=[DataRequired(), Length(min=1, max=100)])
+    model = StringField('Модель', validators=[DataRequired(message='Это поле обязательно для заполнения'), Length(min=1, max=100)])
     year = DateField('Год выпуска', format='%Y-%m-%d', validators=[DataRequired(message='Введите правильную дату'),
                                                                    YearRenge(1950, date.today().year)])
     price = FloatField('Цена в долларах',
