@@ -32,7 +32,7 @@ export async function sendChangedDataUser(){
             throw new Error(JSON.stringify(error));
         }else{
             const data = await response.json()
-            oldRow(data,row.id,null,null,null)
+            oldRow(data,row.id)
         }
 
    }catch (error){  handleFetchError(error) };

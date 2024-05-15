@@ -4,59 +4,47 @@ console.log('changeDelete is working')
 let countForId = 1;
 function cloneTableRow (){
 
-    return  function(data=null,id=null,userData=null){
+    return  function(data=null,id=null,){
+
+        id = Number(id)
+
+        let userData = document.getElementById(id)
+
         let users = JSON.parse(localStorage.getItem('userData'))
 
         let oldUserData = changeDataUser.initialUserData.children
 
-        if (!data){
-            let user = users[Number(userData.id)]
-            userData.innerHTML = '';
-            Object.keys(oldUserData).forEach(key => {
-                console.log(oldUserData[key])
-                let item = oldUserData[key].cloneNode(true)
-                let letters = ''
-                for (let char of item.id){
-                    if(/[a-zA-Z]/.test(char)){
-                        letters +=char
-                    }
-                }
-                if(letters in user && letters != 'admin'){
-                    item.textContent = user[letters]
-                }
-                if(letters == 'admin'){
-                    item.textContent = user['admin'] == true ? 'Yes' : 'No';
-                }
-                if (item.className == 'changeUser'){
-                item.addEventListener('click', changeDataUser)
-                }
-                userData.appendChild(item)
-            })
-          }else{
-            userData = document.getElementById(Number(id))
-            userData.innerHTML = ''
-            users[Number(id)] = data
-            Object.keys(oldUserData).forEach(key => {
-                let item = oldUserData[key].cloneNode(true)
-                let letters = ''
-                for (let char of item.id){
-                    if(/[a-zA-Z]/.test(char)){
-                        letters +=char
-                    }
-                }
-                if(letters in data && letters != 'admin'){
-                    item.textContent = data[letters]
-                }
-                if(letters == 'admin'){
-                    item.textContent = data['admin'] == true ? 'Yes' : 'No';
-                }
-                if (item.className == 'changeUser'){
-                item.addEventListener('click', changeDataUser)
-                }
-                userData.appendChild(item)
-                localStorage.setItem('userData', JSON.stringify(users))
-            })
+        userData.innerHTML = '';
+
+        let user;
+        if(data){
+            user = data;
+            users[id] = user
+            localStorage.setItem('userData', JSON.stringify(users))
+        }else{
+            user = users[id];
         }
+
+        Object.keys(oldUserData).forEach(key => {
+            let item = oldUserData[key].cloneNode(true)
+            let letters = ''
+            for (let char of item.id){
+                if(/[a-zA-Z]/.test(char)){
+                    letters +=char
+                }
+            }
+            if(letters in user && letters != 'admin'){
+                item.textContent = user[letters]
+            }
+            if(letters == 'admin'){
+                item.textContent = user['admin'] == true ? 'Yes' : 'No';
+            }
+            if (item.className == 'changeUser'){
+            item.addEventListener('click', changeDataUser)
+            }
+            userData.appendChild(item)
+        })
+
     }
 }
 
@@ -150,7 +138,7 @@ export function changeDataUser(){
                     btn.appendChild(beforeLine);
                     btn.appendChild(afterLine);
                     btn.addEventListener('click', function () {
-                        oldRow(null, null, userData, changeDataUser.initialUserData)
+                        oldRow(null, userData.id)
                     });
                 }
                 data.style.position = 'relative';
