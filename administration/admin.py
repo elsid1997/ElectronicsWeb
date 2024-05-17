@@ -33,6 +33,26 @@ def get_users():
     except Exception as e:
         abort(500, descripton=str(e))
 
+@admin_bt.route('delete', methods=['DELETE'])
+@login_required
+def delete():
+    email = request.get_json()
+
+    if not email:
+        return jsonify({'error': 'Email not provided in request body'}), 400
+
+    user = Users.query.filter_by(email=email).first()
+
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    try:
+        g.db.session.delete(user)
+        g.db.session.commit()
+        return jsonify({'message': 'User deleted successfully'}), 200
+    except Exception as e:
+        g.db.session.rollback()
+        return jsonify({'error': 'Failed to delete user', 'details': str(e)}), 500
 
 @admin_bt.route('/change', methods=['PUT'])
 @login_required

@@ -14,7 +14,14 @@ export async function sendChangedDataUser(){
             admin: inputs[3].checked ,
         };
 
-        const url = window.location.href + 'change'
+        let url = window.location.href
+        if (url.indexOf('#') != -1){
+            url = url.split('#')[0] + 'change'
+        }else{
+            console.log(url.indexOf('#'))
+            url += 'change'
+        }
+        console.log(url)
 
         const requestOptions = {
             method : 'PUT',

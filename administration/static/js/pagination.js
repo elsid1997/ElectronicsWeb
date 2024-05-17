@@ -1,4 +1,5 @@
 import {changeDataUser} from './change.js';
+import {deleteUser} from './delete.js';
 
 console.log('pagination.js is working')
 
@@ -69,6 +70,7 @@ function createRows(tableBody, res, currentPage=1){
         imgDelete.classList.add('delete');
         deleteCell.appendChild(imgDelete);
         newRow.appendChild(deleteCell);
+        deleteCell.addEventListener('click', deleteUser);
 
         fragment.appendChild(newRow);
     }
