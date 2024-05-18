@@ -39,20 +39,20 @@ def delete():
     email = request.get_json()
 
     if not email:
-        return jsonify({'error': 'Email not provided in request body'}), 400
+        return jsonify({'error': 'Ошибка связанная с электронной почтой'}), 400
 
     user = Users.query.filter_by(email=email).first()
-
+    user = None
     if not user:
-        return jsonify({'error': 'User not found'}), 404
+        return jsonify({'error': 'Такого пользователя не существует'}), 404
 
     try:
-        g.db.session.delete(user)
-        g.db.session.commit()
-        return jsonify({'message': 'User deleted successfully'}), 200
+        # g.db.session.delete(user)
+        # g.db.session.commit()
+        return jsonify({'message': 'Пользователь удален'}), 200
     except Exception as e:
         g.db.session.rollback()
-        return jsonify({'error': 'Failed to delete user', 'details': str(e)}), 500
+        return jsonify({'error': 'Ошибка при удалении пользователя', 'details': str(e)}), 500
 
 @admin_bt.route('/change', methods=['PUT'])
 @login_required

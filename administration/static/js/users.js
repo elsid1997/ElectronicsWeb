@@ -36,4 +36,4 @@ function checkUserData() {
         getUser()
     }
 }
-checkUserData()
+getUser()

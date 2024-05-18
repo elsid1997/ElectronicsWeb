@@ -1,3 +1,47 @@
+function displayMessage(){
+    let div = document.createElement('div');
+    div.style.borderRadius = '5px';
+    div.style.position = 'absolute';
+    div.style.top = '50%';
+    div.style.left = '50%';
+    div.style.transform = 'translate(-50%, -50%)';
+    return div
+}
+
+function errorResponse(error){
+
+    let p = document.createElement('p');
+    p.innerText = error;
+    p.style.fontSize = '20px';
+    p.style.fontWeight = 'bold';
+    p.style.margin = '10px';
+    let div = displayMessage();
+    div.style.backgroundColor = '#fff';
+    div.style.border = '5px double red';
+    div.appendChild(p);
+
+    let main = document.querySelector('main');
+    main.appendChild(div)
+
+}
+
+function deletedSuccessFully(successFully){
+    let p = document.createElement('p');
+    p.innerText = successFully;
+    p.style.fontSize = '20px';
+    p.style.fontWeight = 'bold';
+    p.style.margin = '10px';
+    p.style.color = '#fff';
+    let div = displayMessage();
+    div.style.border = '5px solid rgb(14,89,187)';
+    div.style.backgroundColor = 'green';
+    div.appendChild(p);
+
+    let main = document.querySelector('main');
+    main.appendChild(div)
+
+}
+
 async function deleteUserQuery(email){
     console.log('deleteUserQuery is working');
     console.log(email)
@@ -20,13 +64,17 @@ async function deleteUserQuery(email){
         const response = await fetch(url, requestOptions);
         const answerServer = await response.json()
         if(!response.ok){
-            throw new Error(`Ошибка при выполнении запроса: ${response.status} ${response.statusText} ${answerServer.error}`)
+            if(response.status == 400){
+                throw new Error(answerServer.error)
+            }else if(response.status == 404){
+                throw new Error(answerServer.error)
+            }
         }
         else{
-            console.log(answerServer.message)
+            deletedSuccessFully(answerServer.message)
         }
     }catch(error){
-        console.log(error.message)
+        errorResponse(error.message)
     }
 }
 
