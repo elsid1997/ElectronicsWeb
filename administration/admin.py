@@ -42,7 +42,6 @@ def delete():
         return jsonify({'error': 'Ошибка связанная с электронной почтой'}), 400
 
     user = Users.query.filter_by(email=email).first()
-    user = None
     if not user:
         return jsonify({'error': 'Такого пользователя не существует'}), 404
 

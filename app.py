@@ -4,8 +4,6 @@ from users_bt.users import reg_bp
 from administration.admin import admin_bt
 from models.db_models import db, migrate, Users
 from flask_login import LoginManager
-# import mimetypes
-# mimetypes.add_type('application/javascript', '.js')
 
 app = Flask(__name__)
 app.config.from_object(Config)
