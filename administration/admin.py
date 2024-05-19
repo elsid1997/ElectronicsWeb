@@ -46,8 +46,8 @@ def delete():
         return jsonify({'error': 'Такого пользователя не существует'}), 404
 
     try:
-        # g.db.session.delete(user)
-        # g.db.session.commit()
+        g.db.session.delete(user)
+        g.db.session.commit()
         return jsonify({'message': 'Пользователь удален'}), 200
     except Exception as e:
         g.db.session.rollback()
@@ -85,11 +85,13 @@ def change():
                 user.name = form_change.name.data
                 user.surname = form_change.surname.data
                 user.email = form_change.email.data
+                print(user.email)
                 user.admin = json_data.get('administrator')
                 response_data['admin'] = json_data['admin']
             try:
                 g.db.session.commit()
             except Exception as e:
+                print(str(e))
                 g.db.session.rollback()
                 return jsonify({'error': str(e)}), 500
 

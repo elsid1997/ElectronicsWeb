@@ -179,9 +179,8 @@ export function createTableData(){
     }
 
     let tableBody = document.querySelector('tbody');
-    if(!tableBody.innerHTML.trim()){
-        createRows(tableBody, res.slice(0,10));
-    }
+    tableBody.innerHTML = '';
+    createRows(tableBody, res.slice(0,10));
 
     let totalRecords = res.length;
     createPagination(totalRecords);

@@ -1,4 +1,14 @@
+import {createTableData} from './pagination.js'
 
+function deleteDataUser(email){
+    let users = JSON.parse(localStorage.getItem('userData'));
+    let index = users.findIndex(user => user.email ==  email);
+    users.splice(index,1);
+    console.log(users);
+    localStorage.setItem('userData',JSON.stringify(users));
+    let tr = document.getElementById(index);
+    createTableData();
+}
 
 function displayMessage(){
     let div = document.createElement('div');
@@ -118,6 +128,7 @@ async function deleteUserQuery(email){
         }
         else{
             deletedSuccessFully(answerServer.message)
+            deleteDataUser(email)
         }
     }catch(error){
         errorResponse(error.message)
