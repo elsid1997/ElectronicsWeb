@@ -46,7 +46,18 @@ function createRows(tableBody, res, currentPage=1){
         for(const data of cellsData){
             const cell = document.createElement('td');
             cell.id = data+id
-            cell.textContent = user[data] == false ? 'No' : user[data] == true ? 'Yes' : user[data];
+            if(data == 'admin'){
+
+                if(user[data] == null){
+
+                    user[data] = false
+                    console.log(user[data])
+
+                }
+                cell.textContent = user[data] == false ? 'No' : 'Yes';
+            }else{
+                cell.textContent = user[data];
+            }
             newRow.appendChild(cell);
         }
 

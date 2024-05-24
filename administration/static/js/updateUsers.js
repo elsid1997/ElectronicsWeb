@@ -10,6 +10,7 @@ export async function sendChangedDataUser(){
         const formData = {
             name : inputs[0].value,
             surname : inputs[1].value,
+            oldEmail : JSON.parse(localStorage.getItem('userData'))[row.id].email,
             email: inputs[2].value,
             admin: inputs[3].checked ,
         };

@@ -1,4 +1,5 @@
 import {sendChangedDataUser} from './updateUsers.js';
+import {deleteUser} from './delete.js';
 
 console.log('changeDelete is working')
 let countForId = 1;
@@ -137,6 +138,7 @@ export function changeDataUser(){
                     btn.className = 'cancel-change';
                     btn.appendChild(beforeLine);
                     btn.appendChild(afterLine);
+                    data.removeEventListener('click', deleteUser)
                     btn.addEventListener('click', function () {
                         oldRow(null, userData.id)
                     });
