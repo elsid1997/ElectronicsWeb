@@ -8,7 +8,6 @@ export function getUser() {
     fetch(currentUrl + '/administration/get_users').then(res => {
         return res.json()
     }).then(res => {
-        console.log(res)
 
         if (!res) {
             console.log('No result');
@@ -26,8 +25,8 @@ export function getUser() {
                 console.error('there was a problem with the fetch operation: ', error);
             })
 }
-
-function checkUserData() {
+const users = document.getElementById('users')
+users.addEventListener('click',function() {
     console.log('checkUserData is working');
     const userData = localStorage.getItem('userData');
     if (userData) {
@@ -35,5 +34,6 @@ function checkUserData() {
     }else{
         getUser()
     }
-}
+})
+
 getUser()

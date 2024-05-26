@@ -95,7 +95,9 @@ function createPagination(totalRecords){
     const totalPages = Math.ceil(totalRecords / 10);
     const pagination = document.getElementById('pagination');
 
-
+    if(totalPages == 1){
+        return null
+    }
 
     if(!pagination){
         console.error('pagination element not found')

@@ -22,7 +22,6 @@ export async function sendChangedDataUser(){
             console.log(url.indexOf('#'))
             url += 'change'
         }
-        console.log(url)
 
         const requestOptions = {
             method : 'PUT',

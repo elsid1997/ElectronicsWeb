@@ -26,6 +26,9 @@ tr td:last-child{
 #admin {
     border-right: 1px solid black;
 }
+.table-head tr td{
+
+}
 #table-data td {
     box-sizing: border-box;
     padding-left: 5px;
@@ -37,7 +40,9 @@ tr td:last-child{
     white-space: nowrap;
     box-sizing: border-box;
 }
-
+.changeUser, .deleteUser{
+    width: 40px;
+}
 .change,.delete {
     width: 20px;
     height: 20px;

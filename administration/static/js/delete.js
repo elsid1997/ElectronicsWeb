@@ -60,7 +60,6 @@ function close(){
 }
 
 function errorResponse(error){
-
     let p = document.createElement('p');
     p.innerText = error;
     p.style.fontSize = '20px';
@@ -69,7 +68,12 @@ function errorResponse(error){
 
     let btn = close()
 
-    let div = displayMessage();
+    let div = document.querySelector('#display-message')
+    if( div == null){
+        div = displayMessage();
+    }else{
+        div.innerHTML = '';
+    }
     div.style.backgroundColor = '#fff';
     div.style.border = '5px double red';
     div.appendChild(p);
@@ -88,7 +92,12 @@ function deletedSuccessFully(successFully){
     p.style.margin = '10px';
     p.style.color = '#fff';
     let btn = close()
-    let div = displayMessage();
+    let div = document.querySelector('#display-message')
+    if( div == null){
+        div = displayMessage();
+    }else{
+        div.innerHTML = '';
+    }
     div.style.border = '5px solid rgb(14,89,187)';
     div.style.backgroundColor = 'green';
     div.appendChild(p);

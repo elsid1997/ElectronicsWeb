@@ -1,4 +1,4 @@
-from flask import render_template, Flask, g, send_from_directory
+from flask import render_template, Flask, g
 from app_config import Config
 from users_bt.users import reg_bp
 from administration.admin import admin_bt
