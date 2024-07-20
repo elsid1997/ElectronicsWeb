@@ -1,3 +1,5 @@
+import {ProfileDeletionUI} from './deleteProfileClass.js'
+
 document.addEventListener('DOMContentLoaded', function(){
     console.log('profile.js')
 
@@ -62,6 +64,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
         event.target.style.display = 'none';
 
+        const buttonAdmin = document.getElementById('btn-admin');
+        buttonAdmin.style.display = 'none';
+
         let profileDiv = document.getElementById('profile-div');
         let userParagraph = document.querySelectorAll('.user-p');
 
@@ -75,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function(){
         btnLogOut.style.display = 'none';
 
         var divForm = document.querySelector('.div-form');
+        divForm.style.position = 'relative';
         let divDisplay = window.getComputedStyle(divForm).display;
 
         if (divDisplay === 'none') {
@@ -125,10 +131,19 @@ document.addEventListener('DOMContentLoaded', function(){
             divForm.style.display = 'none';
             profileDiv.style.height = '780px';
 
+            buttonAdmin.style.display = 'inline-block';
+
             userParagraph.forEach(function (p) {
                 p.style.display = 'block';
             });
         });
+
+        let deleteButton = document.getElementById('delete-button');
+        if(deleteButton == null){
+            const deleteButton = new ProfileDeletionUI('rgb(14,89,187)');
+
+            divForm.appendChild(deleteButton.deleteBtn());
+        }
     });
 
     // AJAX запрос

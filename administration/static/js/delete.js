@@ -4,7 +4,6 @@ function deleteDataUser(email){
     let users = JSON.parse(localStorage.getItem('userData'));
     let index = users.findIndex(user => user.email ==  email);
     users.splice(index,1);
-    console.log(users);
     localStorage.setItem('userData',JSON.stringify(users));
     let tr = document.getElementById(index);
     createTableData();

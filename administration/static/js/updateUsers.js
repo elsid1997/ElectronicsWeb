@@ -19,7 +19,6 @@ export async function sendChangedDataUser(){
         if (url.indexOf('#') != -1){
             url = url.split('#')[0] + 'change'
         }else{
-            console.log(url.indexOf('#'))
             url += 'change'
         }
 

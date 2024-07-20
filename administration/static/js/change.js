@@ -39,6 +39,13 @@ function cloneTableRow (){
             }
             if(letters == 'admin'){
                 item.textContent = user['admin'] == true ? 'Yes' : 'No';
+                if(user['admin'] == true){
+                    item.textContent = 'Yes';
+                    item.style.backgroundColor = 'green';
+                }else{
+                    item.textContent = 'No';
+                    item.style.backgroundColor = 'red'
+                }
             }
             if (item.className == 'changeUser'){
             item.addEventListener('click', changeDataUser)
@@ -86,6 +93,7 @@ export function changeDataUser(){
                     input.style.transform = 'scale(1.3)';
                     input.id = value + countForId;
                     input.addEventListener('change', function(){
+                        console.log(this.id)
                         let secondInput = this.id.slice(0, 3) == 'Yes' ? document.getElementById('No' + this.id.slice(3)) : document.getElementById('Yes' + this.id.slice(2));
                         secondInput.checked = false;
                     });

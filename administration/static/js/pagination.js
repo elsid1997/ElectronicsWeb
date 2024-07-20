@@ -46,15 +46,23 @@ function createRows(tableBody, res, currentPage=1){
         for(const data of cellsData){
             const cell = document.createElement('td');
             cell.id = data+id
+
             if(data == 'admin'){
 
                 if(user[data] == null){
 
-                    user[data] = false
-                    console.log(user[data])
+                    user[data] = false;
 
                 }
                 cell.textContent = user[data] == false ? 'No' : 'Yes';
+                if(user[data] == false){
+                   cell.style.backgroundColor = 'red';
+                }else{
+                    cell.style.backgroundColor = 'green';
+                }
+                cell.style.color = '#fff';
+                cell.style.fontSize = '20px';
+                cell.style.fontWeight = 'bold';
             }else{
                 cell.textContent = user[data];
             }
@@ -118,6 +126,7 @@ function createPagination(totalRecords){
     prevButton.classList.add('back-page');
     prevButton.addEventListener('click', function(event){
         event.preventDefault()
+        console.log(this)
         const currentPage = document.querySelector('.active-page');
         if(currentPage != null){
             const pageNumber = +currentPage.textContent
@@ -135,12 +144,20 @@ function createPagination(totalRecords){
     pagination.appendChild(prevButton);
 
     for(let i = 1; i < totalPages + 1; i++){
-    const pageButton = document.createElement('a')
-    pageButton.href = '#';
-    pageButton.textContent = i;
-    pageButton.addEventListener('click', function(){
-        changePage(parseInt(this.textContent));
-    });
+        const pageButton = document.createElement('a')
+        pageButton.href = '#';
+        pageButton.textContent = i;
+        pageButton.addEventListener('click', function(){
+            let pageBefore = document.getElementsByClassName('active-page')
+            if(pageBefore.length != 0){
+                if(pageBefore[0].hasAttribute('class')){
+                    pageBefore[0].removeAttribute('class');
+                }
+            }
+            let page = this;
+            page.className = 'active-page';
+            changePage(parseInt(this.textContent));
+        });
 
     pagination.appendChild(pageButton);
     }
