@@ -141,8 +141,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let deleteButton = document.getElementById('delete-button');
         if(deleteButton == null){
             const deleteButton = new ProfileDeletionUI('rgb(14,89,187)');
-
-            divForm.appendChild(deleteButton.deleteBtn());
+            divForm.appendChild(deleteButton.createDeleteBtn());
         }
     });
 
